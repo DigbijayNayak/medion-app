@@ -18,7 +18,7 @@ const AppStack: React.FC = () => {
         <Route path="/tabs/cart" component={CartPage} />
         <Route path="/tabs/profile" component={ProfilePage} />
       </IonRouterOutlet>
-      <IonTabBar slot="bottom">
+      <IonTabBar slot="bottom" className="ion-padding">
         <IonTabButton tab="home" href="/tabs/home">
           <IonIcon icon={home} />
           <IonLabel>Home</IonLabel>

@@ -1,0 +1,27 @@
+.home .mark {
+  width: 120px;
+  height: 120px;
+}
+
+.home .homeicon {
+  margin-top: 50px;
+  font-size: 25px;
+}
+
+.home .note {
+  margin-left: 40%;
+  top: 22.22%;
+  bottom: 30.16%;
+  color: #002482;
+  /* margin-left: 150px; */
+}
+
+.home .cart{
+    margin-right: 10%;
+    color: #002482;
+}
+
+/* .home .medicine{
+    width: 100px;
+    height: 100px;
+} */
