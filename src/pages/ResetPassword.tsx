@@ -1,7 +1,6 @@
 import {
   IonButton,
   IonContent,
-  IonHeader,
   IonIcon,
   IonImg,
   IonInput,
@@ -9,8 +8,6 @@ import {
   IonList,
   IonPage,
   IonText,
-  IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 import { star } from "ionicons/icons";
 

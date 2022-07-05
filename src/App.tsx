@@ -52,26 +52,8 @@ const App: React.FC = () => (
               exact={true}
             />
             <Route exact path="/" render={() => <Redirect to="/signup" />} />
-
-            {/* <Route exact path="/HomePage">
-            <HomePage />
-          </Route>
-          <Route exact path="/CartPage">
-            <CartPage />
-          </Route>
-          <Route exact path="/ProfilePage">
-            <ProfliePage />
-          </Route>
-          <Route path="/SearchPage">
-            <SearchPage />
-          </Route>
-          <Route path="/WishlistPage">
-            <WishlistPage />
-          </Route> */}
-            {/* <Route exact path="/">
-            <Redirect to="/LoginPage" />
-          </Route> */}
           </IonRouterOutlet>
+          
           <Route path="/tabs" component={AppStack} />
         </IonPage>
       </IonReactRouter>

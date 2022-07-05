@@ -1,27 +1,6 @@
-/* .pass {
-    border: 1px solid black;
-    margin: auto;
-    text-align: center;
-    width: 300px;
-} */
-
-/* #pas {
-    margin-top: 5px;
-} */
-
-/* #text {
-    margin-left: 120px;
+.switch {
+  font-size: 12px;
 }
-
-#view {
-    display: inline;
-    height: 100vh;
-    justify-content: center;
-} */
-
-/* style={{
-    border: "1px solid black",
-    marginBottom: "5px",
-    margin: "auto",
-    width: "300px",
-  }} */
+.signup ion-icon {
+  font-size: 30px;
+}
