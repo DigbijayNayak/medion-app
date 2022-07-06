@@ -1,0 +1,6 @@
+{
+	"appId": "com.medion.app",
+	"appName": "MediON",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}

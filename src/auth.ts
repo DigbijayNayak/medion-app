@@ -1,3 +1,4 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { auth as firebaseAuth } from './firebase';
@@ -7,10 +8,10 @@ interface Auth{
     userId?: string;
 }
 
-// interface AuthInit{
-//     loading: boolean;
-//     auth?: Auth;
-// }
+interface AuthInit{
+    loading: boolean;
+    auth?: Auth;
+}
 
 export const AuthContext = React.createContext({loggedIn: false});
 
@@ -21,8 +22,12 @@ export function useAuth() {
 export function useAuthInit(){
     const [authState, setAuthState] = useState({loggedIn: false});
     useEffect(() =>{
-        return firebaseAuth.onAuthStateChanged((user) =>{
-            setAuthState({loggedIn: Boolean(user)});
+        return onAuthStateChanged(firebaseAuth, (user) =>{
+            // console.log(user);
+            const bool = Boolean(user);
+            setAuthState({loggedIn: bool});
+            console.log(Boolean(user));
+            console.log(authState);
         })
     }, []);
     return authState;

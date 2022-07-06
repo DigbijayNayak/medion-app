@@ -1,6 +1,5 @@
 import {
   IonCard,
-  IonCardContent,
   IonCol,
   IonContent,
   IonGrid,
@@ -15,8 +14,15 @@ import { cart, notifications } from "ionicons/icons";
 // import ExploreContainer from "../components/ExploreContainer";
 import "./Home.css";
 import { entries } from "../data";
+import { useAuth } from "../auth";
+import { Redirect } from "react-router";
+
 
 const HomePage: React.FC = () => {
+  const {loggedIn} = useAuth();
+  if(loggedIn == false){
+    return <Redirect to="/login"/>
+  }
   return (
     <IonPage>
       <IonContent fullscreen className="home">
@@ -41,34 +47,31 @@ const HomePage: React.FC = () => {
           </IonRow> */}
         </IonGrid>
 
-        <IonSearchbar></IonSearchbar>
-
-        <IonCard>
-          <IonCardContent>
-            <IonGrid>
-              <IonRow>
-                {entries.map((data) => {
-                  return (
-                    <IonCol
-                      key={data.id}
-                      className="ion-text-center"
-                      size="6"
-                      sizeSm="4"
-                      sizeMd="3"
-                    >
-                      <IonCard key={data.id}>
-                        <IonImg src={data.image} className="img"></IonImg>
-                        <IonText style={{ fontSize: "10px" }}>
-                          {data.title}
-                        </IonText>
-                      </IonCard>
-                    </IonCol>
-                  );
-                })}
-              </IonRow>
-            </IonGrid>
-          </IonCardContent>
-        </IonCard>
+        <IonGrid>
+          <IonRow>
+            <IonCol>
+              <IonSearchbar></IonSearchbar>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            {entries.map((data) => {
+              return (
+                <IonCol
+                  key={data.id}
+                  className="ion-text-center"
+                  size="6"
+                  sizeSm="4"
+                  sizeMd="3"
+                >
+                  <IonCard key={data.id}>
+                    <IonImg src={data.image} className="img"></IonImg>
+                    <IonText style={{ fontSize: "10px" }}>{data.title}</IonText>
+                  </IonCard>
+                </IonCol>
+              );
+            })}
+          </IonRow>
+        </IonGrid>
       </IonContent>
     </IonPage>
   );

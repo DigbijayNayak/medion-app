@@ -11,27 +11,81 @@ import {
   IonRouterLink,
   IonRow,
   IonText,
+  useIonAlert,
+  useIonToast,
 } from "@ionic/react";
-import { logoApple, logoFacebook, logoGoogle } from "ionicons/icons";
+import { alertOutline, logoApple, logoFacebook, logoGoogle } from "ionicons/icons";
 import { useState } from "react";
 import "./Login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
-const LoginPage: React.FC = ({ history }: any) => {
+
+
+const LoginPage: React.FC = () => {
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
+  const [present] = useIonToast();
+  const [presentAlert] = useIonAlert();
+
+
+  const handleAlert = (msg: any) => {
+    presentAlert({
+      header: "Alert",
+      message: msg,
+      buttons: ["OK"],
+      backdropDismiss: true,
+      translucent: true,
+      animated: true,
+      cssClass: "login",
+    })
+  }
+
+  const handleToast = (msg: any) => {
+    present({
+      message: msg,
+      position: "top",
+      animated: true,
+      duration: 2000,
+      color: "danger",
+      mode: "md",
+      icon: alertOutline,
+    })
+  }
 
   const handleLogin = async () => {
-    await signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    var atposition = email.indexOf("@");
+    var dotposition = email.lastIndexOf(".");
+    try {
+      if (email == null || email === "") {
+        const msg = "Please enter your email.";
+        handleToast(msg);
+      }
+      else if (password == null || password === "") {
+        const msg = "Please enter your password.";
+        handleToast(msg);
+      } else if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= email.length) {
+        const msg = "Please enter a valid email address";
+        handleToast(msg);
+      } else {
+        try {
+          await signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              console.log(userCredential);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }catch(e){
+          console.log(e)
+        }
+      }
+    }catch(error){
+      console.log(error);
+    }
+    
   };
   // const goTo = (path: string) => {
   //   history.push(path);
@@ -44,7 +98,7 @@ const LoginPage: React.FC = ({ history }: any) => {
   return (
     <IonPage>
       <IonContent fullscreen className="login">
-        <IonGrid className="ion-padding" style={{ marginTop: "20px" }}>
+        <IonGrid className="ion-padding" style={{ marginTop: "50px" }}>
           <IonRow>
             <IonImg src="../assets/logo.jpg" className="logo" />
           </IonRow>
@@ -148,7 +202,7 @@ const LoginPage: React.FC = ({ history }: any) => {
             </IonCol>
           </IonRow>
 
-          <IonRow>
+          <IonRow style={{ marginTop: "20px" }}>
             <IonCol>
               <div className="ion-text-center">
                 <IonText style={{ fontWeight: "bold" }}>Login Using</IonText>
@@ -171,7 +225,7 @@ const LoginPage: React.FC = ({ history }: any) => {
 
           <IonRow>
             <IonCol>
-              <div className="ion-padding ion-text-center switch">
+              <div className="ion-text-center switch">
                 <IonText>Don't have an account ? </IonText>
                 <IonRouterLink
                   routerLink="/signup"

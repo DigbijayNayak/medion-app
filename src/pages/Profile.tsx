@@ -5,17 +5,27 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  useIonRouter,
 } from "@ionic/react";
 import "./Profile.css";
 
 import { auth } from "../firebase";
-import { useAuth } from "../auth";
+import { useAuth} from "../auth";
 import { Redirect } from "react-router";
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 const ProfilePage: React.FC = () => {
-  const { loggedIn } = useAuth();
-  if (loggedIn == false) {
-    return <Redirect to="/signup" />;
+  const router = useIonRouter();
+
+  const logout = async () =>{
+    await signOut(auth).then(() =>{
+      router.push("/login");
+      console.log("The User Logged Out");
+      window.location.reload();
+    }).catch((err) =>{
+      console.log(err);
+    })
   }
   return (
     <IonPage>
@@ -33,7 +43,7 @@ const ProfilePage: React.FC = () => {
 
         <IonButton
           style={{ marginLeft: "150px" }}
-          onClick={() => auth.signOut()}
+          onClick={() => logout()}
         >
           Logout
         </IonButton>
