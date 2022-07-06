@@ -1,5 +1,5 @@
 import { Redirect, Route } from "react-router-dom";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 import {
   IonApp,
   IonPage,
@@ -35,30 +35,39 @@ import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import ResetPasswordPage from "./pages/ResetPassword";
 import AppStack from "./pages/AppStack";
-
+import { AuthContext, useAuthInit } from "./auth";
 setupIonicReact();
 
-const App: React.FC = () => (
-  <Router>
-    <IonApp>
-      <IonReactRouter>
-        <IonPage>
-          <IonRouterOutlet>
-            <Route path="/login" component={LoginPage} exact={true} />
-            <Route path="/signup" component={SignupPage} exact={true} />
-            <Route
-              path="/reset-password"
-              component={ResetPasswordPage}
-              exact={true}
-            />
-            <Route exact path="/" render={() => <Redirect to="/signup" />} />
-          </IonRouterOutlet>
-          
-          <Route path="/tabs" component={AppStack} />
-        </IonPage>
-      </IonReactRouter>
-    </IonApp>
-  </Router>
-);
+const App: React.FC = () => {
+  const authState = useAuthInit();
+  // const {loggedIn} = useAuth();
+  return (
+    <Router>
+      <IonApp>
+        <AuthContext.Provider value={{ loggedIn: authState.loggedIn }}>
+          <IonReactRouter>
+            <IonPage>
+              <IonRouterOutlet>
+                <Route path="/login" component={LoginPage} exact={true} />
+                <Route path="/signup" component={SignupPage} exact={true} />
+                <Route
+                  path="/reset-password"
+                  component={ResetPasswordPage}
+                  exact={true}
+                />
+                <Route
+                  exact
+                  path="/"
+                  render={() => <Redirect to="/signup" />}
+                />
+              </IonRouterOutlet>
+              <Route path="/tabs" component={AppStack} />
+            </IonPage>
+          </IonReactRouter>
+        </AuthContext.Provider>
+      </IonApp>
+    </Router>
+  );
+};
 
 export default App;

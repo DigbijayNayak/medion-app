@@ -17,25 +17,34 @@ import { useState } from "react";
 import "./Login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
+import { useAuth } from "../auth";
+import { Redirect } from "react-router";
 const LoginPage: React.FC = ({ history }: any) => {
+  const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
 
   const handleLogin = async () => {
-    await signInWithEmailAndPassword(auth, email, password).then((userCredential) =>{
-      console.log(userCredential);
-    }).catch((error) =>{
-      console.log(error.message)
-    })
-  }
+    await signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   // const goTo = (path: string) => {
   //   history.push(path);
   // };
 
+  if (loggedIn) {
+    return <Redirect to="/tabs/home" />;
+  }
+
   return (
     <IonPage>
       <IonContent fullscreen className="login">
-        <IonGrid className="ion-padding" style={{marginTop: "20px"}}>
+        <IonGrid className="ion-padding" style={{ marginTop: "20px" }}>
           <IonRow>
             <IonImg src="../assets/logo.jpg" className="logo" />
           </IonRow>
@@ -50,10 +59,7 @@ const LoginPage: React.FC = ({ history }: any) => {
           </IonRow>
 
           <IonRow>
-            <IonCol
-              style={{ fontSize: "12px"}}
-              className="ion-text-center"
-            >
+            <IonCol style={{ fontSize: "12px" }} className="ion-text-center">
               Sign in to continue
             </IonCol>
           </IonRow>
@@ -65,7 +71,7 @@ const LoginPage: React.FC = ({ history }: any) => {
                 placeholder="Enter Email"
                 className="input"
                 value={email}
-                onIonChange = {(event) => setEmail(event.detail.value)}
+                onIonChange={(event) => setEmail(event.detail.value)}
               ></IonInput>
             </IonCol>
           </IonRow>
@@ -77,7 +83,7 @@ const LoginPage: React.FC = ({ history }: any) => {
                 placeholder="Enter Password"
                 className="input"
                 value={password}
-                onIonChange = {(event) => setPassword(event.detail.value)}
+                onIonChange={(event) => setPassword(event.detail.value)}
               ></IonInput>
             </IonCol>
           </IonRow>

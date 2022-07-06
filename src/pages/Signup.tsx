@@ -16,32 +16,45 @@ import React, { useState } from "react";
 import "./Signup.css";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../auth";
+import { Redirect } from "react-router";
 
 const SignupPage: React.FC = () => {
+  const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
+  const [status, setStatus] = useState(false);
 
-  const handleRegister = async () =>{
-    await createUserWithEmailAndPassword(auth, email, password).then((userCredential) =>{
-      // const user = userCredential.user;
-      console.log('credential: ', userCredential);
-    })
-    .catch((error) =>{
-      console.log('error:', error.message);
-    })
+  const handleRegister = async () => {
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // const user = userCredential.user;
+        console.log("credential: ", userCredential);
+      })
+      .catch((error) => {
+        setStatus(true);
+        console.log("error:", error.message);
+      });
+  };
+
+  if (loggedIn) {
+    return <Redirect to="/tabs/home" />;
   }
 
   return (
     <IonPage>
       <IonContent fullscreen className="signup">
-        <IonGrid className="ion-padding" style={{marginTop: "10px"}}>
+        <IonGrid className="ion-padding" style={{ marginTop: "10px" }}>
           <IonRow>
             <IonImg src="../assets/logo.jpg" className="logo" />
           </IonRow>
 
           <IonRow>
             <IonCol
-              style={{ color: "#002482", fontWeight: "bold" }}
+              style={{
+                color: "#002482",
+                fontWeight: "bold",
+              }}
               className="ion-text-center"
             >
               Welcome back to MediON
@@ -54,9 +67,19 @@ const SignupPage: React.FC = () => {
             </IonCol>
           </IonRow>
 
+          <IonRow className="ion-justify-content-center ion-text-center">
+            <IonCol size="12" sizeSm="4">
+              {status && <IonText color="danger">Registration Failed</IonText>}
+            </IonCol>
+          </IonRow>
+
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
-            <IonInput type="text" placeholder="Enter Full Name" className="input"></IonInput>
+              <IonInput
+                type="text"
+                placeholder="Enter Full Name"
+                className="input"
+              ></IonInput>
             </IonCol>
           </IonRow>
 
@@ -66,7 +89,7 @@ const SignupPage: React.FC = () => {
                 type="email"
                 placeholder="Enter Email ID"
                 className="input"
-                value={email} 
+                value={email}
                 onIonChange={(event) => setEmail(event.detail.value)}
               ></IonInput>
             </IonCol>
@@ -78,7 +101,7 @@ const SignupPage: React.FC = () => {
                 type="password"
                 placeholder="Enter Password"
                 className="input"
-                value={password} 
+                value={password}
                 onIonChange={(event) => setPassword(event.detail.value)}
               ></IonInput>
             </IonCol>
@@ -93,7 +116,7 @@ const SignupPage: React.FC = () => {
               ></IonInput>
             </IonCol>
           </IonRow>
-          
+
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
               <IonButton
@@ -107,7 +130,6 @@ const SignupPage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-
           <IonRow className="ion-text-center ion-justify-content-center">
             <IonCol size="5" sizeSm="5" sizeMd="1.6">
               <hr color="black" style={{ width: "90%" }} />
@@ -120,12 +142,10 @@ const SignupPage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-
-
           <IonRow>
             <IonCol>
               <div className="ion-text-center">
-                <IonText style={{fontWeight: "bold"}}>Login Using</IonText>
+                <IonText style={{ fontWeight: "bold" }}>Login Using</IonText>
                 <br />
                 <div className="icon ion-padding">
                   <IonIcon
@@ -143,7 +163,6 @@ const SignupPage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-
           <IonRow>
             <IonCol>
               <div className="ion-padding ion-text-center switch">
@@ -157,10 +176,7 @@ const SignupPage: React.FC = () => {
               </div>
             </IonCol>
           </IonRow>
-
         </IonGrid>
-
-
       </IonContent>
     </IonPage>
   );
