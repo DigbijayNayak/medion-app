@@ -12,24 +12,35 @@ import {
   IonRow,
   IonText,
   useIonAlert,
+  useIonRouter,
   useIonToast,
 } from "@ionic/react";
-import { alertOutline, logoApple, logoFacebook, logoGoogle } from "ionicons/icons";
+import {
+  alertCircle,
+  alertOutline,
+  logoApple,
+  logoFacebook,
+  logoGoogle,
+} from "ionicons/icons";
 import { useState } from "react";
 import "./Login.css";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 import { auth } from "../firebase";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 
-
 const LoginPage: React.FC = () => {
+  const router = useIonRouter();
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-
 
   const handleAlert = (msg: any) => {
     presentAlert({
@@ -40,8 +51,8 @@ const LoginPage: React.FC = () => {
       translucent: true,
       animated: true,
       cssClass: "login",
-    })
-  }
+    });
+  };
 
   const handleToast = (msg: any) => {
     present({
@@ -51,9 +62,33 @@ const LoginPage: React.FC = () => {
       duration: 2000,
       color: "danger",
       mode: "md",
-      icon: alertOutline,
-    })
-  }
+      icon: alertCircle,
+    });
+  };
+
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        router.push("/tabs/home");
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const signInWithFacebook = () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        router.push("/tabs/home");
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleLogin = async () => {
     var atposition = email.indexOf("@");
@@ -62,30 +97,34 @@ const LoginPage: React.FC = () => {
       if (email == null || email === "") {
         const msg = "Please enter your email.";
         handleToast(msg);
-      }
-      else if (password == null || password === "") {
-        const msg = "Please enter your password.";
-        handleToast(msg);
-      } else if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= email.length) {
+      } else if (
+        atposition < 1 ||
+        dotposition < atposition + 2 ||
+        dotposition + 2 >= email.length
+      ) {
         const msg = "Please enter a valid email address";
+        handleToast(msg);
+      } else if (password == null || password === "") {
+        const msg = "Please enter your password.";
         handleToast(msg);
       } else {
         try {
           await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               console.log(userCredential);
+              handleAlert("Login Successfully.");
             })
             .catch((error) => {
+              handleAlert("User Not Found. Please Register.");
               console.log(error.message);
             });
-        }catch(e){
-          console.log(e)
+        } catch (e) {
+          console.log(e);
         }
       }
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
-    
   };
   // const goTo = (path: string) => {
   //   history.push(path);
@@ -179,9 +218,8 @@ const LoginPage: React.FC = () => {
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
               <IonButton
-                type="submit"
                 expand="block"
-                className="submit"
+                className="btn"
                 routerLink="/tabs/home"
                 onClick={handleLogin}
               >
@@ -207,17 +245,26 @@ const LoginPage: React.FC = () => {
               <div className="ion-text-center">
                 <IonText style={{ fontWeight: "bold" }}>Login Using</IonText>
                 <br />
-                <div className="icon ion-padding">
-                  <IonIcon
-                    icon={logoApple}
-                    color="black"
-                    className="ion-padding-end"
-                  />
-                  <IonIcon
-                    icon={logoFacebook}
-                    className="facebook ion-padding-end"
-                  />
-                  <IonIcon icon={logoGoogle} />
+                <div className="icon ion-padding-top">
+                  <IonButton fill="clear">
+                    <IonIcon
+                      icon={logoApple}
+                      color="dark"
+                      // className="ion-padding-end"
+                      className="apple"
+                      onClick={(event) => {}}
+                    />
+                  </IonButton>
+                  <IonButton fill="clear" onClick={() => signInWithFacebook()}>
+                    <IonIcon icon={logoFacebook} className="facebook" />
+                  </IonButton>
+                  <IonButton fill="clear" onClick={() => signInWithGoogle()}>
+                    <IonIcon
+                      icon={logoGoogle}
+                      className="google"
+                      color="dark"
+                    />
+                  </IonButton>
                 </div>
               </div>
             </IonCol>
@@ -225,7 +272,7 @@ const LoginPage: React.FC = () => {
 
           <IonRow>
             <IonCol>
-              <div className="ion-text-center switch">
+              <div className="ion-text-center switch ion-padding">
                 <IonText>Don't have an account ? </IonText>
                 <IonRouterLink
                   routerLink="/signup"

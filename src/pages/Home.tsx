@@ -17,12 +17,11 @@ import { entries } from "../data";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 
-
 const HomePage: React.FC = () => {
-  const {loggedIn} = useAuth();
-  if(loggedIn == false){
-    return <Redirect to="/login"/>
-  }
+  // const {loggedIn} = useAuth();
+  // if(loggedIn == false){
+  //   return <Redirect to="/login"/>
+  // }
   return (
     <IonPage>
       <IonContent fullscreen className="home">

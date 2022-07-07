@@ -19,16 +19,16 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
-export function useAuthInit(){
-    const [authState, setAuthState] = useState({loggedIn: false});
-    useEffect(() =>{
-        return onAuthStateChanged(firebaseAuth, (user) =>{
-            // console.log(user);
-            const bool = Boolean(user);
-            setAuthState({loggedIn: bool});
-            console.log(Boolean(user));
-            console.log(authState);
-        })
-    }, []);
-    return authState;
-}
+// export function useAuthInit(){
+//     const [authState, setAuthState] = useState({loggedIn: false});
+//     useEffect(() =>{
+//         return onAuthStateChanged(firebaseAuth, (user) =>{
+//             // console.log(user);
+//             const bool = Boolean(user);
+//             setAuthState({loggedIn: bool});
+//             console.log(Boolean(user));
+//             console.log(authState);
+//         })
+//     }, []);
+//     return authState;
+// }

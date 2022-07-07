@@ -28,17 +28,20 @@ ion-checkbox {
 
 /* 002482 */
 
-.login .signin{
-    text-align: center;
+.login .signin {
+  text-align: center;
 }
 
 
 .login ion-icon {
   font-size: 30px;
 }
+
 .facebook {
   color: #002482;
 }
-ion-button {
+
+
+.login .btn {
   --background: #002482;
 }

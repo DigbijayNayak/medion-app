@@ -1,18 +1,20 @@
-ion-searchbar{
+ion-searchbar {
   border-radius: 30px;
 }
-.mark, .homeicon{
-  margin-top: 50px;
+
+.mark,
+.homeicon {
+  margin-top: 30px;
   font-size: 25px;
   color: #002482;
 }
 
-.home .img{
+.home .img {
   width: 70px;
   height: 70px;
   margin: auto;
 }
 
-ion-card{
-  color: var( --ion-color-card);
+ion-card {
+  color: var(--ion-color-card);
 }

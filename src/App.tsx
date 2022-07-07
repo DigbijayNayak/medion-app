@@ -2,6 +2,7 @@ import { Redirect, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import {
   IonApp,
+  IonLoading,
   IonPage,
   IonRouterOutlet,
   setupIonicReact,
@@ -35,12 +36,30 @@ import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
 import ResetPasswordPage from "./pages/ResetPassword";
 import AppStack from "./pages/AppStack";
-import { AuthContext, useAuthInit } from "./auth";
+import { AuthContext } from "./auth";
+import { auth } from "./firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const authState = useAuthInit();
+  // const authState = useAuthInit();
   // const {loggedIn} = useAuth();
+  const [authState, setAuthState] = useState({
+    loading: true,
+    loggedIn: false,
+  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      // setLoggedIn(Boolean(user));
+      setAuthState({ loading: false, loggedIn: Boolean(user) });
+    });
+  }, []);
+  console.log(`rendering App with authState:`, authState);
+  if (authState.loading) {
+    return <IonLoading isOpen />;
+  }
+
   return (
     <Router>
       <IonApp>

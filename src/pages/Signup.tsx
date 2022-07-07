@@ -11,9 +11,11 @@ import {
   IonRow,
   IonText,
   useIonAlert,
+  useIonRouter,
   useIonToast,
 } from "@ionic/react";
 import {
+  alertCircle,
   alertOutline,
   logoApple,
   logoFacebook,
@@ -27,6 +29,7 @@ import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 
 const SignupPage: React.FC = () => {
+  const router = useIonRouter();
   const { loggedIn } = useAuth();
   const [name, setName] = useState<any>("");
   const [email, setEmail] = useState<any>("");
@@ -34,7 +37,8 @@ const SignupPage: React.FC = () => {
   const [compassword, setComPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-  const [status, setStatus] = useState(false);
+  // const [status, setStatus] = useState(false);
+  const theme = "danger";
 
   const handleToast = async (msg: any) => {
     present({
@@ -43,12 +47,12 @@ const SignupPage: React.FC = () => {
       animated: true,
       duration: 2000,
       color: "danger",
-      mode: "ios",
-      // icon: alertOutline
+      mode: "md",
+      icon: alertCircle,
     });
   };
 
-  const handleAlert = async(msg: any) =>{
+  const handleAlert = async (msg: any) => {
     presentAlert({
       header: "Alert",
       message: msg,
@@ -56,9 +60,9 @@ const SignupPage: React.FC = () => {
       backdropDismiss: true,
       translucent: true,
       animated: true,
-      cssClass: "signup"
+      cssClass: "signup",
     });
-  }
+  };
   const handleRegister = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -69,18 +73,23 @@ const SignupPage: React.FC = () => {
       } else if (email == null || email === "") {
         const msg = "Email can't be empty";
         handleToast(msg);
-      } else if (password == null || password === "") {
-        const msg = "Password can't be empty";
-        handleToast(msg);
-      } else if (password.length < 6) {
-        const msg = "Password must be at least 6 characters long";
-        handleToast(msg);
       } else if (
         atposition < 1 ||
         dotposition < atposition + 2 ||
         dotposition + 2 >= email.length
       ) {
         const msg = "Please enter a valid email address";
+        handleToast(msg);
+      } else if (
+        password == null ||
+        password === "" ||
+        compassword == null ||
+        compassword === ""
+      ) {
+        const msg = "Password can't be empty";
+        handleToast(msg);
+      } else if (password.length < 6) {
+        const msg = "Password must be at least 6 characters long";
         handleToast(msg);
       } else if (password != compassword) {
         const msg = "Wrong Confirm Password";
@@ -89,11 +98,17 @@ const SignupPage: React.FC = () => {
         await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // const user = userCredential.user;
+            handleAlert("Registration Successfull.");
+            router.push("/login");
             console.log("credential: ", userCredential);
+            window.location.reload();
           })
           .catch((error) => {
-            setStatus(true);
+            // setStatus(true);
+            const msg =
+              "The Email Address is already in use by another account.";
             console.log("error:", error.message);
+            handleAlert(msg);
           });
       }
     } catch (error) {
@@ -101,7 +116,7 @@ const SignupPage: React.FC = () => {
     }
   };
 
-  if (loggedIn) {
+  if (loggedIn == true) {
     return <Redirect to="/login" />;
   }
 
@@ -131,11 +146,11 @@ const SignupPage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          <IonRow className="ion-justify-content-center ion-text-center">
+          {/* <IonRow className="ion-justify-content-center ion-text-center">
             <IonCol size="12" sizeSm="4">
               {status && <IonText color="danger">Registration Failed</IonText>}
             </IonCol>
-          </IonRow>
+          </IonRow> */}
 
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
@@ -180,7 +195,7 @@ const SignupPage: React.FC = () => {
                 placeholder="Confirm Password"
                 className="input"
                 value={compassword}
-                onIonChange = {(event) => setComPassword(event.detail.value)}
+                onIonChange={(event) => setComPassword(event.detail.value)}
               ></IonInput>
             </IonCol>
           </IonRow>
@@ -210,7 +225,7 @@ const SignupPage: React.FC = () => {
             </IonCol>
           </IonRow>
 
-          <IonRow style={{marginTop: "20px"}}>
+          <IonRow style={{ marginTop: "20px" }}>
             <IonCol>
               <div className="ion-text-center">
                 <IonText style={{ fontWeight: "bold" }}>Login Using</IonText>

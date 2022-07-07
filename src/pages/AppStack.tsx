@@ -9,12 +9,17 @@ import {
 import { home, search, heart, cart, person } from "ionicons/icons";
 import React from "react";
 import { Redirect, Route } from "react-router";
+import { useAuth } from "../auth";
 import CartPage from "./Cart";
 import HomePage from "./Home";
 import ProfilePage from "./Profile";
 import SearchPage from "./Search";
 import WishlistPage from "./Wishlist";
 const AppStack: React.FC = () => {
+  const { loggedIn } = useAuth();
+  if (loggedIn === false) {
+    return <Redirect to="/login" />;
+  }
   return (
     <IonTabs>
       <IonRouterOutlet>
@@ -28,23 +33,23 @@ const AppStack: React.FC = () => {
       <IonTabBar slot="bottom" className="stack">
         <IonTabButton tab="home" href="/tabs/home">
           <IonIcon icon={home} />
-          <IonLabel style={{fontSize: "9px"}}>Home</IonLabel>
+          <IonLabel style={{ fontSize: "9px" }}>Home</IonLabel>
         </IonTabButton>
         <IonTabButton tab="search" href="/tabs/search">
           <IonIcon icon={search} />
-          <IonLabel style={{fontSize: "9px"}}>search</IonLabel>
+          <IonLabel style={{ fontSize: "9px" }}>search</IonLabel>
         </IonTabButton>
         <IonTabButton tab="wishlist" href="/tabs/wishlist">
           <IonIcon icon={heart} />
-          <IonLabel style={{fontSize: "9px"}}>Wishlist</IonLabel>
+          <IonLabel style={{ fontSize: "9px" }}>Wishlist</IonLabel>
         </IonTabButton>
         <IonTabButton tab="cart" href="/tabs/cart">
           <IonIcon icon={cart} />
-          <IonLabel style={{fontSize: "9px"}}>Cart</IonLabel>
+          <IonLabel style={{ fontSize: "9px" }}>Cart</IonLabel>
         </IonTabButton>
         <IonTabButton tab="profile" href="/tabs/profile">
           <IonIcon icon={person} />
-          <IonLabel style={{fontSize: "9px"}}>Profile</IonLabel>
+          <IonLabel style={{ fontSize: "9px" }}>Profile</IonLabel>
         </IonTabButton>
       </IonTabBar>
     </IonTabs>

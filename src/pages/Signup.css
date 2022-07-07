@@ -1,6 +1,11 @@
 .switch {
   font-size: 12px;
 }
+
 .signup ion-icon {
   font-size: 30px;
+}
+
+.signup ion-button {
+  --background: #002482;
 }
