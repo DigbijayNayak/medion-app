@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.medion.app',
+  appId: 'com.medionptg.app',
   appName: 'MediON',
   webDir: 'build',
   bundledWebRuntime: false

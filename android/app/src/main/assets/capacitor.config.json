@@ -1,5 +1,5 @@
 {
-	"appId": "com.medion.app",
+	"appId": "com.medionptg.app",
 	"appName": "MediON",
 	"webDir": "build",
 	"bundledWebRuntime": false

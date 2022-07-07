@@ -1,4 +1,4 @@
-package com.medion.app;
+package com.medionptg.app;
 
 import com.getcapacitor.BridgeActivity;
 
