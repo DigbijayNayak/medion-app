@@ -15,7 +15,6 @@ const CartPage: React.FC = () => {
             <IonTitle size="large">Cart Page</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {/* <ExploreContainer name="Tab 2 page" /> */}
       </IonContent>
     </IonPage>
   );

@@ -58,7 +58,6 @@ const ProfilePage: React.FC = () => {
         <IonButton style={{}} onClick={() => logout()} className="ion-padding">
           Logout
         </IonButton>
-        {/* <ExploreContainer name="Tab 3 page" /> */}
       </IonContent>
     </IonPage>
   );
