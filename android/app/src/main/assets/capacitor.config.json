@@ -4,7 +4,7 @@
 	"webDir": "build",
 	"bundledWebRuntime": false,
 	"server": {
-		"cleartext": true,
-		"url": "http://172.17.6.27:8100"
+		"url": "http://172.17.6.27:8100",
+		"cleartext": true
 	}
 }

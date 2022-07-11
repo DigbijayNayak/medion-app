@@ -6,6 +6,7 @@ import {
   IonIcon,
   IonImg,
   IonInput,
+  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
@@ -37,8 +38,8 @@ const SignupPage: React.FC = () => {
   const [compassword, setComPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
+  const [loading, setloading] = useState(false);
   // const [status, setStatus] = useState(false);
-  const theme = "danger";
 
   const handleToast = async (msg: any) => {
     present({
@@ -95,9 +96,12 @@ const SignupPage: React.FC = () => {
         const msg = "Wrong Confirm Password";
         handleToast(msg);
       } else {
-        await createUserWithEmailAndPassword(auth, email, password)
+        try{
+          setloading(true);
+          await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // const user = userCredential.user;
+            setloading(false);
             handleAlert("Registration Successfull.");
             router.push("/login");
             console.log("credential: ", userCredential);
@@ -105,17 +109,28 @@ const SignupPage: React.FC = () => {
           })
           .catch((error) => {
             // setStatus(true);
+            setloading(false);
+            setName("");
+            setEmail("");
+            setPassword("");
+            setComPassword("");
             const msg =
               "The Email Address is already in use by another account.";
             console.log("error:", error.message);
             handleAlert(msg);
           });
+        }
+        catch(error){
+          console.log(error)
+        } 
       }
     } catch (error) {
       handleAlert(error);
     }
   };
-
+  if(loading){
+    return <IonLoading isOpen/>
+  }
   if (loggedIn == true) {
     return <Redirect to="/login" />;
   }

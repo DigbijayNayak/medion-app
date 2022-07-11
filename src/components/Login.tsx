@@ -7,6 +7,7 @@ import {
   IonIcon,
   IonImg,
   IonInput,
+  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
@@ -33,15 +34,21 @@ import {
 import { auth } from "../firebase";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
+import { SpinnerDialog } from '@awesome-cordova-plugins/spinner-dialog/ngx';
+
 
 const LoginPage: React.FC = () => {
+
+
   const router = useIonRouter();
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
+  const [loading, setloading] = useState(false);
 
+  
   const handleAlert = (msg: any) => {
     presentAlert({
       header: "Alert",
@@ -89,7 +96,7 @@ const LoginPage: React.FC = () => {
         console.log(err);
       });
   };
-
+  
   const handleLogin = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -109,12 +116,19 @@ const LoginPage: React.FC = () => {
         handleToast(msg);
       } else {
         try {
+          setloading(true);
           await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+              setloading(false);
+              // this.SpinnerDialog.show();
               console.log(userCredential);
               handleAlert("Login Successfully.");
             })
             .catch((error) => {
+              // SpinnerDialog.hide();
+              setloading(false);
+              setEmail("");
+              setPassword("");
               handleAlert("User Not Found. Please Register.");
               console.log(error.message);
             });
@@ -129,7 +143,9 @@ const LoginPage: React.FC = () => {
   // const goTo = (path: string) => {
   //   history.push(path);
   // };
-
+  if(loading){
+    return <IonLoading isOpen />;
+  }
   if (loggedIn) {
     return <Redirect to="/tabs/home" />;
   }
@@ -218,6 +234,7 @@ const LoginPage: React.FC = () => {
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
               <IonButton
+                type="submit"
                 expand="block"
                 className="btn"
                 routerLink="/tabs/home"
