@@ -23,7 +23,7 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
-
+import {SplashScreen} from '@capacitor/splash-screen';
 
 import './index.css';
 ReactDOM.render(
@@ -32,7 +32,7 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
-
+SplashScreen.hide();
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA

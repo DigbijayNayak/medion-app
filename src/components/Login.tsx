@@ -34,7 +34,6 @@ import {
 import { auth } from "../firebase";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
-import { SpinnerDialog } from '@awesome-cordova-plugins/spinner-dialog/ngx';
 
 
 const LoginPage: React.FC = () => {
