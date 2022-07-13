@@ -56,9 +56,9 @@ const App: React.FC = () => {
     });
   }, []);
   console.log(`rendering App with authState:`, authState);
-  // if (authState.loading) {
-  //   return <IonLoading isOpen />;
-  // }
+  if (authState.loading) {
+    return <IonLoading isOpen />;
+  }
 
   return (
     <Router>
