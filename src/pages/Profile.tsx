@@ -9,6 +9,7 @@ import {
   IonRow,
   IonTitle,
   IonToolbar,
+  useIonLoading,
   useIonRouter,
 } from "@ionic/react";
 import "./Profile.css";
@@ -21,11 +22,20 @@ import { useEffect, useState } from "react";
 import { personCircle } from "ionicons/icons";
 
 const ProfilePage: React.FC = () => {
+
+  const [loading, dismissloading] = useIonLoading();
   const router = useIonRouter();
 
   const logout = async () => {
+    loading({
+      message: 'Loading...',
+      duration: 3000,
+      spinner: "lines-sharp",
+      mode: "md",
+    })
     await signOut(auth)
       .then(() => {
+        dismissloading();
         router.push("/login");
         console.log("The User Logged Out");
         window.location.reload();

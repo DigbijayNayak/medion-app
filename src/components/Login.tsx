@@ -7,11 +7,13 @@ import {
   IonIcon,
   IonImg,
   IonInput,
+  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
   IonText,
   useIonAlert,
+  useIonLoading,
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
@@ -41,6 +43,8 @@ const LoginPage: React.FC = () => {
   const [password, setPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
+  const [loading, dismissloading] = useIonLoading();
+  // const [loading, setloading] = useState(false);
 
   const handleAlert = (msg: any) => {
     presentAlert({
@@ -54,13 +58,13 @@ const LoginPage: React.FC = () => {
     });
   };
 
-  const handleToast = (msg: any) => {
+  const handleToast = (msg: any, theme: any) => {
     present({
       message: msg,
       position: "top",
       animated: true,
       duration: 2000,
-      color: "danger",
+      color: `${theme}`,
       mode: "md",
       icon: alertCircle,
     });
@@ -96,25 +100,39 @@ const LoginPage: React.FC = () => {
     try {
       if (email == null || email === "") {
         const msg = "Please enter your email.";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (
         atposition < 1 ||
         dotposition < atposition + 2 ||
         dotposition + 2 >= email.length
       ) {
         const msg = "Please enter a valid email address";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (password == null || password === "") {
         const msg = "Please enter your password.";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else {
         try {
+          // setloading(true);
+          loading({
+            message: 'Loading...',
+            duration: 3000,
+            spinner: "lines-sharp",
+            mode: "md",
+            
+          })
           await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
+              // setloading(false);
               console.log(userCredential);
-              handleAlert("Login Successfully.");
+              dismissloading();
+              handleToast("Login Successfully.", 'success');
             })
             .catch((error) => {
+              // setloading(false);
+              setEmail("");
+              setPassword("");
+              dismissloading();
               handleAlert("User Not Found. Please Register.");
               console.log(error.message);
             });
@@ -129,7 +147,9 @@ const LoginPage: React.FC = () => {
   // const goTo = (path: string) => {
   //   history.push(path);
   // };
-
+  // if(loading){
+  //   return <IonLoading isOpen />;
+  // }
   if (loggedIn) {
     return <Redirect to="/tabs/home" />;
   }

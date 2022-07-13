@@ -11,7 +11,6 @@ import {
   IonText,
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
-// import ExploreContainer from "../components/ExploreContainer";
 import "./Home.css";
 import { entries } from "../data";
 import { useAuth } from "../auth";

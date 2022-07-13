@@ -29,9 +29,9 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 import "./theme/variables.css";
-import LoginPage from "./pages/Login";
-import SignupPage from "./pages/Signup";
-import ResetPasswordPage from "./pages/ResetPassword";
+import LoginPage from "./components/Login";
+import SignupPage from "./components/Signup";
+import ResetPasswordPage from "./components/ResetPassword";
 import AppStack from "./pages/AppStack";
 import { AuthContext } from "./auth";
 import { auth, db } from "./firebase";
@@ -132,13 +132,13 @@ const App: React.FC = () => {
       // setLoggedIn(Boolean(user));
       setAuthState({ loading: false, loggedIn: Boolean(user) });
     });
-  }, [0]);
+  }, []);
 
   checkUpdate();
   console.log(`rendering App with authState:`, authState);
-  if (authState.loading) {
-    return <IonLoading isOpen />;
-  }
+  // if (authState.loading) {
+  //   return <IonLoading isOpen />;
+  // }
 
   return (
     <Router>

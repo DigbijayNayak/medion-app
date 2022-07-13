@@ -19,6 +19,8 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
+
+
 // export function useAuthInit(){
 //     const [authState, setAuthState] = useState({loggedIn: false});
 //     useEffect(() =>{

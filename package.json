@@ -1,6 +1,6 @@
 {
   "name": "mobile-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "dependencies": {
     "@capacitor/android": "^3.6.0",
@@ -10,6 +10,7 @@
     "@capacitor/haptics": "1.1.4",
     "@capacitor/ios": "^3.6.0",
     "@capacitor/keyboard": "1.2.3",
+    "@capacitor/splash-screen": "^1.2.2",
     "@capacitor/status-bar": "1.0.8",
     "@ionic/lab": "^3.2.13",
     "@ionic/react": "^6.0.0",

@@ -6,11 +6,13 @@ import {
   IonIcon,
   IonImg,
   IonInput,
+  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
   IonText,
   useIonAlert,
+  useIonLoading,
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
@@ -37,16 +39,17 @@ const SignupPage: React.FC = () => {
   const [compassword, setComPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-  // const [status, setStatus] = useState(false);
-  const theme = "danger";
+  const [loading, dismissloading] = useIonLoading();
+  // const [loading, setloading] = useState(false);
+ 
 
-  const handleToast = async (msg: any) => {
+  const handleToast = async (msg: any, theme: any) => {
     present({
       message: msg,
       position: "top",
       animated: true,
       duration: 2000,
-      color: "danger",
+      color: `${theme}`,
       mode: "md",
       icon: alertCircle,
     });
@@ -69,17 +72,17 @@ const SignupPage: React.FC = () => {
     try {
       if (name == null || name === "") {
         const msg = "Name can't be empty";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (email == null || email === "") {
         const msg = "Email can't be empty";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (
         atposition < 1 ||
         dotposition < atposition + 2 ||
         dotposition + 2 >= email.length
       ) {
         const msg = "Please enter a valid email address";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (
         password == null ||
         password === "" ||
@@ -87,35 +90,58 @@ const SignupPage: React.FC = () => {
         compassword === ""
       ) {
         const msg = "Password can't be empty";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (password.length < 6) {
         const msg = "Password must be at least 6 characters long";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else if (password != compassword) {
         const msg = "Wrong Confirm Password";
-        handleToast(msg);
+        handleToast(msg, "danger");
       } else {
-        await createUserWithEmailAndPassword(auth, email, password)
+        try{
+          loading({
+            message: 'Loading...',
+            duration: 3000,
+            spinner: "lines-sharp",
+            mode: "md",
+            
+          })
+          // setloading(true);
+          await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // const user = userCredential.user;
-            handleAlert("Registration Successfull.");
+            // setloading(false);
+            dismissloading();
+            handleToast("Registration Successfull.", "success");
             router.push("/login");
             console.log("credential: ", userCredential);
             window.location.reload();
           })
           .catch((error) => {
             // setStatus(true);
+            // setloading(false);
+            setName("");
+            setEmail("");
+            setPassword("");
+            setComPassword("");
+            dismissloading();
             const msg =
               "The Email Address is already in use by another account.";
             console.log("error:", error.message);
             handleAlert(msg);
           });
+        }
+        catch(error){
+          console.log(error)
+        } 
       }
     } catch (error) {
       handleAlert(error);
     }
   };
-
+  // if(loading){
+  //   return <IonLoading isOpen/>
+  // }
   if (loggedIn == true) {
     return <Redirect to="/login" />;
   }
