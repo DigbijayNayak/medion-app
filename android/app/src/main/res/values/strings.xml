@@ -4,4 +4,5 @@
     <string name="title_activity_main">MediON</string>
     <string name="package_name">com.medionptg.app</string>
     <string name="custom_url_scheme">com.medionptg.app</string>
+    <string name="server_client_id">1086877097278-sa9886gech7aqm1gk90jn8mj3bfg3p45.apps.googleusercontent.com</string>
 </resources>

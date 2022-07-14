@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1086877097278",
+    "project_id": "medion-app-8e581",
+    "storage_bucket": "medion-app-8e581.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1086877097278:android:3d700ee7c575db892ca06f",
+        "android_client_info": {
+          "package_name": "com.medionptg.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1086877097278-sa9886gech7aqm1gk90jn8mj3bfg3p45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB8b6b4VJ776rG82qD3dc0iUksdaIQD9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1086877097278-sa9886gech7aqm1gk90jn8mj3bfg3p45.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -5,22 +5,57 @@ import {
   IonGrid,
   IonIcon,
   IonImg,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
   IonPage,
   IonRow,
   IonSearchbar,
   IonText,
+  useIonViewWillEnter,
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
 import "./Home.css";
 import { entries } from "../data";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
+import { useState } from "react";
 
 const HomePage: React.FC = () => {
   // const {loggedIn} = useAuth();
   // if(loggedIn == false){
   //   return <Redirect to="/login"/>
   // }
+  const [datas, setData] = useState<string[]>([]);
+  const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
+
+  const pushData = () => {
+    const max = datas.length + 20;
+    const min = max - 20;
+    const newData = [];
+    for(let i = min; i<max; i++){
+      newData.push(entries[i]
+        
+        );
+    }
+    setData([
+      // ...datas,
+      // ...newData
+    ]);
+  }
+
+  const loadData = (ev:any) => {
+    setTimeout(() => {
+      pushData();
+      console.log('Loaded data');
+      ev.target.complete();
+      if(datas.length === 1000){
+        setInfiniteDisabled(true);
+      }
+    }, 5000);
+  }
+  useIonViewWillEnter(() => {
+    pushData();
+  });
   return (
     <IonPage>
       <IonContent fullscreen className="home">
@@ -69,6 +104,11 @@ const HomePage: React.FC = () => {
               );
             })}
           </IonRow>
+          <IonInfiniteScroll onIonInfinite={loadData} threshold="100px" disabled={isInfiniteDisabled}>
+            <IonInfiniteScrollContent loadingSpinner="bubbles" loadingText="Loading more data...">
+
+            </IonInfiniteScrollContent>
+          </IonInfiniteScroll>
         </IonGrid>
       </IonContent>
     </IonPage>

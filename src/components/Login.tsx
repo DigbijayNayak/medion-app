@@ -35,9 +35,30 @@ import {
 import { auth } from "../firebase";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
+// import { Plugins } from '@capacitor/core';
+import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
 const LoginPage: React.FC = () => {
+  // const state: any = {};
+  // const props: any = {};
   const router = useIonRouter();
+  const signInGoogle = async () => {
+    GoogleAuth.initialize();
+    const result = await GoogleAuth.signIn();
+
+    console.log(result);
+    // console.info('result', result);
+    if (result) {
+      router.push("/tabs/home");
+      console.log(result);
+      // history.push({
+      //   pathname: '/home',
+      //   state: { name: result.name || result.displayName, image: result.imageUrl, email: result.email }
+      // });
+    }
+
+  }
+  
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
@@ -86,7 +107,7 @@ const LoginPage: React.FC = () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
-        router.push("/tabs/home");
+        // router.push("/tabs/home");
         console.log(res);
       })
       .catch((err) => {
@@ -125,6 +146,7 @@ const LoginPage: React.FC = () => {
             .then((userCredential) => {
               // setloading(false);
               console.log(userCredential);
+              router.push("/tabs/home");
               dismissloading();
               handleToast("Login Successfully.", 'success');
             })
@@ -278,7 +300,7 @@ const LoginPage: React.FC = () => {
                   <IonButton fill="clear" onClick={() => signInWithFacebook()}>
                     <IonIcon icon={logoFacebook} className="facebook" />
                   </IonButton>
-                  <IonButton fill="clear" onClick={() => signInWithGoogle()}>
+                  <IonButton fill="clear" onClick={() => signInGoogle()}>
                     <IonIcon
                       icon={logoGoogle}
                       className="google"
