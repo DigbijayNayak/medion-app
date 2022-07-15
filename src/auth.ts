@@ -1,17 +1,17 @@
-import { onAuthStateChanged } from 'firebase/auth';
+// import { onAuthStateChanged } from 'firebase/auth';
 import React, { useContext, useEffect, useState } from 'react';
 
-import { auth as firebaseAuth } from './firebase';
+// import { auth as firebaseAuth } from './firebase';
 
-interface Auth{
-    loggedIn: boolean;
-    userId?: string;
-}
+// interface Auth{
+//     loggedIn: boolean;
+//     userId?: string;
+// }
 
-interface AuthInit{
-    loading: boolean;
-    auth?: Auth;
-}
+// interface AuthInit{
+//     loading: boolean;
+//     auth?: Auth;
+// }
 
 export const AuthContext = React.createContext({loggedIn: false});
 

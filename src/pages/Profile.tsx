@@ -1,4 +1,5 @@
 import {
+  IonAvatar,
   IonButton,
   IonCol,
   IonContent,
@@ -7,6 +8,7 @@ import {
   IonIcon,
   IonPage,
   IonRow,
+  IonText,
   IonTitle,
   IonToolbar,
   useIonLoading,
@@ -19,7 +21,7 @@ import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { personCircle } from "ionicons/icons";
+import { chevronForward, heartOutline, helpCircleOutline, informationCircleOutline, locationOutline, notificationsOutline, personCircle, personCircleOutline } from "ionicons/icons";
 
 const ProfilePage: React.FC = () => {
 
@@ -58,16 +60,85 @@ const ProfilePage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonGrid>
-          <IonRow className="ion-justify-content-center">
+        <IonRow className="ion-justify-content-center ion-padding">
             <IonCol>
-              <IonIcon icon={personCircle} style={{ fontSize: "100px" }} />
+              <IonAvatar className="">
+                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+              </IonAvatar>
+              {/* <IonIcon icon={personCircle} style={{ fontSize: "100px" }} /> */}
             </IonCol>
           </IonRow>
+
+          <IonRow className="ion-padding">
+            <IonCol size="12">
+              <IonIcon
+                icon={personCircleOutline}
+                className="ion-padding-end"
+              ></IonIcon>
+              <IonText>Account</IonText>
+              <IonIcon icon={chevronForward} />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding">
+            <IonCol size="12">
+              <IonIcon
+                icon={locationOutline}
+                className="ion-padding-end"
+              ></IonIcon>
+              <IonText>Delivery Address</IonText>
+              <IonIcon icon={chevronForward} />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding">
+            <IonCol size="12">
+              <IonIcon
+                icon={heartOutline}
+                className="ion-padding-end"
+              ></IonIcon>
+              <IonText>Wishlist</IonText>
+              <IonIcon icon={chevronForward} />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding">
+            <IonCol size="12">
+              <IonIcon
+                icon={notificationsOutline}
+                className="ion-padding-end"
+              ></IonIcon>
+              <IonText>Notifications</IonText>
+              <IonIcon icon={chevronForward} />
+            </IonCol>
+          </IonRow>
+
+          <IonRow className="ion-padding">
+            <IonCol>
+              <IonIcon
+                icon={helpCircleOutline}
+                className="ion-padding-end"
+              ></IonIcon>
+              <IonText>Help</IonText>
+              <IonIcon icon={chevronForward} />
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-padding">
+            <IonCol>
+              <IonIcon
+                icon={informationCircleOutline}
+                className="ion-padding-end"
+              />
+              <IonText>About</IonText>
+              <IonIcon icon={chevronForward} />
+            </IonCol>
+          </IonRow>
+          
+          <IonButton style={{}} onClick={() => logout()} className="ion-padding">
+            Logout
+          </IonButton>
         </IonGrid>
 
-        <IonButton style={{}} onClick={() => logout()} className="ion-padding">
-          Logout
-        </IonButton>
         {/* <ExploreContainer name="Tab 3 page" /> */}
       </IonContent>
     </IonPage>

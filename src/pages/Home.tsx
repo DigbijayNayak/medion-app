@@ -11,6 +11,7 @@ import {
   IonRow,
   IonSearchbar,
   IonText,
+  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
@@ -19,43 +20,53 @@ import { entries } from "../data";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 import { useState } from "react";
+import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 
 const HomePage: React.FC = () => {
   // const {loggedIn} = useAuth();
   // if(loggedIn == false){
   //   return <Redirect to="/login"/>
   // }
-  const [datas, setData] = useState<string[]>([]);
+
+  const router = useIonRouter();
+  const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
 
   const pushData = () => {
-    const max = datas.length + 20;
-    const min = max - 20;
+    // const max = datas.length + 8;
+    // const min = max - 12;
     const newData = [];
-    for(let i = min; i<max; i++){
-      newData.push(entries[i]
-        
-        );
+    for(let i = 0; i<12; i++){
+      entries[i].id = entries[i].id + i * i;
+      newData.push(entries[i]);
     }
     setData([
-      // ...datas,
-      // ...newData
+      ...datas,
+      ...newData
     ]);
   }
 
   const loadData = (ev:any) => {
+    console.log(datas.length);
     setTimeout(() => {
       pushData();
       console.log('Loaded data');
       ev.target.complete();
-      if(datas.length === 1000){
-        setInfiniteDisabled(true);
+      console.log(datas.length);
+      if(datas.length === 12){
+        setInfiniteDisabled(datas.length < 12);
       }
     }, 5000);
   }
   useIonViewWillEnter(() => {
     pushData();
   });
+
+
+  const handleCategory = (path: any) => {
+    router.push(path);
+    window.location.reload();
+  };
   return (
     <IonPage>
       <IonContent fullscreen className="home">
@@ -87,7 +98,7 @@ const HomePage: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow>
-            {entries.map((data) => {
+            {datas.map((data) => {
               return (
                 <IonCol
                   key={data.id}
@@ -96,9 +107,12 @@ const HomePage: React.FC = () => {
                   sizeSm="4"
                   sizeMd="3"
                 >
-                  <IonCard key={data.id}>
-                    <IonImg src={data.image} className="img"></IonImg>
-                    <IonText style={{ fontSize: "10px" }}>{data.title}</IonText>
+                  <IonCard key={data.id} button className="ion-padding ion-text-center" onClick={() =>
+                      handleCategory("/tabs/home/" + data.title.toLowerCase())
+                    }>
+                    {/* <IonImg src={data.image} className="img"></IonImg> */}
+                    <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} />
+                    <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>
                 </IonCol>
               );

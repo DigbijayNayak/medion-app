@@ -39,26 +39,6 @@ import { Redirect } from "react-router";
 import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
 const LoginPage: React.FC = () => {
-  // const state: any = {};
-  // const props: any = {};
-  const router = useIonRouter();
-  const signInGoogle = async () => {
-    GoogleAuth.initialize();
-    const result = await GoogleAuth.signIn();
-
-    console.log(result);
-    // console.info('result', result);
-    if (result) {
-      router.push("/tabs/home");
-      console.log(result);
-      // history.push({
-      //   pathname: '/home',
-      //   state: { name: result.name || result.displayName, image: result.imageUrl, email: result.email }
-      // });
-    }
-
-  }
-  
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
@@ -66,6 +46,23 @@ const LoginPage: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
   // const [loading, setloading] = useState(false);
+  const [home, setHome] = useState(false)
+  const router = useIonRouter();
+
+
+  const signInGoogle = async () => {
+    GoogleAuth.initialize();
+    const result = await GoogleAuth.signIn();
+    console.log(result);
+    if (result) {
+      setHome(true);
+      router.push("/tabs/home");
+      // window.location.reload();
+      console.log(result);
+    }
+
+  }
+  
 
   const handleAlert = (msg: any) => {
     presentAlert({
@@ -91,23 +88,24 @@ const LoginPage: React.FC = () => {
     });
   };
 
-  const signInWithGoogle = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((res) => {
-        router.push("/tabs/home");
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const signInWithGoogle = () => {
+  //   const provider = new GoogleAuthProvider();
+  //   signInWithPopup(auth, provider)
+  //     .then((res) => {
+  //       router.push("/tabs/home");
+  //       console.log(res);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const signInWithFacebook = () => {
     const provider = new FacebookAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
-        // router.push("/tabs/home");
+        router.push("/tabs/home");
+        setHome(true);
         console.log(res);
       })
       .catch((err) => {
@@ -146,7 +144,10 @@ const LoginPage: React.FC = () => {
             .then((userCredential) => {
               // setloading(false);
               console.log(userCredential);
-              router.push("/tabs/home");
+              if (loggedIn) {
+                return <Redirect to="/tabs/home" />;
+              }            
+              // router.push("/tabs/home");
               dismissloading();
               handleToast("Login Successfully.", 'success');
             })
@@ -172,9 +173,13 @@ const LoginPage: React.FC = () => {
   // if(loading){
   //   return <IonLoading isOpen />;
   // }
+  if (home) {
+    return <Redirect to="/tabs/home" />;
+  }
   if (loggedIn) {
     return <Redirect to="/tabs/home" />;
   }
+
 
   return (
     <IonPage>
