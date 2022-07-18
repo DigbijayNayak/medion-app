@@ -31,114 +31,114 @@ export const entries = [
     },
     {
         id: 7,
-        title: "Homeopathy",
-        image: "https://www.netmeds.com/images/category/491/thumb/homeopathy_1.jpg"
+        title: "Breathe Easy",
+        image: "https://www.netmeds.com/images/product-v1/150x150/965323/dr_odin_steam_vaporizer_od_03dl_0_0.jpg"
     },
     {
         id: 8,
-        title: "Covid",
-        image: "https://www.netmeds.com/images/category/3055/thumb/covid_essentials_1.jpg"
+        title: "Measurement",
+        image: "https://www.netmeds.com/images/product-v1/150x150/947286/fingertip_pulse_oximeter_mi303_0_0.jpg"
     },
     {
         id: 9,
-        title: "Vitamins",
-        image: "https://www.netmeds.com/images/category/3222/thumb/vitamins_and_supplements_1.jpg"
+        title: "Skin Treatment",
+        image: "https://www.netmeds.com/images/product-v1/150x150/412141/itch_guard_cream_20_gm_0.jpg"
     },
     {
         id: 10,
-        title: "Ayush",
-        image: "https://www.netmeds.com/images/category/481/thumb/ayush_1.jpg"
+        title: "Liver Care",
+        image: "https://www.netmeds.com/images/product-v1/150x150/860753/hapdco_liv_card_syrup_200_ml_0_0.jpg"
     },
     {
         id: 11,
-        title: "Devices",
-        image: "https://www.netmeds.com/images/category/665/thumb/devices_1.jpg"
+        title: "Stomach Care",
+        image: "https://www.netmeds.com/images/product-v1/150x150/919947/dr_vaidyas_herbiacid_capsule_pack_of_2_x_30s_0_1.jpg"
     },
     {
         id: 12,
-        title: "Orthopedics",
-        image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
+        title: "Lung Care",
+        image: "https://www.netmeds.com/images/product-v1/150x150/824231/sri_sri_tattva_haridra_khanda_churna_80_gm_0.jpg"
     },
-    // {
-    //     id: 13,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 14,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 15,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 16,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 17,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 18,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 19,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 20,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 21,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 22,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 23,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 24,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 25,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 26,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 27,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // },
-    // {
-    //     id: 28,
-    //     title: "Orthopedics",
-    //     image: "https://www.netmeds.com/images/category/676/thumb/orthopaedics_1.jpg"
-    // }
+    {
+        id: 13,
+        title: "Eye Wear",
+        image: "https://www.netmeds.com/images/category/l2/thumb/eye_glasses.jpg?v=1657888943"
+    },
+    {
+        id: 14,
+        title: "Fitness",
+        image: "https://www.netmeds.com/images/product-v1/150x150/930167/pro360_gold_whey_100_protein_powder_chocolate_flavour_1_kg_0_0.jpg"
+    },
+    {
+        id: 15,
+        title: "Diabetes",
+        image: "https://www.netmeds.com/images/product-v1/150x150/413072/ensure_diabetes_care_powder_vanilla_flavour_400_gm_pet_jar_0.jpg"
+    },
+    {
+        id: 16,
+        title: "Surgical",
+        image: "https://www.netmeds.com/images/product-v1/150x150/859708/omron_compressor_nebulizer_ne_c101_0.jpg"
+    },
+    {
+        id: 17,
+        title: "Baby Care",
+        image: "https://www.netmeds.com/images/category/l2/thumb/baby_care.jpg?v=1657888943"
+    },
+    {
+        id: 18,
+        title: "Firs Aid",
+        image: "https://www.netmeds.com/images/product-v1/150x150/963000/st_johns_travel_kit_plastic_box_mini_red_sjf_t1_0_0.jpg"
+    },
+    {
+        id: 19,
+        title: "Siddha",
+        image: "https://www.netmeds.com/images/product-v1/150x150/912280/dr_jrks_kabasura_kudineer_chooranam_50_gm_0_1.jpg"
+    },
+    {
+        id: 20,
+        title: "Unani",
+        image: "https://www.netmeds.com/images/product-v1/150x150/959710/hashmi_jaundinil_capsule_20s_0_0.jpg"
+    },
+    {
+        id: 21,
+        title: "Mental Care",
+        image: "https://www.netmeds.com/images/product-v1/150x150/887601/jindal_herbal_brahmi_500_mg_tablets_60_s_0.jpg"
+    },
+    {
+        id: 22,
+        title: "Cold And Fever",
+        image: "https://www.netmeds.com/images/product-v1/150x150/406037/patanjali_special_chyawanprash_1_kg_0.jpg"
+    },
+    {
+        id: 23,
+        title: "De-addiction",
+        image: "https://www.netmeds.com/images/product-v1/150x150/892045/2baconil_2_mg_chew_gum_icy_mint_50_s_0.jpg"
+    },
+    {
+        id: 24,
+        title: "Cardiac Care",
+        image: "https://www.netmeds.com/images/product-v1/150x150/824165/planet_ayurveda_total_heart_support_capsules_60_s_0.jpg"
+    },
+    {
+        id: 25,
+        title: "Hair Style",
+        image: "https://www.netmeds.com/images/product-v1/150x150/907545/ustraa_hair_cream_for_men_100_gm_0_1.jpg"
+    },
+    {
+        id: 26,
+        title: "Hair Color",
+        image: "https://www.netmeds.com/images/product-v1/150x150/940237/loreal_paris_casting_creme_gloss_small_pack,_316_burgundy_45_gm_0_0.jpg"
+    },
+    {
+        id: 27,
+        title: "Nutrition",
+        image: "https://www.netmeds.com/images/product-v1/150x150/801616/protinex_powder_tasty_chocolate_flavour_400_gm_tin_0_2.jpg"
+    },
+    {
+        id: 28,
+        title: "Pain Relief",
+        image: "https://newassets.apollo247.com/pub/media/catalog/product/m/o/moo0020.jpg"
+    }
 ]
 
 

@@ -66,6 +66,13 @@ const SignupPage: React.FC = () => {
       cssClass: "signup",
     });
   };
+
+  const clearInputs = () => {
+    setName("");
+    setEmail("");
+    setPassword("");
+    setComPassword("");
+  }
   const handleRegister = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -120,10 +127,7 @@ const SignupPage: React.FC = () => {
           .catch((error) => {
             // setStatus(true);
             // setloading(false);
-            setName("");
-            setEmail("");
-            setPassword("");
-            setComPassword("");
+            clearInputs();
             dismissloading();
             const msg =
               "The Email Address is already in use by another account.";
@@ -279,6 +283,7 @@ const SignupPage: React.FC = () => {
                 <IonRouterLink
                   routerLink="/login"
                   style={{ color: "#002482", fontWeight: "bold" }}
+                  onClick={() => {clearInputs()}}
                 >
                   Log in
                 </IonRouterLink>

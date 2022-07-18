@@ -12,6 +12,7 @@ import {
   IonRouterLink,
   IonRow,
   IonText,
+  isPlatform,
   useIonAlert,
   useIonLoading,
   useIonRouter,
@@ -48,22 +49,33 @@ const LoginPage: React.FC = () => {
   // const [loading, setloading] = useState(false);
   const [home, setHome] = useState(false)
   const router = useIonRouter();
+  
 
-
-  const signInGoogle = async () => {
-    GoogleAuth.initialize();
-    const result = await GoogleAuth.signIn();
-    console.log(result);
-    if (result) {
-      setHome(true);
-      router.push("/tabs/home");
-      // window.location.reload();
-      console.log(result);
+  const googleLogin = () => {
+    if(isPlatform("android")){
+      signInGoogle();
+    }else{
+      signInWithGoogle();
     }
-
+  }
+  const signInGoogle = async () => {
+      GoogleAuth.initialize();
+      const result = await GoogleAuth.signIn();
+      console.log(result);
+      if (result) {
+        setHome(true);
+        // router.push("/tabs/home");
+        // window.location.reload();
+        console.log(result);
+      }
   }
   
 
+
+  const clearInputs = () => {
+    setEmail("");
+    setPassword("");
+  }
   const handleAlert = (msg: any) => {
     presentAlert({
       header: "Alert",
@@ -88,17 +100,16 @@ const LoginPage: React.FC = () => {
     });
   };
 
-  // const signInWithGoogle = () => {
-  //   const provider = new GoogleAuthProvider();
-  //   signInWithPopup(auth, provider)
-  //     .then((res) => {
-  //       router.push("/tabs/home");
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const signInWithFacebook = () => {
     const provider = new FacebookAuthProvider();
@@ -153,8 +164,7 @@ const LoginPage: React.FC = () => {
             })
             .catch((error) => {
               // setloading(false);
-              setEmail("");
-              setPassword("");
+              clearInputs();
               dismissloading();
               handleAlert("User Not Found. Please Register.");
               console.log(error.message);
@@ -167,15 +177,6 @@ const LoginPage: React.FC = () => {
       console.log(error);
     }
   };
-  // const goTo = (path: string) => {
-  //   history.push(path);
-  // };
-  // if(loading){
-  //   return <IonLoading isOpen />;
-  // }
-  if (home) {
-    return <Redirect to="/tabs/home" />;
-  }
   if (loggedIn) {
     return <Redirect to="/tabs/home" />;
   }
@@ -305,7 +306,7 @@ const LoginPage: React.FC = () => {
                   <IonButton fill="clear" onClick={() => signInWithFacebook()}>
                     <IonIcon icon={logoFacebook} className="facebook" />
                   </IonButton>
-                  <IonButton fill="clear" onClick={() => signInGoogle()}>
+                  <IonButton fill="clear" onClick={() => googleLogin()}>
                     <IonIcon
                       icon={logoGoogle}
                       className="google"
@@ -324,6 +325,7 @@ const LoginPage: React.FC = () => {
                 <IonRouterLink
                   routerLink="/signup"
                   style={{ color: "#002482", fontWeight: "bold" }}
+                  onClick={() => {clearInputs()}}
                 >
                   Register
                 </IonRouterLink>

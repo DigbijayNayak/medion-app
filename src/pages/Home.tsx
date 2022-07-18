@@ -17,33 +17,41 @@ import {
 import { cart, notifications } from "ionicons/icons";
 import "./Home.css";
 import { entries } from "../data";
-import { useAuth } from "../auth";
-import { Redirect } from "react-router";
 import { useState } from "react";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 
 const HomePage: React.FC = () => {
-  // const {loggedIn} = useAuth();
-  // if(loggedIn == false){
-  //   return <Redirect to="/login"/>
-  // }
+
 
   const router = useIonRouter();
+
+
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
 
+
+  const handleCategory = (path: any) => {
+    router.push(path);
+    // window.location.reload();
+  };
+
+
   const pushData = () => {
-    // const max = datas.length + 8;
-    // const min = max - 12;
+    const max = datas.length + 8;
+    const min = max - 8;
     const newData = [];
-    for(let i = 0; i<12; i++){
-      entries[i].id = entries[i].id + i * i;
-      newData.push(entries[i]);
+    if(datas.length < 24){
+      for(let i = min; i<max; i++){
+        newData.push(entries[i]);
+      }
+      setData([
+        ...datas,
+        ...newData
+      ]);
     }
-    setData([
-      ...datas,
-      ...newData
-    ]);
+    else{
+      setInfiniteDisabled(true);
+    }
   }
 
   const loadData = (ev:any) => {
@@ -53,8 +61,8 @@ const HomePage: React.FC = () => {
       console.log('Loaded data');
       ev.target.complete();
       console.log(datas.length);
-      if(datas.length === 12){
-        setInfiniteDisabled(datas.length < 12);
+      if(datas.length === 8){
+        setInfiniteDisabled(datas.length < 8);
       }
     }, 5000);
   }
@@ -62,11 +70,6 @@ const HomePage: React.FC = () => {
     pushData();
   });
 
-
-  const handleCategory = (path: any) => {
-    router.push(path);
-    window.location.reload();
-  };
   return (
     <IonPage>
       <IonContent fullscreen className="home">

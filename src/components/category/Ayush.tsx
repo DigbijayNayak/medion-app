@@ -9,7 +9,7 @@ import {
   IonRow,
   IonText,
 } from "@ionic/react";
-import { logoUsd, pricetag } from "ionicons/icons";
+import { logoUsd} from "ionicons/icons";
 import { ayush } from "../../data";
 import { LazyLoadImage } from '@dcasia/react-lazy-load-image-component-improved';
 import 'react-lazy-load-image-component/src/effects/blur.css';

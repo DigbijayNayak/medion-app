@@ -35,11 +35,15 @@ import ResetPasswordPage from "./components/ResetPassword";
 import AppStack from "./pages/AppStack";
 import { AuthContext } from "./auth";
 import { auth, db } from "./firebase";
-import {App as app} from "@capacitor/app"
-import {doc, getDoc} from "firebase/firestore"
+import { App as app } from "@capacitor/app";
+import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { Browser } from '@capacitor/browser';
+import { Browser } from "@capacitor/browser";
 import { useEffect, useState } from "react";
+// import Ayush from "./components/category/Ayush";
+// import Covid from "./components/category/Covid";
+// import Device from "./components/category/Device";
+// import Orthopedics from "./components/category/Orthopedics";
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -51,19 +55,18 @@ const App: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const [present] = useIonToast();
 
-
-  const handleToast = (msg:any) => {
+  const handleToast = (msg: any) => {
     present({
       message: msg,
       position: "top",
       animated: true,
       duration: 2000,
       color: "success",
-      mode: "md"
-    })
-  }
+      mode: "md",
+    });
+  };
 
-  const handleAlert = (msg:any, title:any, btn:any, appVersion:any) => {
+  const handleAlert = (msg: any, title: any, btn: any, appVersion: any) => {
     presentAlert({
       header: title,
       subHeader: `Version: ${appVersion}`,
@@ -75,62 +78,66 @@ const App: React.FC = () => {
           handler: async () => {
             handleToast("Download Clicked");
             await Browser.open({
-              url: "https://play.google.com/store/apps/details?id=com.medionptg.app"
-            })
-          }
-        }
-      ]
-    })
-  }
+              url: "https://play.google.com/store/apps/details?id=com.medionptg.app",
+            });
+          },
+        },
+      ],
+    });
+  };
 
   const getAppInfo = async () => {
     let info = await app.getInfo();
     return info;
-  }
+  };
 
   const getConfigData = async () => {
-    const updateRef = doc(db, "medion-app-config", "qvfcOEk0qbit4oD78Z40")
+    const updateRef = doc(db, "medion-app-config", "qvfcOEk0qbit4oD78Z40");
     const docSnap = await getDoc(updateRef);
-    if(docSnap.exists()){
+    if (docSnap.exists()) {
       const data = docSnap.data();
       console.log("Document data: ", docSnap.data());
       setUpdate(data.updateMsg);
       setAppVersion(data.current_version);
-    }else{
+    } else {
       console.log("No such document!");
     }
-  }
+  };
 
   const checkUpdate = async () => {
-    try{
-      if(isPlatform("android")){
+    try {
+      if (isPlatform("android")) {
         const currentAppInfo = getAppInfo();
-        if(appVersion > (await currentAppInfo).version){
+        if (appVersion > (await currentAppInfo).version) {
           const msg = update.msg;
           const title = update.title;
           const btn = update.btn;
           handleAlert(msg, title, btn, appVersion);
         }
-      }else{
+      } else {
         const msg = "App is not running on android platform";
-        handleToast(msg);
+        // handleToast(msg);
+        console.log(msg);
       }
+    } catch (error) {
+      // console.log(error);
     }
-    catch(error){
-      handleToast(error);
-    }
-  }
+  };
 
   const [authState, setAuthState] = useState({
-    loading: true,
     loggedIn: false,
   });
   useEffect(() => {
     getConfigData();
-    getAppInfo();
+    if(isPlatform("capacitor")){
+      getAppInfo();
+    }
+  }, []);
+
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       // setLoggedIn(Boolean(user));
-      setAuthState({ loading: false, loggedIn: Boolean(user) });
+      setAuthState({loggedIn: Boolean(user) });
     });
   }, []);
 
@@ -159,6 +166,10 @@ const App: React.FC = () => {
                   path="/"
                   render={() => <Redirect to="/signup" />}
                 />
+                {/* <Route path="/ayush" component={Ayush} exact={true}/>
+                <Route path="/covid" component={Covid} exact={true}/>
+                <Route path="/devices" component={Device} exact={true} />
+                <Route path="/orthopedics" component={Orthopedics} exact={true}/> */}
               </IonRouterOutlet>
               <Route path="/tabs" component={AppStack} />
             </IonPage>
