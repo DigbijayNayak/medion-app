@@ -6,7 +6,6 @@ import {
   IonIcon,
   IonImg,
   IonInput,
-  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
@@ -18,7 +17,6 @@ import {
 } from "@ionic/react";
 import {
   alertCircle,
-  alertOutline,
   logoApple,
   logoFacebook,
   logoGoogle,
@@ -26,9 +24,8 @@ import {
 import React, { useState } from "react";
 import "./Signup.css";
 import { auth } from "../firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { useAuth } from "../auth";
-import { Redirect } from "react-router";
 
 const SignupPage: React.FC = () => {
   const router = useIonRouter();
@@ -39,9 +36,7 @@ const SignupPage: React.FC = () => {
   const [compassword, setComPassword] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
-  const [loading, dismissloading] = useIonLoading();
-  // const [loading, setloading] = useState(false);
- 
+  const [loading, dismissloading] = useIonLoading(); 
 
   const handleToast = async (msg: any, theme: any) => {
     present({
@@ -73,6 +68,21 @@ const SignupPage: React.FC = () => {
     setPassword("");
     setComPassword("");
   }
+  const logout = async () => {
+    loading({
+      message: 'Loading...',
+      duration: 3000,
+      spinner: "lines-sharp",
+      mode: "md",
+    })
+    await signOut(auth)
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleRegister = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -113,20 +123,16 @@ const SignupPage: React.FC = () => {
             mode: "md",
             
           })
-          // setloading(true);
           await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            // const user = userCredential.user;
-            // setloading(false);
-            dismissloading();
             handleToast("Registration Successfull.", "success");
+            logout();
+            dismissloading();
             router.push("/login");
             console.log("credential: ", userCredential);
             window.location.reload();
           })
           .catch((error) => {
-            // setStatus(true);
-            // setloading(false);
             clearInputs();
             dismissloading();
             const msg =
@@ -143,12 +149,6 @@ const SignupPage: React.FC = () => {
       handleAlert(error);
     }
   };
-  // if(loading){
-  //   return <IonLoading isOpen/>
-  // }
-  if (loggedIn == true) {
-    return <Redirect to="/login" />;
-  }
 
   return (
     <IonPage>
@@ -171,16 +171,10 @@ const SignupPage: React.FC = () => {
           </IonRow>
 
           <IonRow>
-            <IonCol style={{ fontSize: "12px" }} className="ion-text-center">
+            <IonCol style={{ fontSize: "12px", color:"black" }} className="ion-text-center">
               Let's make your account
             </IonCol>
           </IonRow>
-
-          {/* <IonRow className="ion-justify-content-center ion-text-center">
-            <IonCol size="12" sizeSm="4">
-              {status && <IonText color="danger">Registration Failed</IonText>}
-            </IonCol>
-          </IonRow> */}
 
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
@@ -279,7 +273,7 @@ const SignupPage: React.FC = () => {
           <IonRow>
             <IonCol>
               <div className="ion-text-center switch">
-                <IonText>Already have an account ? </IonText>
+                <IonText style={{color: "black"}}>Already have an account ? </IonText>
                 <IonRouterLink
                   routerLink="/login"
                   style={{ color: "#002482", fontWeight: "bold" }}

@@ -5,8 +5,8 @@ const WishlistPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Wishlist Page</IonTitle>
+        <IonToolbar color="white">
+          <IonTitle style={{color: "black"}}>Wishlist Page</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

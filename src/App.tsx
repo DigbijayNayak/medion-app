@@ -40,15 +40,9 @@ import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { Browser } from "@capacitor/browser";
 import { useEffect, useState } from "react";
-// import Ayush from "./components/category/Ayush";
-// import Covid from "./components/category/Covid";
-// import Device from "./components/category/Device";
-// import Orthopedics from "./components/category/Orthopedics";
 setupIonicReact();
 
 const App: React.FC = () => {
-  // const authState = useAuthInit();
-  // const {loggedIn} = useAuth();
 
   const [update, setUpdate] = useState<any>({});
   const [appVersion, setAppVersion] = useState<any>("");
@@ -116,11 +110,10 @@ const App: React.FC = () => {
         }
       } else {
         const msg = "App is not running on android platform";
-        // handleToast(msg);
         console.log(msg);
       }
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
 
@@ -136,16 +129,12 @@ const App: React.FC = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      // setLoggedIn(Boolean(user));
       setAuthState({loggedIn: Boolean(user) });
     });
   }, []);
 
   checkUpdate();
   console.log(`rendering App with authState:`, authState);
-  // if (authState.loading) {
-  //   return <IonLoading isOpen />;
-  // }
 
   return (
     <Router>

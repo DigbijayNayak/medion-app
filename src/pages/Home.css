@@ -16,5 +16,17 @@ ion-searchbar {
 }
 
 ion-card {
-  color: var(--ion-color-card);
+  --background: white;
+}
+
+ion-content{
+  --background: white;
+}
+
+ion-text{
+  color: black;
+}
+
+ion-searchbar{
+  --background: blue;
 }

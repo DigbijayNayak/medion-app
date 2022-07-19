@@ -19,6 +19,7 @@ import HomePage from "./Home";
 import ProfilePage from "./Profile";
 import SearchPage from "./Search";
 import WishlistPage from "./Wishlist";
+import './AppStack.css';
 const AppStack: React.FC = () => {
   const { loggedIn } = useAuth();
   if (loggedIn === false) {
@@ -38,7 +39,7 @@ const AppStack: React.FC = () => {
         <Route path="/tabs/home/devices" component={Device} />
         <Route path="/tabs/home/orthopedics" component={Orthopedics} />
       </IonRouterOutlet>
-      <IonTabBar slot="bottom" className="stack">
+      <IonTabBar slot="bottom" className="stack" color="white">
         <IonTabButton tab="home" href="/tabs/home">
           <IonIcon icon={home} />
           <IonLabel style={{ fontSize: "9px" }}>Home</IonLabel>

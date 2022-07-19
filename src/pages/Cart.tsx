@@ -5,8 +5,8 @@ const CartPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Cart Page</IonTitle>
+        <IonToolbar color="white">
+          <IonTitle style={{color: "black"}}>Cart Page</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -15,7 +15,6 @@ const CartPage: React.FC = () => {
             <IonTitle size="large">Cart Page</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {/* <ExploreContainer name="Tab 2 page" /> */}
       </IonContent>
     </IonPage>
   );

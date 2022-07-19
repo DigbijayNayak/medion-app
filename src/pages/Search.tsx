@@ -4,8 +4,8 @@ const SearchPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Search Page</IonTitle>
+        <IonToolbar color="white">
+          <IonTitle style={{color: "black"}}>Search Page</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

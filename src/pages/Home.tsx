@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCard,
   IonCol,
   IonContent,
@@ -32,7 +33,6 @@ const HomePage: React.FC = () => {
 
   const handleCategory = (path: any) => {
     router.push(path);
-    // window.location.reload();
   };
 
 
@@ -75,23 +75,17 @@ const HomePage: React.FC = () => {
       <IonContent fullscreen className="home">
         <IonGrid>
           <IonRow className="ion-justify-content-between">
-            <IonCol size="6" sizeSm="2" sizeMd="4">
+            <IonCol size="6" sizeSm="2" sizeMd="2">
               <IonImg
                 src="../assets/trademark.jpg"
                 className="mark ion-padding-start"
               ></IonImg>
             </IonCol>
-            <IonCol size="3" sizeSm="4" sizeMd="2">
-              <IonIcon icon={notifications} className="homeicon note"></IonIcon>
-              <IonIcon icon={cart} className="homeicon cart"></IonIcon>
+            <IonCol size="3" sizeSm="4" sizeMd="2" className="ion-padding">
+              <IonIcon icon={cart} className="homeicon cart ion-float-right"></IonIcon>
+              <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
             </IonCol>
           </IonRow>
-          {/* 
-          <IonRow>
-            <IonCol>
-              <IonSearchbar></IonSearchbar>
-            </IonCol>
-          </IonRow> */}
         </IonGrid>
 
         <IonGrid>
@@ -100,6 +94,32 @@ const HomePage: React.FC = () => {
               <IonSearchbar></IonSearchbar>
             </IonCol>
           </IonRow>
+
+          <IonRow
+            className="ion-justify-content-between"
+            style={{ fontWeight: "bold" }}
+          >
+            <IonCol size="6" className="ion-padding ">
+              <IonText>Shop By Category</IonText>
+            </IonCol>
+            <IonCol
+              size="3"
+              sizeSm="0.5"
+              sizeMd="2"
+              style={{ marginLeft: "30px" }}
+            >
+              <IonButton
+                fill="clear"
+                style={{ fontWeight: "bold" }}
+                className="ion-float-right"
+              >
+                <IonText className="ion-float-right" style={{color: "red"}}>
+                  View All
+                </IonText>
+              </IonButton>
+            </IonCol>
+          </IonRow>
+
           <IonRow>
             {datas.map((data) => {
               return (
@@ -113,7 +133,6 @@ const HomePage: React.FC = () => {
                   <IonCard key={data.id} button className="ion-padding ion-text-center" onClick={() =>
                       handleCategory("/tabs/home/" + data.title.toLowerCase())
                     }>
-                    {/* <IonImg src={data.image} className="img"></IonImg> */}
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} />
                     <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>
