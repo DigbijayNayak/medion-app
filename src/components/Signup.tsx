@@ -6,7 +6,6 @@ import {
   IonIcon,
   IonImg,
   IonInput,
-  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
@@ -18,7 +17,6 @@ import {
 } from "@ionic/react";
 import {
   alertCircle,
-  alertOutline,
   logoApple,
   logoFacebook,
   logoGoogle,
@@ -31,6 +29,7 @@ import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 
 const SignupPage: React.FC = () => {
+
   const router = useIonRouter();
   const { loggedIn } = useAuth();
   const [name, setName] = useState<any>("");
@@ -40,8 +39,6 @@ const SignupPage: React.FC = () => {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
-  // const [loading, setloading] = useState(false);
- 
 
   const handleToast = async (msg: any, theme: any) => {
     present({
@@ -101,7 +98,7 @@ const SignupPage: React.FC = () => {
       } else if (password.length < 6) {
         const msg = "Password must be at least 6 characters long";
         handleToast(msg, "danger");
-      } else if (password != compassword) {
+      } else if (password !== compassword) {
         const msg = "Wrong Confirm Password";
         handleToast(msg, "danger");
       } else {
@@ -113,11 +110,8 @@ const SignupPage: React.FC = () => {
             mode: "md",
             
           })
-          // setloading(true);
           await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
-            // const user = userCredential.user;
-            // setloading(false);
             dismissloading();
             handleToast("Registration Successfull.", "success");
             router.push("/login");
@@ -125,8 +119,6 @@ const SignupPage: React.FC = () => {
             window.location.reload();
           })
           .catch((error) => {
-            // setStatus(true);
-            // setloading(false);
             clearInputs();
             dismissloading();
             const msg =
@@ -143,10 +135,7 @@ const SignupPage: React.FC = () => {
       handleAlert(error);
     }
   };
-  // if(loading){
-  //   return <IonLoading isOpen/>
-  // }
-  if (loggedIn == true) {
+  if (loggedIn === true) {
     return <Redirect to="/login" />;
   }
 
@@ -175,12 +164,6 @@ const SignupPage: React.FC = () => {
               Let's make your account
             </IonCol>
           </IonRow>
-
-          {/* <IonRow className="ion-justify-content-center ion-text-center">
-            <IonCol size="12" sizeSm="4">
-              {status && <IonText color="danger">Registration Failed</IonText>}
-            </IonCol>
-          </IonRow> */}
 
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">

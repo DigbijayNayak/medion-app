@@ -29,6 +29,4 @@ yarn-error.log*
 /platforms
 /android
 /.firebase
-/.firebaserc
-/firebase.json
 /resources

@@ -1,5 +1,4 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import './Cart.css';
 
 const CartPage: React.FC = () => {
   return (
@@ -15,7 +14,6 @@ const CartPage: React.FC = () => {
             <IonTitle size="large">Cart Page</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {/* <ExploreContainer name="Tab 2 page" /> */}
       </IonContent>
     </IonPage>
   );

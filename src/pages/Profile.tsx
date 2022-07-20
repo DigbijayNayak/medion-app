@@ -14,14 +14,10 @@ import {
   useIonLoading,
   useIonRouter,
 } from "@ionic/react";
-import "./Profile.css";
 
 import { auth } from "../firebase";
-import { useAuth } from "../auth";
-import { Redirect } from "react-router";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { chevronForward, heartOutline, helpCircleOutline, informationCircleOutline, locationOutline, notificationsOutline, personCircle, personCircleOutline } from "ionicons/icons";
+import { signOut } from "firebase/auth";
+import { chevronForward, heartOutline, helpCircleOutline, informationCircleOutline, locationOutline, notificationsOutline, personCircleOutline } from "ionicons/icons";
 
 const ProfilePage: React.FC = () => {
 
@@ -63,9 +59,8 @@ const ProfilePage: React.FC = () => {
         <IonRow className="ion-justify-content-center ion-padding">
             <IonCol>
               <IonAvatar className="">
-                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="prfile"></img>
               </IonAvatar>
-              {/* <IonIcon icon={personCircle} style={{ fontSize: "100px" }} /> */}
             </IonCol>
           </IonRow>
 
@@ -138,8 +133,6 @@ const ProfilePage: React.FC = () => {
             Logout
           </IonButton>
         </IonGrid>
-
-        {/* <ExploreContainer name="Tab 3 page" /> */}
       </IonContent>
     </IonPage>
   );

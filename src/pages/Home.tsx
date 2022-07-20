@@ -22,19 +22,13 @@ import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved"
 
 const HomePage: React.FC = () => {
 
-
   const router = useIonRouter();
-
-
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
 
-
   const handleCategory = (path: any) => {
     router.push(path);
-    // window.location.reload();
   };
-
 
   const pushData = () => {
     const max = datas.length + 8;
@@ -55,12 +49,9 @@ const HomePage: React.FC = () => {
   }
 
   const loadData = (ev:any) => {
-    console.log(datas.length);
     setTimeout(() => {
       pushData();
-      console.log('Loaded data');
       ev.target.complete();
-      console.log(datas.length);
       if(datas.length === 8){
         setInfiniteDisabled(datas.length < 8);
       }
@@ -86,12 +77,6 @@ const HomePage: React.FC = () => {
               <IonIcon icon={cart} className="homeicon cart"></IonIcon>
             </IonCol>
           </IonRow>
-          {/* 
-          <IonRow>
-            <IonCol>
-              <IonSearchbar></IonSearchbar>
-            </IonCol>
-          </IonRow> */}
         </IonGrid>
 
         <IonGrid>
@@ -113,7 +98,6 @@ const HomePage: React.FC = () => {
                   <IonCard key={data.id} button className="ion-padding ion-text-center" onClick={() =>
                       handleCategory("/tabs/home/" + data.title.toLowerCase())
                     }>
-                    {/* <IonImg src={data.image} className="img"></IonImg> */}
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} />
                     <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>
