@@ -7,12 +7,10 @@ import {
   IonIcon,
   IonImg,
   IonInput,
-  IonLoading,
   IonPage,
   IonRouterLink,
   IonRow,
   IonText,
-  isPlatform,
   useIonAlert,
   useIonLoading,
   useIonRouter,
@@ -20,7 +18,6 @@ import {
 } from "@ionic/react";
 import {
   alertCircle,
-  alertOutline,
   logoApple,
   logoFacebook,
   logoGoogle,
@@ -36,8 +33,7 @@ import {
 import { auth } from "../firebase";
 import { useAuth } from "../auth";
 import { Redirect } from "react-router";
-// import { Plugins } from '@capacitor/core';
-import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
+// import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
 const LoginPage: React.FC = () => {
   const { loggedIn } = useAuth();
@@ -46,29 +42,25 @@ const LoginPage: React.FC = () => {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
-  // const [loading, setloading] = useState(false);
-  const [home, setHome] = useState(false)
   const router = useIonRouter();
   
 
-  const googleLogin = () => {
-    if(isPlatform("android")){
-      signInGoogle();
-    }else{
-      signInWithGoogle();
-    }
-  }
-  const signInGoogle = async () => {
-      GoogleAuth.initialize();
-      const result = await GoogleAuth.signIn();
-      console.log(result);
-      if (result) {
-        setHome(true);
-        // router.push("/tabs/home");
-        // window.location.reload();
-        console.log(result);
-      }
-  }
+  // const googleLogin = () => {
+  //   if(isPlatform("android")){
+  //     signInGoogle();
+  //   }else{
+  //     signInWithGoogle();
+  //   }
+  // }
+  // const signInGoogle = async () => {
+  //     GoogleAuth.initialize();
+  //     const result = await GoogleAuth.signIn();
+  //     console.log(result);
+  //     if (result) {
+  //       router.push("/tabs/home");
+  //       console.log(result);
+  //     }
+  // }
   
 
 
@@ -116,7 +108,6 @@ const LoginPage: React.FC = () => {
     signInWithPopup(auth, provider)
       .then((res) => {
         router.push("/tabs/home");
-        setHome(true);
         console.log(res);
       })
       .catch((err) => {
@@ -143,7 +134,6 @@ const LoginPage: React.FC = () => {
         handleToast(msg, "danger");
       } else {
         try {
-          // setloading(true);
           loading({
             message: 'Loading...',
             duration: 3000,
@@ -153,17 +143,15 @@ const LoginPage: React.FC = () => {
           })
           await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-              // setloading(false);
               console.log(userCredential);
               if (loggedIn) {
                 return <Redirect to="/tabs/home" />;
               }            
-              // router.push("/tabs/home");
+              router.push("/tabs/home");
               dismissloading();
               handleToast("Login Successfully.", 'success');
             })
             .catch((error) => {
-              // setloading(false);
               clearInputs();
               dismissloading();
               handleAlert("User Not Found. Please Register.");
@@ -306,7 +294,7 @@ const LoginPage: React.FC = () => {
                   <IonButton fill="clear" onClick={() => signInWithFacebook()}>
                     <IonIcon icon={logoFacebook} className="facebook" />
                   </IonButton>
-                  <IonButton fill="clear" onClick={() => googleLogin()}>
+                  <IonButton fill="clear" onClick={() => signInWithGoogle()}>
                     <IonIcon
                       icon={logoGoogle}
                       className="google"

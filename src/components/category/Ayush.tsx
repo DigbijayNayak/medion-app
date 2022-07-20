@@ -4,7 +4,6 @@ import {
   IonContent,
   IonGrid,
   IonIcon,
-  IonImg,
   IonPage,
   IonRow,
   IonText,
