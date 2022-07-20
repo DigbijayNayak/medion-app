@@ -1,6 +1,4 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-// import './Tab3.css';
 
 const WishlistPage: React.FC = () => {
   return (
@@ -16,7 +14,6 @@ const WishlistPage: React.FC = () => {
             <IonTitle size="large">Wishlist Page</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 3 page" />
       </IonContent>
     </IonPage>
   );
