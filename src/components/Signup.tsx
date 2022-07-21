@@ -135,6 +135,7 @@ const SignupPage: React.FC = () => {
       handleAlert(error);
     }
   };
+
   if (loggedIn === true) {
     return <Redirect to="/login" />;
   }

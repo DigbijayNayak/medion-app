@@ -24,8 +24,34 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import { SplashScreen } from '@capacitor/splash-screen';
-
+import * as Sentry from '@sentry/capacitor';
+// The example is using Angular, Import '@sentry/vue' or '@sentry/react' when using a Sibling different than Angular.
+import * as SentrySibling from '@sentry/react';
+// For automatic instrumentation (highly recommended)
+import { BrowserTracing } from '@sentry/tracing';
 import './index.css';
+
+
+Sentry.init(
+  {
+    dsn: 'https://0b8de7a9ff3a4cae8304928678983549@o1327710.ingest.sentry.io/6591060',
+    // To set your release and dist versions
+    release: 'my-project-name@' + process.env.npm_package_version,
+    dist: '1',
+    // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+    // We recommend adjusting this value in production.
+    tracesSampleRate: 1.0,
+    integrations: [
+      new BrowserTracing({
+        tracingOrigins: ['localhost', 'https://yourserver.io/api'],
+      }),
+    ]
+  },
+  // Forward the init method to the sibling Framework.
+  SentrySibling.init
+);
+
+
 ReactDOM.render(
   <React.StrictMode>
     <App />
