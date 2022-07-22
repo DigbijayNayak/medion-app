@@ -33,10 +33,10 @@ const AppStack: React.FC = () => {
         <Route path="/tabs/wishlist" component={WishlistPage} />
         <Route path="/tabs/cart" component={CartPage} />
         <Route path="/tabs/profile" component={ProfilePage} />
-        <Route path="/tabs/home/ayush" component={Ayush} />
+        {/* <Route path="/tabs/home/ayush" component={Ayush} />
         <Route path="/tabs/home/covid" component={Covid} />
         <Route path="/tabs/home/devices" component={Device} />
-        <Route path="/tabs/home/orthopedics" component={Orthopedics} />
+        <Route path="/tabs/home/orthopedics" component={Orthopedics} /> */}
       </IonRouterOutlet>
       <IonTabBar slot="bottom" className="stack">
         <IonTabButton tab="home" href="/tabs/home">

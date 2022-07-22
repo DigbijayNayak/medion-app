@@ -35,6 +35,16 @@ import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 // import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
+export const googleUser: any = [
+  {
+    res: {
+      user: {
+        photoURL: "",
+      },
+    },
+  },
+];
+
 const LoginPage: React.FC = () => {
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState<any>("");
@@ -43,7 +53,6 @@ const LoginPage: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
   const router = useIonRouter();
-  
 
   // const googleLogin = () => {
   //   if(isPlatform("android")){
@@ -61,13 +70,11 @@ const LoginPage: React.FC = () => {
   //       console.log(result);
   //     }
   // }
-  
-
 
   const clearInputs = () => {
     setEmail("");
     setPassword("");
-  }
+  };
   const handleAlert = (msg: any) => {
     presentAlert({
       header: "Alert",
@@ -97,6 +104,8 @@ const LoginPage: React.FC = () => {
     signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
+        googleUser.push({ res });
+        console.log(googleUser);
       })
       .catch((error) => {
         console.log(error);
@@ -135,21 +144,20 @@ const LoginPage: React.FC = () => {
       } else {
         try {
           loading({
-            message: 'Loading...',
+            message: "Loading...",
             duration: 3000,
             spinner: "lines-sharp",
             mode: "md",
-            
-          })
+          });
           await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
               console.log(userCredential);
               if (loggedIn) {
                 return <Redirect to="/tabs/home" />;
-              }            
+              }
               router.push("/tabs/home");
               dismissloading();
-              handleToast("Login Successfully.", 'success');
+              handleToast("Login Successfully.", "success");
             })
             .catch((error) => {
               clearInputs();
@@ -168,7 +176,6 @@ const LoginPage: React.FC = () => {
   if (loggedIn) {
     return <Redirect to="/tabs/home" />;
   }
-
 
   return (
     <IonPage>
@@ -313,7 +320,9 @@ const LoginPage: React.FC = () => {
                 <IonRouterLink
                   routerLink="/signup"
                   style={{ color: "#002482", fontWeight: "bold" }}
-                  onClick={() => {clearInputs()}}
+                  onClick={() => {
+                    clearInputs();
+                  }}
                 >
                   Register
                 </IonRouterLink>

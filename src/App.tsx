@@ -39,10 +39,13 @@ import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { Browser } from "@capacitor/browser";
 import { useEffect, useState } from "react";
+import Ayush from "./components/category/Ayush";
+import Covid from "./components/category/Covid";
+import Device from "./components/category/Device";
+import Orthopedics from "./components/category/Orthopedics";
 setupIonicReact();
 
 const App: React.FC = () => {
-
   const [update, setUpdate] = useState<any>({});
   const [appVersion, setAppVersion] = useState<any>("");
   const [presentAlert] = useIonAlert();
@@ -121,14 +124,14 @@ const App: React.FC = () => {
   });
   useEffect(() => {
     getConfigData();
-    if(isPlatform("capacitor")){
+    if (isPlatform("capacitor")) {
       getAppInfo();
     }
   }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setAuthState({loggedIn: Boolean(user) });
+      setAuthState({ loggedIn: Boolean(user) });
     });
   }, []);
 
@@ -147,6 +150,18 @@ const App: React.FC = () => {
                 <Route
                   path="/reset-password"
                   component={ResetPasswordPage}
+                  exact={true}
+                />
+                <Route path="/tabs/home/ayush" component={Ayush} exact={true} />
+                <Route path="/tabs/home/covid" component={Covid} exact={true} />
+                <Route
+                  path="/tabs/home/devices"
+                  component={Device}
+                  exact={true}
+                />
+                <Route
+                  path="/tabs/home/orthopedics"
+                  component={Orthopedics}
                   exact={true}
                 />
                 <Route

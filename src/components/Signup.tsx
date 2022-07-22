@@ -29,7 +29,6 @@ import { useAuth } from "../auth";
 import { Redirect } from "react-router";
 
 const SignupPage: React.FC = () => {
-
   const router = useIonRouter();
   const { loggedIn } = useAuth();
   const [name, setName] = useState<any>("");
@@ -69,7 +68,7 @@ const SignupPage: React.FC = () => {
     setEmail("");
     setPassword("");
     setComPassword("");
-  }
+  };
   const handleRegister = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -102,34 +101,32 @@ const SignupPage: React.FC = () => {
         const msg = "Wrong Confirm Password";
         handleToast(msg, "danger");
       } else {
-        try{
+        try {
           loading({
-            message: 'Loading...',
+            message: "Loading...",
             duration: 3000,
             spinner: "lines-sharp",
             mode: "md",
-            
-          })
-          await createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            dismissloading();
-            handleToast("Registration Successfull.", "success");
-            router.push("/login");
-            console.log("credential: ", userCredential);
-            window.location.reload();
-          })
-          .catch((error) => {
-            clearInputs();
-            dismissloading();
-            const msg =
-              "The Email Address is already in use by another account.";
-            console.log("error:", error.message);
-            handleAlert(msg);
           });
+          await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              dismissloading();
+              handleToast("Registration Successfull.", "success");
+              router.push("/login");
+              console.log("credential: ", userCredential);
+              window.location.reload();
+            })
+            .catch((error) => {
+              clearInputs();
+              dismissloading();
+              const msg =
+                "The Email Address is already in use by another account.";
+              console.log("error:", error.message);
+              handleAlert(msg);
+            });
+        } catch (error) {
+          console.log(error);
         }
-        catch(error){
-          console.log(error)
-        } 
       }
     } catch (error) {
       handleAlert(error);
@@ -267,7 +264,9 @@ const SignupPage: React.FC = () => {
                 <IonRouterLink
                   routerLink="/login"
                   style={{ color: "#002482", fontWeight: "bold" }}
-                  onClick={() => {clearInputs()}}
+                  onClick={() => {
+                    clearInputs();
+                  }}
                 >
                   Log in
                 </IonRouterLink>

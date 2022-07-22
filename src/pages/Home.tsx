@@ -29,14 +29,14 @@ const HomePage: React.FC = () => {
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
   const productRef = collection(db, "Select_Category");
-  const handleCategory = (path: any) => {
+  const handleCategory = (path: string) => {
     router.push(path);
   };
 
   const pushData = () => {
     const max = datas.length + 8;
     const min = max - 8;
-    const newData:any = [];
+    const newData: any = [];
     if (datas.length < 20) {
       for (let i = min; i < max; i++) {
         newData.push(porducts[i]);
@@ -96,7 +96,7 @@ const HomePage: React.FC = () => {
             </IonCol>
           </IonRow>
           <IonRow>
-            {porducts.map((data:any) => {
+            {porducts.map((data: any) => {
               return (
                 <IonCol
                   key={data.id}

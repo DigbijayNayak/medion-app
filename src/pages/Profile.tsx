@@ -6,6 +6,7 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
+  IonLabel,
   IonPage,
   IonRow,
   IonText,
@@ -14,23 +15,30 @@ import {
   useIonLoading,
   useIonRouter,
 } from "@ionic/react";
-
+import { googleUser } from "../components/Login";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
-import { chevronForward, heartOutline, helpCircleOutline, informationCircleOutline, locationOutline, notificationsOutline, personCircleOutline } from "ionicons/icons";
+import {
+  chevronForward,
+  heartOutline,
+  helpCircleOutline,
+  informationCircleOutline,
+  locationOutline,
+  notificationsOutline,
+  personCircleOutline,
+} from "ionicons/icons";
 
 const ProfilePage: React.FC = () => {
-
   const [loading, dismissloading] = useIonLoading();
   const router = useIonRouter();
 
   const logout = async () => {
     loading({
-      message: 'Loading...',
+      message: "Loading...",
       duration: 3000,
       spinner: "lines-sharp",
       mode: "md",
-    })
+    });
     await signOut(auth)
       .then(() => {
         dismissloading();
@@ -56,11 +64,35 @@ const ProfilePage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonGrid>
-        <IonRow className="ion-justify-content-center ion-padding">
+          <IonRow className="ion-justify-content-center ion-padding">
             <IonCol>
-              <IonAvatar className="">
-                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="prfile"></img>
+              <IonAvatar style={{ margin: "auto" }}>
+                {googleUser[googleUser.length - 1].res.user.photoURL ? (
+                  <img
+                    src={googleUser[googleUser.length - 1].res.user.photoURL}
+                    alt="prfile"
+                  ></img>
+                ) : (
+                  <img
+                    src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="prfile"
+                  ></img>
+                )}
               </IonAvatar>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol className="ion-text-center">
+              <IonLabel>
+                {googleUser[googleUser.length - 1].res.user.displayName}
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol className="ion-text-center">
+              <IonLabel>
+                {googleUser[googleUser.length - 1].res.user.email}
+              </IonLabel>
             </IonCol>
           </IonRow>
 
@@ -128,8 +160,12 @@ const ProfilePage: React.FC = () => {
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
-          
-          <IonButton style={{}} onClick={() => logout()} className="ion-padding">
+
+          <IonButton
+            style={{}}
+            onClick={() => logout()}
+            className="ion-padding"
+          >
             Logout
           </IonButton>
         </IonGrid>
