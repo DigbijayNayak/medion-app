@@ -10,10 +10,10 @@ import { home, search, heart, cart, person } from "ionicons/icons";
 import React from "react";
 import { Redirect, Route } from "react-router";
 import { useAuth } from "../auth";
-import Ayush from "../components/category/Ayush";
-import Covid from "../components/category/Covid";
-import Device from "../components/category/Device";
-import Orthopedics from "../components/category/Orthopedics";
+// import Ayush from "../components/category/Ayush";
+// import Covid from "../components/category/Covid";
+// import Device from "../components/category/Device";
+// import Orthopedics from "../components/category/Orthopedics";
 import CartPage from "./Cart";
 import HomePage from "./Home";
 import ProfilePage from "./Profile";
@@ -28,15 +28,12 @@ const AppStack: React.FC = () => {
     <IonTabs>
       <IonRouterOutlet>
         <Redirect path="/tabs" to="/tabs/home" />
-        <Route path="/tabs/home" component={HomePage} />
+        <Route path="/tabs/home" component={HomePage}>
+        </Route>
         <Route path="/tabs/search" component={SearchPage} />
         <Route path="/tabs/wishlist" component={WishlistPage} />
         <Route path="/tabs/cart" component={CartPage} />
         <Route path="/tabs/profile" component={ProfilePage} />
-        <Route path="/tabs/home/ayush" component={Ayush} />
-        <Route path="/tabs/home/covid" component={Covid} />
-        <Route path="/tabs/home/devices" component={Device} />
-        <Route path="/tabs/home/orthopedics" component={Orthopedics} />
       </IonRouterOutlet>
       <IonTabBar slot="bottom" className="stack">
         <IonTabButton tab="home" href="/tabs/home">

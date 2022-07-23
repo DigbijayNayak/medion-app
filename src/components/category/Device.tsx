@@ -28,7 +28,7 @@ const Device = () => {
               {devices.map((data) => {
                 return (
                   <IonCol key={data.id} size="6" sizeSm="4" sizeMd="3">
-                    <IonCard className="ion-padding ion-text-center">
+                    <IonCard className="ion-padding ion-text-center" button>
                       <IonImg src={data.image}></IonImg>
                       <IonText style={{ fontWeight: "bold" }}>
                         <IonIcon icon={logoUsd}></IonIcon>

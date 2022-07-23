@@ -39,10 +39,14 @@ import { doc, getDoc } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 import { Browser } from "@capacitor/browser";
 import { useEffect, useState } from "react";
+import Ayush from "./components/category/Ayush";
+import Covid from "./components/category/Covid";
+import Device from "./components/category/Device";
+import Orthopedics from "./components/category/Orthopedics";
+import AyushDetailsPage from "./components/category/AyushDetails";
 setupIonicReact();
 
 const App: React.FC = () => {
-
   const [update, setUpdate] = useState<any>({});
   const [appVersion, setAppVersion] = useState<any>("");
   const [presentAlert] = useIonAlert();
@@ -121,14 +125,14 @@ const App: React.FC = () => {
   });
   useEffect(() => {
     getConfigData();
-    if(isPlatform("capacitor")){
+    if (isPlatform("capacitor")) {
       getAppInfo();
     }
   }, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      setAuthState({loggedIn: Boolean(user) });
+      setAuthState({ loggedIn: Boolean(user) });
     });
   }, []);
 
@@ -149,12 +153,18 @@ const App: React.FC = () => {
                   component={ResetPasswordPage}
                   exact={true}
                 />
+                <Route path="/ayush" exact component={Ayush} />
+                <Route path="/covid" component={Covid} />
+                <Route path="/devices" component={Device} />
+                <Route path="/orthopedics" component={Orthopedics} />
+
                 <Route
                   exact
                   path="/"
                   render={() => <Redirect to="/signup" />}
                 />
               </IonRouterOutlet>
+              <Route path="/:id" exact component={AyushDetailsPage} />
               <Route path="/tabs" component={AppStack} />
             </IonPage>
           </IonReactRouter>

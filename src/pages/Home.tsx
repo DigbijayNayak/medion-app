@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCard,
   IonCol,
   IonContent,
@@ -8,26 +9,28 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonPage,
+  IonRouterOutlet,
   IonRow,
   IonSearchbar,
   IonText,
-  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
 import "./Home.css";
 import { entries } from "../data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
-
-const HomePage: React.FC = () => {
-
-  const router = useIonRouter();
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
+const HomePage: React.FC = ({history}:any) => {
+  const productRef = collection(db, "Categories");
+  // const router = useIonRouter();
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
+  const [products, setProducts] = useState([]);
 
-  const handleCategory = (path: any) => {
-    router.push(path);
+  const handleCategory = () => {
+    <IonRouterOutlet />
   };
 
   const pushData = () => {
@@ -60,6 +63,21 @@ const HomePage: React.FC = () => {
   useIonViewWillEnter(() => {
     pushData();
   });
+  useEffect(()=>{
+    let unmounted = false;
+    getDocs(productRef).then((snapshot) =>{
+      const products: any = [];
+      snapshot.docs.forEach((docs) =>{
+        products.push({...docs.data(), id: docs.id});
+      })
+      if(!unmounted){
+        setProducts(products);
+      }
+    });
+    return () => {
+      unmounted = true;
+    };
+  }, [])
 
   return (
     <IonPage>
@@ -72,9 +90,9 @@ const HomePage: React.FC = () => {
                 className="mark ion-padding-start"
               ></IonImg>
             </IonCol>
-            <IonCol size="3" sizeSm="4" sizeMd="2">
-              <IonIcon icon={notifications} className="homeicon note"></IonIcon>
-              <IonIcon icon={cart} className="homeicon cart"></IonIcon>
+            <IonCol size="3" sizeSm="4" sizeMd="2" className="ion-padding">
+              <IonIcon icon={cart} className="homeicon cart ion-float-right"></IonIcon>
+              <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -85,8 +103,35 @@ const HomePage: React.FC = () => {
               <IonSearchbar></IonSearchbar>
             </IonCol>
           </IonRow>
+
+          <IonRow
+            className="ion-justify-content-between"
+            style={{ fontWeight: "bold" }}
+          >
+            <IonCol size="6" className="ion-padding ">
+              <IonText>Shop By Category</IonText>
+            </IonCol>
+            <IonCol
+              size="3"
+              sizeSm="0.5"
+              sizeMd="2"
+              style={{ marginLeft: "30px" }}
+            >
+              <IonButton
+                fill="clear"
+                style={{ fontWeight: "bold" }}
+                className="ion-float-right"
+              >
+                <IonText className="ion-float-right" style={{color: "red"}}>
+                  View All
+                </IonText>
+              </IonButton>
+            </IonCol>
+          </IonRow>
+
+
           <IonRow>
-            {datas.map((data) => {
+            {products.map((data:any) => {
               return (
                 <IonCol
                   key={data.id}
@@ -95,9 +140,10 @@ const HomePage: React.FC = () => {
                   sizeSm="4"
                   sizeMd="3"
                 >
-                  <IonCard key={data.id} button className="ion-padding ion-text-center" onClick={() =>
-                      handleCategory("/tabs/home/" + data.title.toLowerCase())
-                    }>
+                  <IonCard key={data.id} button className="ion-padding ion-text-center" onClick={(e) =>{
+                    e.preventDefault();
+                    history.push(`/${data.title.toLowerCase()}`)
+                  }}>
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} />
                     <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>

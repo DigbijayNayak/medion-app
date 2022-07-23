@@ -152,28 +152,28 @@ export const entries = [
 export const ayush = [
     {
         id: 13,
-        title: 'dabur_honitus_herbal_cough_remedy_syrup_100_ml_0',
+        title: 'Dabur herbal cough remedy syrup 100ml',
         image: '../images/ayush/dabur_honitus_herbal_cough_remedy_syrup_100_ml_0.jpg',
         price: 234,
         company: "",
     },
     {
         id: 14,
-        title: 'kapiva_dia_free_juice_1_ltr_0_2',
+        title: 'Kapivadia free juice 1 ltr',
         image: '../images/ayush/kapiva_dia_free_juice_1_ltr_0_2.jpg',
         price: 500,
         company: "",
     },
     {
         id: 15,
-        title: 'lama_ayush_kwath_tablet_60s_0_0',
+        title: 'Lama ayush kwath tablet 60s',
         image: '../images/ayush/lama_ayush_kwath_tablet_60s_0_0.jpg',
         price: 300,
         company: "",
     },
     {
         id: 16,
-        title: 'lama_isobael_granules_200_gm_0_0',
+        title: 'Lama isobael granules 200gm',
         image: '../images/ayush/lama_isobael_granules_200_gm_0_0.jpg',
         price: 400,
         company: "",
