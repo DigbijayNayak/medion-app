@@ -40,7 +40,7 @@ const WishlistPage: React.FC = () => {
             {
               products.map((data:any) =>{
                 return(
-                  <IonCol key={data.id}>
+                  <IonCol key={data.id} size="6">
                   <IonCard key={data.id} className="ion-padding ion-text-center">
                     <IonImg src={data.image}></IonImg>
                     <IonText>{data.title}</IonText> <br />

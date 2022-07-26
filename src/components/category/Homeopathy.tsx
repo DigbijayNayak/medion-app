@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useAuth } from "../../AuthContext";
 const Homeopathy = ({history}:any) => {
     const [products, setProducts] = useState([]);
     const router = useIonRouter();
-
+  const {total} = useAuth();
   const addToWishlist = async(id:any, title: any, image: any, price: any) =>{
     await setDoc(doc(db, "Favourite_Products", id),{
       title: title,
@@ -58,13 +59,14 @@ const Homeopathy = ({history}:any) => {
               </IonCol>
               <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Homeopathy Products</IonText>
               <IonCol>
+              <IonText className="count" style={{position: "absolute", top: "-5px", left: "53px", color: "red", fontWeight: "bold"}}>{total}</IonText>
                 <IonIcon
                   icon={cart}
                   color="primary"
                   style={{ fontSize: "25px" }}
                   className="ion-float-right"
                   onClick={() => {
-                    router.push("/tabs/wishlist");
+                    router.push("/tabs/cart");
                   }}
                 ></IonIcon>
                 <IonIcon
@@ -73,7 +75,7 @@ const Homeopathy = ({history}:any) => {
                   color="danger"
                   className="ion-float-right"
                   onClick={() => {
-                    router.push("/tabs/cart");
+                    router.push("/tabs/wishlist");
                   }}
                 ></IonIcon>
               </IonCol>
@@ -101,7 +103,7 @@ const Homeopathy = ({history}:any) => {
                         width="80"
                         height="80px"
                         style={{ margin: "auto" }}
-                      />
+                      /> <br />
                       <IonText color="dark" style={{ fontSize: "12px" }}>
                         {data.title}
                       </IonText>
@@ -110,7 +112,7 @@ const Homeopathy = ({history}:any) => {
                         Best Price ₹{data.price}
                       </IonText>
                       <br />
-                      <IonButton
+                      {/* <IonButton
                         fill="clear"
                         onClick={(e) => {
                           e.preventDefault();
@@ -143,7 +145,7 @@ const Homeopathy = ({history}:any) => {
                         }}
                       >
                         <IonIcon icon={cart} style={{ fontSize: "20px" }} />
-                      </IonButton>
+                      </IonButton> */}
                     </IonCard>
                   </IonCol>
                 );

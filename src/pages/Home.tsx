@@ -8,10 +8,12 @@ import {
   IonImg,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
+  IonLabel,
   IonPage,
   IonRow,
   IonSearchbar,
   IonText,
+  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
@@ -20,7 +22,10 @@ import { useEffect, useState } from "react";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { useAuth } from "../AuthContext";
 const HomePage: React.FC = ({history}:any) => {
+  const router = useIonRouter();
+  const {total, totalProduct} = useAuth();
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
   const [products, setProducts] = useState([]);
@@ -62,8 +67,8 @@ const HomePage: React.FC = ({history}:any) => {
         products.push({...docs.data(), id: docs.id});
       })
       setProducts(products);
-
     });
+    totalProduct();
   }, [])
 
   return (
@@ -78,8 +83,12 @@ const HomePage: React.FC = ({history}:any) => {
               ></IonImg>
             </IonCol>
             <IonCol size="3" sizeSm="4" sizeMd="2" className="ion-padding">
-              <IonIcon icon={cart} className="homeicon cart ion-float-right"></IonIcon>
-              <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
+              
+              <IonText className="count">{total}</IonText>
+              <IonIcon icon={cart} className="homeicon cart ion-float-right" onClick={()=>{
+                  router.push("/tabs/cart");
+                }}></IonIcon>
+                <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
             </IonCol>
           </IonRow>
         </IonGrid>

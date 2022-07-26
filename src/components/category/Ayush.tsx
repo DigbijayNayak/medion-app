@@ -16,11 +16,12 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useEffect, useState } from "react";
 import { collection, getDocs, setDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useAuth } from "../../AuthContext";
 
 
 const Ayush = ({history}:any) => {
   const [products, setProducts] = useState([]);
-
+  const {total} = useAuth();
   const router = useIonRouter();
   const addToWishlist = async(id:any, title: any, image: any, price: any) =>{
     await setDoc(doc(db, "Favourite_Products", id),{
@@ -65,12 +66,13 @@ const Ayush = ({history}:any) => {
               </IonCol>
                 <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Ayush Products</IonText>
               <IonCol>
+                <IonText className="circle" style={{position: "absolute", top: "-5px", left: "75px", color: "white", fontWeight: "bold", fontSize: "10px", paddingTop: "1px"}}>{total}</IonText>
                 <IonIcon icon={cart} color="primary" style={{fontSize: "25px"}} className="ion-float-right" onClick={()=>{
                   router.push("/tabs/cart");
                 }}></IonIcon>
-                <IonIcon icon={heart} style={{fontSize: "25px"}} color="danger" className="ion-float-right" onClick={()=>{
+                {/* <IonIcon icon={heart} style={{fontSize: "25px"}} color="danger" className="ion-float-right" onClick={()=>{
                   router.push("/tabs/wishlist");
-                }}></IonIcon>
+                }}></IonIcon> */}
               </IonCol>
             </IonRow>
 
@@ -82,14 +84,14 @@ const Ayush = ({history}:any) => {
                       history.push(`ayush/${data.id}`)
                     }}>
                     
-                    <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="80" height="80px" style={{margin: "auto"}} />
+                    <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="80" height="80px" style={{margin: "auto"}} /><br />
                       <IonText color="dark" style={{fontSize: "12px"}}>{data.title}</IonText>
                       <br/>
                       <IonText style={{ fontWeight: "bold", margin: "auto" }}>
                         Best Price
                         ₹{data.price}
                       </IonText><br />
-                      <IonButton fill="clear" onClick={(e) =>{
+                      {/* <IonButton fill="clear" onClick={(e) =>{
                         e.preventDefault();
                         addToWishlist(data.id, data.title, data.image,  data.price)
                       }} color="danger">
@@ -99,7 +101,7 @@ const Ayush = ({history}:any) => {
                       <IonButton fill="clear" onClick={(e) =>{
                         e.preventDefault();
                         addToCart(data.id, data.title, data.image, data.price);
-                      }}> <IonIcon icon={cart} style={{fontSize: "20px"}}/></IonButton>
+                      }}> <IonIcon icon={cart} style={{fontSize: "20px"}}/></IonButton> */}
                     </IonCard>
                   </IonCol>
                 );
