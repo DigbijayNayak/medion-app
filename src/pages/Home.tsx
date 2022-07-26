@@ -9,7 +9,6 @@ import {
   IonInfiniteScroll,
   IonInfiniteScrollContent,
   IonPage,
-  IonRouterOutlet,
   IonRow,
   IonSearchbar,
   IonText,
@@ -17,29 +16,22 @@ import {
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
 import "./Home.css";
-import { entries } from "../data";
 import { useEffect, useState } from "react";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 const HomePage: React.FC = ({history}:any) => {
-  const productRef = collection(db, "Categories");
-  // const router = useIonRouter();
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
   const [products, setProducts] = useState([]);
 
-  const handleCategory = () => {
-    <IonRouterOutlet />
-  };
-
   const pushData = () => {
     const max = datas.length + 8;
     const min = max - 8;
-    const newData = [];
+    const newData:any = [];
     if(datas.length < 24){
       for(let i = min; i<max; i++){
-        newData.push(entries[i]);
+        newData.push(products[i]);
       }
       setData([
         ...datas,
@@ -64,19 +56,14 @@ const HomePage: React.FC = ({history}:any) => {
     pushData();
   });
   useEffect(()=>{
-    let unmounted = false;
-    getDocs(productRef).then((snapshot) =>{
+    getDocs(collection(db, "Select_Category")).then((snapshot) =>{
       const products: any = [];
       snapshot.docs.forEach((docs) =>{
         products.push({...docs.data(), id: docs.id});
       })
-      if(!unmounted){
-        setProducts(products);
-      }
+      setProducts(products);
+
     });
-    return () => {
-      unmounted = true;
-    };
   }, [])
 
   return (
@@ -140,11 +127,11 @@ const HomePage: React.FC = ({history}:any) => {
                   sizeSm="4"
                   sizeMd="3"
                 >
-                  <IonCard key={data.id} button className="ion-padding ion-text-center" onClick={(e) =>{
+                  <IonCard key={data.id} className="ion-padding ion-text-center" >
+                    <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} onClick={(e) =>{
                     e.preventDefault();
                     history.push(`/${data.title.toLowerCase()}`)
-                  }}>
-                    <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} />
+                  }}/>
                     <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>
                 </IonCol>

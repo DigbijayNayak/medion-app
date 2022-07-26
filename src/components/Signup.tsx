@@ -23,15 +23,12 @@ import {
 } from "ionicons/icons";
 import React, { useState } from "react";
 import "./Signup.css";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { useAuth } from "../auth";
-import { Redirect } from "react-router";
 
+import { doc, setDoc} from "firebase/firestore";
 const SignupPage: React.FC = () => {
-
   const router = useIonRouter();
-  const { loggedIn } = useAuth();
   const [name, setName] = useState<any>("");
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
@@ -39,7 +36,6 @@ const SignupPage: React.FC = () => {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
-
   const handleToast = async (msg: any, theme: any) => {
     present({
       message: msg,
@@ -112,11 +108,18 @@ const SignupPage: React.FC = () => {
           })
           await createUserWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
+            console.log(userCredential);
+            setDoc(doc(db, "users", userCredential.user.uid),{
+              name: name,
+              email: email,
+              uid: userCredential.user.uid,
+            })
+            clearInputs();
             dismissloading();
             handleToast("Registration Successfull.", "success");
+
             router.push("/login");
             console.log("credential: ", userCredential);
-            window.location.reload();
           })
           .catch((error) => {
             clearInputs();
@@ -126,6 +129,7 @@ const SignupPage: React.FC = () => {
             console.log("error:", error.message);
             handleAlert(msg);
           });
+          
         }
         catch(error){
           console.log(error)
@@ -135,9 +139,6 @@ const SignupPage: React.FC = () => {
       handleAlert(error);
     }
   };
-  if (loggedIn === true) {
-    return <Redirect to="/login" />;
-  }
 
   return (
     <IonPage>

@@ -32,11 +32,10 @@ import LoginPage from "./components/Login";
 import SignupPage from "./components/Signup";
 import ResetPasswordPage from "./components/ResetPassword";
 import AppStack from "./pages/AppStack";
-import { AuthContext } from "./auth";
-import { auth, db } from "./firebase";
+import { AuthContextProvider } from "./AuthContext";
+import { db } from "./firebase";
 import { App as app } from "@capacitor/app";
 import { doc, getDoc } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
 import { Browser } from "@capacitor/browser";
 import { useEffect, useState } from "react";
 import Ayush from "./components/category/Ayush";
@@ -44,6 +43,10 @@ import Covid from "./components/category/Covid";
 import Device from "./components/category/Device";
 import Orthopedics from "./components/category/Orthopedics";
 import AyushDetailsPage from "./components/category/AyushDetails";
+import Homeopathy from "./components/category/Homeopathy";
+import HomeopathyProductDetails from "./components/category/HomeopathyProductDetails";
+import DevicesProductDetails from "./components/category/DevicesProductDetails";
+import OrthopedicProductsDetails from "./components/category/OrthopedicProductsDetails";
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -57,7 +60,7 @@ const App: React.FC = () => {
       message: msg,
       position: "top",
       animated: true,
-      duration: 2000,
+      duration: 1900,
       color: "success",
       mode: "md",
     });
@@ -119,30 +122,19 @@ const App: React.FC = () => {
       // console.log(error);
     }
   };
-
-  const [authState, setAuthState] = useState({
-    loggedIn: false,
-  });
   useEffect(() => {
     getConfigData();
     if (isPlatform("capacitor")) {
       getAppInfo();
     }
   }, []);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setAuthState({ loggedIn: Boolean(user) });
-    });
-  }, []);
-
   checkUpdate();
-  console.log(`rendering App with authState:`, authState);
+
 
   return (
     <Router>
       <IonApp>
-        <AuthContext.Provider value={{ loggedIn: authState.loggedIn }}>
+        <AuthContextProvider>
           <IonReactRouter>
             <IonPage>
               <IonRouterOutlet>
@@ -154,6 +146,7 @@ const App: React.FC = () => {
                   exact={true}
                 />
                 <Route path="/ayush" exact component={Ayush} />
+                <Route path="/homeopathy" exact component={Homeopathy} />
                 <Route path="/covid" component={Covid} />
                 <Route path="/devices" component={Device} />
                 <Route path="/orthopedics" component={Orthopedics} />
@@ -164,11 +157,22 @@ const App: React.FC = () => {
                   render={() => <Redirect to="/signup" />}
                 />
               </IonRouterOutlet>
-              <Route path="/:id" exact component={AyushDetailsPage} />
+              <Route path="/ayush/:id" exact>
+                <AyushDetailsPage />
+              </Route>
+              <Route path="/homeopathy/:id" exact>
+                <HomeopathyProductDetails/>
+              </Route>
+              <Route path="/devices/:id" exact>
+                <DevicesProductDetails/>
+              </Route>
+              <Route path="/orthopedics/:id" exact>
+                <OrthopedicProductsDetails/>
+              </Route>
               <Route path="/tabs" component={AppStack} />
             </IonPage>
           </IonReactRouter>
-        </AuthContext.Provider>
+        </AuthContextProvider>
       </IonApp>
     </Router>
   );

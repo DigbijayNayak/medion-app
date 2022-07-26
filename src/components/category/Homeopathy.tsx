@@ -1,26 +1,14 @@
-import {
-  IonButton,
-  IonCard,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonIcon,
-  IonPage,
-  IonRow,
-  IonText,
-  useIonRouter,
-} from "@ionic/react";
+
+import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, IonText, useIonRouter } from "@ionic/react";
 import { collection, doc, getDocs, setDoc } from "firebase/firestore";
-import { arrowBack, cart, heart} from "ionicons/icons";
+import { arrowBack, cart, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 import 'react-lazy-load-image-component/src/effects/blur.css';
-
-const Orthopedics = ({history}:any) => {
-
-  const [products, setProducts] = useState([]);
-  const router = useIonRouter();
+const Homeopathy = ({history}:any) => {
+    const [products, setProducts] = useState([]);
+    const router = useIonRouter();
 
   const addToWishlist = async(id:any, title: any, image: any, price: any) =>{
     await setDoc(doc(db, "Favourite_Products", id),{
@@ -37,9 +25,10 @@ const Orthopedics = ({history}:any) => {
       price: price,
     })
   }
+
   useEffect(()=>{
     let unmounted = false;
-    getDocs(collection(db, "Orthopedic_Products")).then((snapshot) =>{
+    getDocs(collection(db, "Homeopathy_Products")).then((snapshot) =>{
       const products: any = [];
       snapshot.docs.forEach((docs) =>{
         products.push({...docs.data(), id: docs.id});
@@ -57,8 +46,7 @@ const Orthopedics = ({history}:any) => {
       <IonPage>
         <IonContent>
           <IonGrid>
-
-          <IonRow className="ion-padding">
+            <IonRow className="ion-padding">
               <IonCol>
                 <IonIcon
                   icon={arrowBack}
@@ -68,7 +56,7 @@ const Orthopedics = ({history}:any) => {
                   }}
                 ></IonIcon>
               </IonCol>
-              <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Orthopedic Products</IonText>
+              <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Homeopathy Products</IonText>
               <IonCol>
                 <IonIcon
                   icon={cart}
@@ -76,7 +64,7 @@ const Orthopedics = ({history}:any) => {
                   style={{ fontSize: "25px" }}
                   className="ion-float-right"
                   onClick={() => {
-                    router.push("/tabs/cart");
+                    router.push("/tabs/wishlist");
                   }}
                 ></IonIcon>
                 <IonIcon
@@ -85,7 +73,7 @@ const Orthopedics = ({history}:any) => {
                   color="danger"
                   className="ion-float-right"
                   onClick={() => {
-                    router.push("/tabs/wishlist");
+                    router.push("/tabs/cart");
                   }}
                 ></IonIcon>
               </IonCol>
@@ -99,7 +87,8 @@ const Orthopedics = ({history}:any) => {
                       className="ion-padding ion-text-center"
                       button
                       onClick={() => {
-                        history.push(`Orthopedics/${data.id}`);
+                        history.push(`homeopathy/${data.id}`);
+                        // history.push("/ayush/"+ data.id.toString())
                       }}
                     >
                       <LazyLoadImage
@@ -167,4 +156,4 @@ const Orthopedics = ({history}:any) => {
   );
 };
 
-export default Orthopedics;
+export default Homeopathy;

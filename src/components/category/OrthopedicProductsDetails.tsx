@@ -1,5 +1,5 @@
 import {
-  IonButton,
+    IonButton,
   IonCol,
   IonContent,
   IonGrid,
@@ -13,22 +13,17 @@ import {
   useIonRouter,
   useIonToast,
 } from "@ionic/react";
-import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { alertCircle, arrowBack, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { auth, db } from "../../firebase";
+import { useAuth } from "../../AuthContext";
+import { db } from "../../firebase";
 
-const AyushDetailsPage = () => {
-  const router = useIonRouter();
-  const [userId, setUserId] = useState<any>();
-  onAuthStateChanged(auth, (user) =>{
-    if(user){
-      setUserId(user.uid);
-    }
-  })
+const OrthopedicProductsDetails = () => {
   const { id } = useParams<any>();
+  const { uid } = useAuth();
+  const router = useIonRouter();
   const [present] = useIonToast();
   const [detail, setDetails] = useState({
     title: "",
@@ -46,9 +41,8 @@ const AyushDetailsPage = () => {
       icon: alertCircle,
     });
   };
-
   const addToWishlist = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "users", userId, "Favourite_Products", id), {
+    await setDoc(doc(db, "users", uid, "Favourite_Products", id), {
       title: title,
       image: image,
       price: price,
@@ -56,14 +50,14 @@ const AyushDetailsPage = () => {
   };
 
   const addToCart = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "users", userId, "Cart_Products", id), {
+    await setDoc(doc(db, "users", uid, "Cart_Products", id), {
       title: title,
       image: image,
       price: price,
     });
   };
   useEffect(() => {
-    onSnapshot(doc(db, "Ayush_Products", id), (doc) => {
+    onSnapshot(doc(db, "Orthopedic_Products", id), (doc) => {
       let image: string;
       let price: number;
       let title: string;
@@ -75,7 +69,6 @@ const AyushDetailsPage = () => {
       }
     });
   }, [id]);
-  console.log(detail);
   return (
     <>
       <IonPage>
@@ -85,7 +78,7 @@ const AyushDetailsPage = () => {
               <IonButton
                 fill="clear"
                 onClick={() => {
-                  router.push("/ayush");
+                  router.push("/orthopedics");
                 }}
               >
                 <IonIcon icon={arrowBack}></IonIcon>
@@ -93,7 +86,8 @@ const AyushDetailsPage = () => {
             </IonToolbar>
           </IonHeader>
           <IonGrid>
-            <IonRow>
+
+          <IonRow>
               <IonCol>
                 <IonButton
                   fill="clear"
@@ -149,4 +143,4 @@ const AyushDetailsPage = () => {
   );
 };
 
-export default AyushDetailsPage;
+export default OrthopedicProductsDetails;

@@ -1,34 +1,13 @@
-import {
-  IonButton,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonPage,
-  IonRow,
-  IonText,
-  IonToolbar,
-  useIonRouter,
-  useIonToast,
-} from "@ionic/react";
-import { onAuthStateChanged } from "firebase/auth";
+import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText, IonToolbar, useIonRouter, useIonToast } from "@ionic/react";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { alertCircle, arrowBack, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { auth, db } from "../../firebase";
+import { db } from "../../firebase";
 
-const AyushDetailsPage = () => {
-  const router = useIonRouter();
-  const [userId, setUserId] = useState<any>();
-  onAuthStateChanged(auth, (user) =>{
-    if(user){
-      setUserId(user.uid);
-    }
-  })
+const DevicesProductDetails = () => {
   const { id } = useParams<any>();
+  const router = useIonRouter();
   const [present] = useIonToast();
   const [detail, setDetails] = useState({
     title: "",
@@ -48,7 +27,7 @@ const AyushDetailsPage = () => {
   };
 
   const addToWishlist = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "users", userId, "Favourite_Products", id), {
+    await setDoc(doc(db, "Favourite_Products", id), {
       title: title,
       image: image,
       price: price,
@@ -56,14 +35,15 @@ const AyushDetailsPage = () => {
   };
 
   const addToCart = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "users", userId, "Cart_Products", id), {
+    await setDoc(doc(db, "Cart_Products", id), {
       title: title,
       image: image,
       price: price,
     });
   };
+
   useEffect(() => {
-    onSnapshot(doc(db, "Ayush_Products", id), (doc) => {
+    onSnapshot(doc(db, "Device_Products", id), (doc) => {
       let image: string;
       let price: number;
       let title: string;
@@ -75,7 +55,6 @@ const AyushDetailsPage = () => {
       }
     });
   }, [id]);
-  console.log(detail);
   return (
     <>
       <IonPage>
@@ -85,15 +64,16 @@ const AyushDetailsPage = () => {
               <IonButton
                 fill="clear"
                 onClick={() => {
-                  router.push("/ayush");
+                  router.push("/devices");
                 }}
               >
                 <IonIcon icon={arrowBack}></IonIcon>
               </IonButton>
             </IonToolbar>
           </IonHeader>
+
           <IonGrid>
-            <IonRow>
+          <IonRow>
               <IonCol>
                 <IonButton
                   fill="clear"
@@ -116,7 +96,7 @@ const AyushDetailsPage = () => {
                 ></IonImg>
               </IonCol>
             </IonRow>
-
+            
             <IonRow className="ion-text-center ion-padding-top">
               <IonCol style={{ fontWeight: "bold" }}>
                 <IonText className="ion-padding-top">{detail.title}</IonText>
@@ -142,6 +122,7 @@ const AyushDetailsPage = () => {
                 </IonButton>
               </IonCol>
             </IonRow>
+
           </IonGrid>
         </IonContent>
       </IonPage>
@@ -149,4 +130,4 @@ const AyushDetailsPage = () => {
   );
 };
 
-export default AyushDetailsPage;
+export default DevicesProductDetails;

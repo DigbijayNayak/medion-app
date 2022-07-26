@@ -1,81 +1,63 @@
-import {
-  IonButton,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonPage,
-  IonRow,
-  IonText,
-  IonToolbar,
-  useIonRouter,
-  useIonToast,
-} from "@ionic/react";
-import { onAuthStateChanged } from "firebase/auth";
+import { IonPage, IonContent, IonGrid, useIonRouter, IonButton, IonCol, IonHeader, IonIcon, IonImg, IonRow, IonToolbar, useIonToast, IonText } from "@ionic/react";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { alertCircle, arrowBack, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { auth, db } from "../../firebase";
+import { useAuth } from "../../AuthContext";
+import { db } from "../../firebase";
 
-const AyushDetailsPage = () => {
-  const router = useIonRouter();
-  const [userId, setUserId] = useState<any>();
-  onAuthStateChanged(auth, (user) =>{
-    if(user){
-      setUserId(user.uid);
-    }
-  })
-  const { id } = useParams<any>();
-  const [present] = useIonToast();
-  const [detail, setDetails] = useState({
-    title: "",
-    image: "",
-    price: 1,
-  });
-  const handleToast = (msg: any, theme: any) => {
-    present({
-      message: msg,
-      position: "top",
-      animated: true,
-      duration: 2000,
-      color: `${theme}`,
-      mode: "md",
-      icon: alertCircle,
-    });
-  };
+const HomeopathyProductDetails = () => {
 
-  const addToWishlist = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "users", userId, "Favourite_Products", id), {
-      title: title,
-      image: image,
-      price: price,
-    });
-  };
+    const router = useIonRouter();
+    const { id } = useParams<any>();
+    const {uid} = useAuth();
+    const [present] = useIonToast();
+    const [detail, setDetails] = useState({
+        title: "",
+        image: "",
+        price: 1,
+      });
 
-  const addToCart = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "users", userId, "Cart_Products", id), {
-      title: title,
-      image: image,
-      price: price,
-    });
-  };
-  useEffect(() => {
-    onSnapshot(doc(db, "Ayush_Products", id), (doc) => {
-      let image: string;
-      let price: number;
-      let title: string;
-      if (doc.exists()) {
-        title = doc.data().title;
-        image = doc.data().image;
-        price = doc.data().price;
-        setDetails({ title: title, image: image, price: price });
-      }
-    });
-  }, [id]);
-  console.log(detail);
+    const handleToast = (msg: any, theme: any) => {
+        present({
+          message: msg,
+          position: "top",
+          animated: true,
+          duration: 2000,
+          color: `${theme}`,
+          mode: "md",
+          icon: alertCircle,
+        });
+      };
+
+      const addToWishlist = async (id: any, title: any, image: any, price: any) => {
+        await setDoc(doc(db, "users", uid, "Favourite_Products", id), {
+          title: title,
+          image: image,
+          price: price,
+        });
+      };
+
+      const addToCart = async (id: any, title: any, image: any, price: any) => {
+        await setDoc(doc(db,"users", uid, "Cart_Products", id), {
+          title: title,
+          image: image,
+          price: price,
+        });
+      };
+      useEffect(() => {
+        onSnapshot(doc(db, "Homeopathy_Products", id), (doc) => {
+          let image: string;
+          let price: number;
+          let title: string;
+          if (doc.exists()) {
+            title = doc.data().title;
+            image = doc.data().image;
+            price = doc.data().price;
+            setDetails({ title: title, image: image, price: price });
+          }
+        });
+      }, [id]);
   return (
     <>
       <IonPage>
@@ -85,7 +67,7 @@ const AyushDetailsPage = () => {
               <IonButton
                 fill="clear"
                 onClick={() => {
-                  router.push("/ayush");
+                  router.push("/homeopathy");
                 }}
               >
                 <IonIcon icon={arrowBack}></IonIcon>
@@ -93,7 +75,7 @@ const AyushDetailsPage = () => {
             </IonToolbar>
           </IonHeader>
           <IonGrid>
-            <IonRow>
+          <IonRow>
               <IonCol>
                 <IonButton
                   fill="clear"
@@ -149,4 +131,4 @@ const AyushDetailsPage = () => {
   );
 };
 
-export default AyushDetailsPage;
+export default HomeopathyProductDetails;
