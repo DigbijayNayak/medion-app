@@ -40,7 +40,6 @@ const ResetPasswordPage: React.FC = () => {
           </div>
           <IonList>
             <IonItem className="item">
-              {/* <IonLabel position="stacked">Email</IonLabel> */}
               <IonInput type="email" placeholder="Enter Email / Phone Number"></IonInput>
             </IonItem>
 

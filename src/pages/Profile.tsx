@@ -6,6 +6,7 @@ import {
   IonGrid,
   IonHeader,
   IonIcon,
+  IonLabel,
   IonPage,
   IonRow,
   IonText,
@@ -15,15 +16,22 @@ import {
   useIonRouter,
 } from "@ionic/react";
 
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
 import { chevronForward, heartOutline, helpCircleOutline, informationCircleOutline, locationOutline, notificationsOutline, personCircleOutline } from "ionicons/icons";
+import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useAuth } from "../AuthContext";
 
 const ProfilePage: React.FC = () => {
+  const {uid} = useAuth();
 
   const [loading, dismissloading] = useIonLoading();
+  const [details, setDetails] = useState({
+    name: "",
+    email: "",
+  });
   const router = useIonRouter();
-
   const logout = async () => {
     loading({
       message: 'Loading...',
@@ -42,6 +50,19 @@ const ProfilePage: React.FC = () => {
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    onSnapshot(doc(db, "users", uid), (doc) => {
+      let name: string;
+      let email: string;
+      if (doc.exists()) {
+        console.log(doc.data())
+        name = doc.data().name;
+        email = doc.data().email;
+        setDetails({name, email});
+      }
+    });
+  }, [uid]);
   return (
     <IonPage>
       <IonHeader>
@@ -58,9 +79,24 @@ const ProfilePage: React.FC = () => {
         <IonGrid>
         <IonRow className="ion-justify-content-center ion-padding">
             <IonCol>
-              <IonAvatar className="">
+              <IonAvatar style={{ margin: "auto" }}>
                 <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="prfile"></img>
               </IonAvatar>
+            </IonCol>
+          </IonRow>
+
+          <IonRow>
+            <IonCol className="ion-text-center">
+              <IonLabel>
+                {details.name}
+              </IonLabel>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <IonCol className="ion-text-center">
+              <IonLabel>
+                {details.email}
+              </IonLabel>
             </IonCol>
           </IonRow>
 

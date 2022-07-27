@@ -11,6 +11,7 @@ import {
   IonRouterLink,
   IonRow,
   IonText,
+  isPlatform,
   useIonAlert,
   useIonLoading,
   useIonRouter,
@@ -30,13 +31,14 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { auth } from "../firebase";
-import { useAuth } from "../auth";
+import { auth, db } from "../firebase";
+import { useAuth } from "../AuthContext";
 import { Redirect } from "react-router";
-// import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
+import { doc, setDoc } from "firebase/firestore";
+import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
 const LoginPage: React.FC = () => {
-  const { loggedIn } = useAuth();
+  const {loggedIn, login, uid}  = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const [present] = useIonToast();
@@ -45,22 +47,22 @@ const LoginPage: React.FC = () => {
   const router = useIonRouter();
   
 
-  // const googleLogin = () => {
-  //   if(isPlatform("android")){
-  //     signInGoogle();
-  //   }else{
-  //     signInWithGoogle();
-  //   }
-  // }
-  // const signInGoogle = async () => {
-  //     GoogleAuth.initialize();
-  //     const result = await GoogleAuth.signIn();
-  //     console.log(result);
-  //     if (result) {
-  //       router.push("/tabs/home");
-  //       console.log(result);
-  //     }
-  // }
+  const googleLogin = () => {
+    if(isPlatform("android")){
+      signInGoogle();
+    }else{
+      signInWithGoogle();
+    }
+  }
+  const signInGoogle = async () => {
+      GoogleAuth.initialize();
+      const result = await GoogleAuth.signIn();
+      console.log(result);
+      if (result) {
+        login();
+        console.log(result);
+      }
+  }
   
 
 
@@ -96,6 +98,12 @@ const LoginPage: React.FC = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((res) => {
+        setDoc(doc(db, "users", res.user.uid),{
+          name: res.user.displayName,
+          email: email,
+          uid: res.user.uid,
+        })
+        login();
         console.log(res);
       })
       .catch((error) => {
@@ -143,11 +151,9 @@ const LoginPage: React.FC = () => {
           })
           await signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-              console.log(userCredential);
-              if (loggedIn) {
-                return <Redirect to="/tabs/home" />;
-              }            
-              router.push("/tabs/home");
+              console.log(userCredential)
+              login();
+              console.log(userCredential.user.displayName);
               dismissloading();
               handleToast("Login Successfully.", 'success');
             })
@@ -165,11 +171,10 @@ const LoginPage: React.FC = () => {
       console.log(error);
     }
   };
-  if (loggedIn) {
-    return <Redirect to="/tabs/home" />;
+  console.log(uid);
+  if(loggedIn){
+    return <Redirect to="/tabs/home" />
   }
-
-
   return (
     <IonPage>
       <IonContent fullscreen className="login">
@@ -242,7 +247,6 @@ const LoginPage: React.FC = () => {
                     fontSize: "12px",
                     marginLeft: "10px",
                     marginBottom: "10px",
-                    // fontWeight: "bold"
                   }}
                 >
                   Remember Me
@@ -294,7 +298,7 @@ const LoginPage: React.FC = () => {
                   <IonButton fill="clear" onClick={() => signInWithFacebook()}>
                     <IonIcon icon={logoFacebook} className="facebook" />
                   </IonButton>
-                  <IonButton fill="clear" onClick={() => signInWithGoogle()}>
+                  <IonButton fill="clear" onClick={() => googleLogin()}>
                     <IonIcon
                       icon={logoGoogle}
                       className="google"
