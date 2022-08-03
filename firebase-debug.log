@@ -1,25 +1,159 @@
-[debug] [2022-07-20T12:35:54.843Z] ----------------------------------------------------------------------
-[debug] [2022-07-20T12:35:54.845Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
-[debug] [2022-07-20T12:35:54.845Z] CLI Version:   11.3.0
-[debug] [2022-07-20T12:35:54.845Z] Platform:      win32
-[debug] [2022-07-20T12:35:54.845Z] Node Version:  v16.14.2
-[debug] [2022-07-20T12:35:54.849Z] Time:          Wed Jul 20 2022 18:05:54 GMT+0530 (India Standard Time)
-[debug] [2022-07-20T12:35:54.849Z] ----------------------------------------------------------------------
+[debug] [2022-07-28T10:13:20.128Z] ----------------------------------------------------------------------
+[debug] [2022-07-28T10:13:20.130Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Admin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2022-07-28T10:13:20.130Z] CLI Version:   11.3.0
+[debug] [2022-07-28T10:13:20.130Z] Platform:      win32
+[debug] [2022-07-28T10:13:20.130Z] Node Version:  v16.14.2
+[debug] [2022-07-28T10:13:20.131Z] Time:          Thu Jul 28 2022 15:43:20 GMT+0530 (India Standard Time)
+[debug] [2022-07-28T10:13:20.131Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2022-07-20T12:35:54.899Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2022-07-20T12:35:54.900Z] > authorizing via signed-in user (digbijaynayak522@gmail.com)
+[debug] [2022-07-28T10:13:20.187Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-07-28T10:13:20.188Z] > authorizing via signed-in user (digbijaynayak522@gmail.com)
+[debug] [2022-07-28T10:13:20.188Z] [iam] checking project medion-app-8e581 for permissions ["firebase.projects.get"]
+[debug] [2022-07-28T10:13:20.190Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/medion-app-8e581:testIamPermissions [none]
+[debug] [2022-07-28T10:13:20.190Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medion-app-8e581:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-07-28T10:13:20.513Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/medion-app-8e581:testIamPermissions 200
+[debug] [2022-07-28T10:13:20.513Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/medion-app-8e581:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-07-28T10:13:20.514Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581 [none]
+[debug] [2022-07-28T10:13:20.980Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581 200
+[debug] [2022-07-28T10:13:20.980Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581 {"projectId":"medion-app-8e581","projectNumber":"1086877097278","displayName":"MediON-App","name":"projects/medion-app-8e581","resources":{"hostingSite":"medion-app-8e581","storageBucket":"medion-app-8e581.appspot.com","locationId":"us-central"},"state":"ACTIVE","etag":"1_62176228-d7d8-44a4-875f-035b146edeac"}
 [info] 
-     ######## #### ########  ######## ########     ###     ######  ########
-     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
-     ######    ##  ########  ######   ########  #########  ######  ######
-     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
-     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+[info] === Serving from 'C:\Users\Admin\Desktop\App\medion-app'...
+[info] 
+[debug] [2022-07-28T10:13:20.983Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/medion-app-8e581/sites 
+[info] +  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-07-28T10:13:21.000Z] defaultcredentials: writing to file C:\Users\Admin\AppData\Roaming\firebase\digbijaynayak522_gmail_com_application_default_credentials.json
+[debug] [2022-07-28T10:13:21.001Z] Setting GAC to C:\Users\Admin\AppData\Roaming\firebase\digbijaynayak522_gmail_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\Admin\\AppData\\Roaming\\firebase\\digbijaynayak522_gmail_com_application_default_credentials.json"}}
+[debug] [2022-07-28T10:13:21.002Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581/adminSdkConfig [none]
+[debug] [2022-07-28T10:13:21.371Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581/adminSdkConfig 200
+[debug] [2022-07-28T10:13:21.371Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581/adminSdkConfig {"projectId":"medion-app-8e581","storageBucket":"medion-app-8e581.appspot.com","locationId":"us-central"}
+[debug] [2022-07-28T10:13:22.736Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/medion-app-8e581/sites 200
+[debug] [2022-07-28T10:13:22.736Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/medion-app-8e581/sites {"sites":[{"name":"projects/medion-app-8e581/sites/medion-app-8e581","defaultUrl":"https://medion-app-8e581.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2022-07-28T10:13:22.736Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581/webApps/-/config [none]
+[debug] [2022-07-28T10:13:23.780Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581/webApps/-/config 200
+[debug] [2022-07-28T10:13:23.780Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/medion-app-8e581/webApps/-/config {"projectId":"medion-app-8e581","appId":"1:1086877097278:web:ecc0f7b34b89ffa92ca06f","storageBucket":"medion-app-8e581.appspot.com","locationId":"us-central","apiKey":"AIzaSyBef6MiXjHrAxcq3B0JMWu6IpkBAZcXMDM","authDomain":"medion-app-8e581.firebaseapp.com","messagingSenderId":"1086877097278"}
+[info] i  functions: Watching "C:\Users\Admin\Desktop\App\medion-app\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\" for Cloud Functions..."}}
+[info] i  hosting: Serving hosting files from: build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mbuild\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}
+[debug] [2022-07-28T10:13:23.835Z] Validating nodejs source
+[debug] [2022-07-28T10:13:25.872Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^3.18.0",
+    "stripe": "^9.16.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-07-28T10:13:25.872Z] Building nodejs source
+[debug] [2022-07-28T10:13:25.872Z] Analyzing nodejs backend spec
+[debug] [2022-07-28T10:13:25.873Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-07-28T10:13:26.116Z] Serving at port 9005
 
-You're about to initialize a Firebase project in this directory:
+[debug] [2022-07-28T10:13:26.191Z] Got response from /__/functions.yaml {"endpoints":{"createStripeCheckout":{"platform":"gcfv1","labels":{},"callableTrigger":{},"entryPoint":"createStripeCheckout"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+[debug] [2022-07-28T10:13:26.197Z] shutdown requested via /__/quitquitquit
 
-  C:\Users\Admin\Desktop\App\medion-app
-
-Before we get started, keep in mind:
-
-  * You are initializing within an existing Firebase project directory
-
+[info] +  functions[us-central1-createStripeCheckout]: http function initialized (http://localhost:5001/medion-app-8e581/us-central1/createStripeCheckout). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://localhost:5001/medion-app-8e581/us-central1/createStripeCheckout)."}}
+[debug] [2022-07-28T10:14:47.110Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-07-28T10:14:47.110Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-07-28T10:14:47.111Z] Accepted request GET /medion-app-8e581/us-central1/createStripeCheckout --> us-central1-createStripeCheckout
+[debug] [2022-07-28T10:14:47.120Z] [worker-pool] addWorker(us-central1-createStripeCheckout) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-createStripeCheckout)"}}
+[debug] [2022-07-28T10:14:47.120Z] [worker-pool] Adding worker with key us-central1-createStripeCheckout, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-createStripeCheckout, total=1"}}
+[debug] [2022-07-28T10:14:47.120Z] [worker-pool] submitWork(triggerId=us-central1-createStripeCheckout) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=us-central1-createStripeCheckout)"}}
+[debug] [2022-07-28T10:14:47.121Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY"}}
+[debug] [2022-07-28T10:14:48.170Z] [runtime-status] [7904] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-07-28T10:14:48.170Z] [runtime-status] [7904] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.22.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.22.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2022-07-28T10:14:48.171Z] [runtime-status] [7904] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-07-28T10:14:48.171Z] [runtime-status] [7904] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.22.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.22.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2022-07-28T10:14:48.208Z] [runtime-status] [7904] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Checked functions.config() {\"config\":{}}"}}
+[debug] [2022-07-28T10:14:48.209Z] [runtime-status] [7904] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.22.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-functions\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"3.22.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}}"}}
+[debug] [2022-07-28T10:14:48.209Z] [runtime-status] [7904] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.22.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.22.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2022-07-28T10:14:48.210Z] [runtime-status] [7904] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-07-28T10:14:48.211Z] [runtime-status] [7904] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.22.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-functions\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.22.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\index.js\"}"}}
+[debug] [2022-07-28T10:14:48.211Z] [runtime-status] [7904] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2022-07-28T10:14:48.211Z] [runtime-status] [7904] Functions runtime initialized. {"cwd":"C:\\Users\\Admin\\Desktop\\App\\medion-app\\functions","node_version":"16.14.2"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\Admin\\\\Desktop\\\\App\\\\medion-app\\\\functions\",\"node_version\":\"16.14.2\"}"}}
+[debug] [2022-07-28T10:14:48.213Z] [runtime-status] [7904] Beginning invocation function createStripeCheckout! {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Beginning invocation function createStripeCheckout!"}}
+[info] i  functions: Beginning execution of "createStripeCheckout" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Beginning execution of \"createStripeCheckout\""}}
+[debug] [2022-07-28T10:14:48.213Z] [runtime-status] [7904] Running createStripeCheckout in signature http {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Running createStripeCheckout in signature http"}}
+[debug] [2022-07-28T10:14:48.217Z] [runtime-status] [7904] Attempting to listen to port: \\?\pipe\fire_emu_a88ddd09a72f93b7 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Attempting to listen to port: \\\\?\\pipe\\fire_emu_a88ddd09a72f93b7"}}
+[debug] [2022-07-28T10:14:48.316Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-07-28T10:14:48.317Z] [functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/"}}
+[debug] [2022-07-28T10:14:48.318Z] [runtime-status] [7904] Ephemeral server handling GET request {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server handling GET request"}}
+[info] >  {"severity":"WARNING","message":"Request has invalid method. GET"} {"user":{"severity":"WARNING","message":"Request has invalid method. GET"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"WARNING\",\"message\":\"Request has invalid method. GET\"}"}}
+[info] >  {"severity":"ERROR","message":"Invalid request, unable to process."} {"user":{"severity":"ERROR","message":"Invalid request, unable to process."},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"ERROR\",\"message\":\"Invalid request, unable to process.\"}"}}
+[debug] [2022-07-28T10:14:48.323Z] [runtime-status] [7904] Ephemeral server survived. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server survived."}}
+[info] i  functions: Finished "createStripeCheckout" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Finished \"createStripeCheckout\" in ~1s"}}
+[debug] [2022-07-28T10:14:48.323Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE"}}
+[debug] [2022-07-28T10:14:48.324Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-07-28T10:14:48.408Z] Functions emulator received unknown request at path /favicon.ico
+[debug] [2022-07-28T10:15:13.078Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-07-28T10:15:13.079Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-07-28T10:15:13.079Z] Accepted request GET /medion-app-8e581/us-central1/createStripeCheckout --> us-central1-createStripeCheckout
+[debug] [2022-07-28T10:15:13.079Z] [worker-pool] submitWork(triggerId=us-central1-createStripeCheckout) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=us-central1-createStripeCheckout)"}}
+[debug] [2022-07-28T10:15:13.079Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY"}}
+[debug] [2022-07-28T10:15:13.079Z] [runtime-status] [7904] Beginning invocation function createStripeCheckout! {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Beginning invocation function createStripeCheckout!"}}
+[info] i  functions: Beginning execution of "createStripeCheckout" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Beginning execution of \"createStripeCheckout\""}}
+[debug] [2022-07-28T10:15:13.080Z] [runtime-status] [7904] Running createStripeCheckout in signature http {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Running createStripeCheckout in signature http"}}
+[debug] [2022-07-28T10:15:13.080Z] [runtime-status] [7904] Attempting to listen to port: \\?\pipe\fire_emu_a88ddd09a72f93b7 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Attempting to listen to port: \\\\?\\pipe\\fire_emu_a88ddd09a72f93b7"}}
+[debug] [2022-07-28T10:15:13.191Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-07-28T10:15:13.191Z] [functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/"}}
+[debug] [2022-07-28T10:15:13.193Z] [runtime-status] [7904] Ephemeral server handling GET request {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server handling GET request"}}
+[info] >  {"severity":"WARNING","message":"Request has invalid method. GET"} {"user":{"severity":"WARNING","message":"Request has invalid method. GET"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"WARNING\",\"message\":\"Request has invalid method. GET\"}"}}
+[info] >  {"severity":"ERROR","message":"Invalid request, unable to process."} {"user":{"severity":"ERROR","message":"Invalid request, unable to process."},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"ERROR\",\"message\":\"Invalid request, unable to process.\"}"}}
+[debug] [2022-07-28T10:15:13.194Z] [runtime-status] [7904] Ephemeral server survived. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server survived."}}
+[info] i  functions: Finished "createStripeCheckout" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Finished \"createStripeCheckout\" in ~1s"}}
+[debug] [2022-07-28T10:15:13.195Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE"}}
+[debug] [2022-07-28T10:15:13.195Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-07-28T10:15:15.509Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-07-28T10:15:15.509Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-07-28T10:15:15.509Z] Accepted request GET /medion-app-8e581/us-central1/createStripeCheckout --> us-central1-createStripeCheckout
+[debug] [2022-07-28T10:15:15.509Z] [worker-pool] submitWork(triggerId=us-central1-createStripeCheckout) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=us-central1-createStripeCheckout)"}}
+[debug] [2022-07-28T10:15:15.510Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY"}}
+[debug] [2022-07-28T10:15:15.510Z] [runtime-status] [7904] Beginning invocation function createStripeCheckout! {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Beginning invocation function createStripeCheckout!"}}
+[info] i  functions: Beginning execution of "createStripeCheckout" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Beginning execution of \"createStripeCheckout\""}}
+[debug] [2022-07-28T10:15:15.511Z] [runtime-status] [7904] Running createStripeCheckout in signature http {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Running createStripeCheckout in signature http"}}
+[debug] [2022-07-28T10:15:15.511Z] [runtime-status] [7904] Attempting to listen to port: \\?\pipe\fire_emu_a88ddd09a72f93b7 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Attempting to listen to port: \\\\?\\pipe\\fire_emu_a88ddd09a72f93b7"}}
+[debug] [2022-07-28T10:15:15.621Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-07-28T10:15:15.621Z] [functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/"}}
+[debug] [2022-07-28T10:15:15.626Z] [runtime-status] [7904] Ephemeral server handling GET request {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server handling GET request"}}
+[info] >  {"severity":"WARNING","message":"Request has invalid method. GET"} {"user":{"severity":"WARNING","message":"Request has invalid method. GET"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"WARNING\",\"message\":\"Request has invalid method. GET\"}"}}
+[debug] [2022-07-28T10:15:15.629Z] [runtime-status] [7904] Ephemeral server survived. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server survived."}}
+[info] >  {"severity":"ERROR","message":"Invalid request, unable to process."} {"user":{"severity":"ERROR","message":"Invalid request, unable to process."},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"ERROR\",\"message\":\"Invalid request, unable to process.\"}"}}
+[info] i  functions: Finished "createStripeCheckout" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Finished \"createStripeCheckout\" in ~1s"}}
+[debug] [2022-07-28T10:15:15.630Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE"}}
+[debug] [2022-07-28T10:15:15.630Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-07-28T10:15:16.835Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-07-28T10:15:16.835Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-07-28T10:15:16.836Z] Accepted request GET /medion-app-8e581/us-central1/createStripeCheckout --> us-central1-createStripeCheckout
+[debug] [2022-07-28T10:15:16.836Z] [worker-pool] submitWork(triggerId=us-central1-createStripeCheckout) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=us-central1-createStripeCheckout)"}}
+[debug] [2022-07-28T10:15:16.837Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: BUSY"}}
+[debug] [2022-07-28T10:15:16.838Z] [runtime-status] [7904] Beginning invocation function createStripeCheckout! {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Beginning invocation function createStripeCheckout!"}}
+[info] i  functions: Beginning execution of "createStripeCheckout" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Beginning execution of \"createStripeCheckout\""}}
+[debug] [2022-07-28T10:15:16.839Z] [runtime-status] [7904] Running createStripeCheckout in signature http {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Running createStripeCheckout in signature http"}}
+[debug] [2022-07-28T10:15:16.839Z] [runtime-status] [7904] Attempting to listen to port: \\?\pipe\fire_emu_a88ddd09a72f93b7 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Attempting to listen to port: \\\\?\\pipe\\fire_emu_a88ddd09a72f93b7"}}
+[debug] [2022-07-28T10:15:16.942Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-07-28T10:15:16.942Z] [functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/medion-app-8e581/us-central1/createStripeCheckout, mapping to path=/"}}
+[debug] [2022-07-28T10:15:16.943Z] [runtime-status] [7904] Ephemeral server handling GET request {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server handling GET request"}}
+[info] >  {"severity":"WARNING","message":"Request has invalid method. GET"} {"user":{"severity":"WARNING","message":"Request has invalid method. GET"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"WARNING\",\"message\":\"Request has invalid method. GET\"}"}}
+[info] >  {"severity":"ERROR","message":"Invalid request, unable to process."} {"user":{"severity":"ERROR","message":"Invalid request, unable to process."},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"severity\":\"ERROR\",\"message\":\"Invalid request, unable to process.\"}"}}
+[debug] [2022-07-28T10:15:16.944Z] [runtime-status] [7904] Ephemeral server survived. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"[runtime-status] [7904] Ephemeral server survived."}}
+[info] i  functions: Finished "createStripeCheckout" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-createStripeCheckout"},"extension":{},"message":"Finished \"createStripeCheckout\" in ~1s"}}
+[debug] [2022-07-28T10:15:16.945Z] [worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-createStripeCheckout-8d047d36-f576-41f8-ae34-6df4b4fb6ecc]: IDLE"}}
+[debug] [2022-07-28T10:15:16.945Z] [work-queue] {"queueLength":0,"workRunningCount":0}

@@ -42,11 +42,13 @@ import Ayush from "./components/category/Ayush";
 import Covid from "./components/category/Covid";
 import Device from "./components/category/Device";
 import Orthopedics from "./components/category/Orthopedics";
-import AyushDetailsPage from "./components/category/AyushDetails";
+import AyushDetailsPage from "./components/category/DetailsPage";
 import Homeopathy from "./components/category/Homeopathy";
-import HomeopathyProductDetails from "./components/category/HomeopathyProductDetails";
-import DevicesProductDetails from "./components/category/DevicesProductDetails";
-import OrthopedicProductsDetails from "./components/category/OrthopedicProductsDetails";
+import PaymentSheet from "./pages/PaymentOptions/PaymentSheet";
+import DetailsPage from "./components/category/DetailsPage";
+import MyOrder from "./components/MyOrder";
+import OrderDetails from "./components/OrderDetails";
+
 setupIonicReact();
 
 const App: React.FC = () => {
@@ -145,11 +147,21 @@ const App: React.FC = () => {
                   component={ResetPasswordPage}
                   exact={true}
                 />
+                <Route path="/myorder" exact component={MyOrder} />
                 <Route path="/ayush" exact component={Ayush} />
                 <Route path="/homeopathy" exact component={Homeopathy} />
                 <Route path="/covid" component={Covid} />
                 <Route path="/devices" component={Device} />
                 <Route path="/orthopedics" component={Orthopedics} />
+                <Route path="/success">
+                  <PaymentSheet />
+                </Route>
+                <Route path="/cancel">
+                  <PaymentSheet />
+                </Route>
+                <Route path="/payment">
+                  <PaymentSheet />
+                </Route>
 
                 <Route
                   exact
@@ -158,16 +170,19 @@ const App: React.FC = () => {
                 />
               </IonRouterOutlet>
               <Route path="/ayush/:id" exact>
-                <AyushDetailsPage />
+                <DetailsPage />
               </Route>
               <Route path="/homeopathy/:id" exact>
-                <HomeopathyProductDetails/>
+                <DetailsPage/>
               </Route>
               <Route path="/devices/:id" exact>
-                <DevicesProductDetails/>
+                <DetailsPage/>
               </Route>
               <Route path="/orthopedics/:id" exact>
-                <OrthopedicProductsDetails/>
+                <DetailsPage/>
+              </Route>
+              <Route path="/myorder/:id" exact>
+                <OrderDetails />
               </Route>
               <Route path="/tabs" component={AppStack} />
             </IonPage>

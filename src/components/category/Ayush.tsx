@@ -14,7 +14,7 @@ import { arrowBack, cart, heart} from "ionicons/icons";
 import { LazyLoadImage } from '@dcasia/react-lazy-load-image-component-improved';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useEffect, useState } from "react";
-import { collection, getDocs, setDoc, doc } from "firebase/firestore";
+import { collection, getDocs, setDoc, doc, where, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import { useAuth } from "../../AuthContext";
 
@@ -40,7 +40,8 @@ const Ayush = ({history}:any) => {
   }
   useEffect(()=>{
     let unmounted = false;
-    getDocs(collection(db, "Ayush_Products")).then((snapshot) =>{
+    const q =  query(collection(db, "Products"),where("category", "==", "BMXlZ9MLxrBtPnjPeA6L"));
+    getDocs(q).then((snapshot) =>{
       const products: any = [];
       snapshot.docs.forEach((docs) =>{
         products.push({...docs.data(), id: docs.id});
@@ -81,7 +82,11 @@ const Ayush = ({history}:any) => {
                 return (
                   <IonCol key={data.id} size="6" sizeSm="4" sizeMd="3">
                     <IonCard className="ion-padding ion-text-center" button onClick={() => {
-                      history.push(`ayush/${data.id}`)
+                      history.push({
+                        pathname: `ayush/${data.id}`,
+                        state: { pathString: '/ayush' }
+                      })
+                      // history.push(`ayush/${data.id}`)
                     }}>
                     
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="80" height="80px" style={{margin: "auto"}} /><br />

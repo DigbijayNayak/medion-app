@@ -171,7 +171,6 @@ const LoginPage: React.FC = () => {
       console.log(error);
     }
   };
-  console.log(uid);
   if(loggedIn){
     return <Redirect to="/tabs/home" />
   }

@@ -25,7 +25,7 @@ import { db } from "../firebase";
 import { useAuth } from "../AuthContext";
 const HomePage: React.FC = ({history}:any) => {
   const router = useIonRouter();
-  const {total, totalProduct} = useAuth();
+  const {total, totalProduct, totalWishlist} = useAuth();
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
   const [products, setProducts] = useState([]);
@@ -69,6 +69,7 @@ const HomePage: React.FC = ({history}:any) => {
       setProducts(products);
     });
     totalProduct();
+    totalWishlist();
   }, [])
 
   return (

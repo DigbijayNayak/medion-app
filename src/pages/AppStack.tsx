@@ -18,7 +18,7 @@ import ProfilePage from "./Profile";
 import SearchPage from "./Search";
 import WishlistPage from "./Wishlist";
 const AppStack: React.FC = () => {
-  const {total} = useAuth();
+  const {total, totalFavourites} = useAuth();
   const {loggedIn} = useAuth();
   if (loggedIn === false) {
     return <Redirect to="/login" />;
@@ -44,11 +44,12 @@ const AppStack: React.FC = () => {
           <IonLabel style={{ fontSize: "9px" }}>search</IonLabel>
         </IonTabButton>
         <IonTabButton tab="wishlist" href="/tabs/wishlist">
+        <IonText className="circle" style={{position: "absolute",left:"18px", top: "2px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{totalFavourites}</IonText>
           <IonIcon icon={heart} />
           <IonLabel style={{ fontSize: "9px" }}>Wishlist</IonLabel>
         </IonTabButton>
         <IonTabButton tab="cart" href="/tabs/cart">
-        {/* <IonText className="circle" style={{position: "absolute", top: "0px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{total}</IonText> */}
+        <IonText className="circle" style={{position: "absolute",left:"18px", top: "2px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{total}</IonText>
           <IonIcon icon={cart} />
           <IonLabel style={{ fontSize: "9px" }}>Cart</IonLabel>
         </IonTabButton>

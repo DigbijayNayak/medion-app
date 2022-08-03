@@ -17,15 +17,17 @@ import { onAuthStateChanged } from "firebase/auth";
 import { collection, deleteDoc, doc, onSnapshot, query, setDoc, where } from "firebase/firestore";
 import { alertCircle, arrowBack, heart, heartOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { useAuth } from "../../AuthContext";
 import { auth, db } from "../../firebase";
-
-const AyushDetailsPage = () => {
-  const {total, totalProduct} = useAuth();
+const DetailsPage = () => {
+  const {total, totalProduct, totalWishlist} = useAuth();
   const router = useIonRouter();
   const [userId, setUserId] = useState<any>();
   const [status, setStatus] = useState(false);
+  const Location = useLocation();
+
+  let data:any = Location.state;
   onAuthStateChanged(auth, (user) =>{
     if(user){
       setUserId(user.uid);
@@ -67,6 +69,7 @@ const AyushDetailsPage = () => {
       price: price,
     });
     setStatus(true);
+    totalWishlist();
   };
 
   const addToCart = async (id: any, title: any, image: any, price: any) => {
@@ -77,7 +80,8 @@ const AyushDetailsPage = () => {
     });
   };
   useEffect(() => {
-    onSnapshot(doc(db, "Ayush_Products", id), (doc) => {
+    // const q =  query(collection(db, "Products"),where("category", "==", "BMXlZ9MLxrBtPnjPeA6L"));
+    onSnapshot(doc(db, "Products", id), (doc) => {
       let image: string;
       let price: number;
       let title: string;
@@ -89,8 +93,6 @@ const AyushDetailsPage = () => {
       }
     });
   }, [id]);
-  console.log(detail);
-  console.log(total);
   return (
     <>
       <IonPage>
@@ -100,7 +102,7 @@ const AyushDetailsPage = () => {
               <IonButton
                 fill="clear"
                 onClick={() => {
-                  router.push("/ayush");
+                  router.push(data.pathString);
                 }}
               >
                 <IonIcon icon={arrowBack}></IonIcon>
@@ -172,4 +174,4 @@ const AyushDetailsPage = () => {
   );
 };
 
-export default AyushDetailsPage;
+export default DetailsPage;

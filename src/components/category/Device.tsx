@@ -14,7 +14,7 @@ import { arrowBack, cart, heart} from "ionicons/icons";
 import { LazyLoadImage } from '@dcasia/react-lazy-load-image-component-improved';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useEffect, useState } from "react";
-import { collection, getDocs, setDoc, doc } from "firebase/firestore";
+import { collection, getDocs, setDoc, doc, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
 const Device = ({history}:any) => {
 
@@ -40,7 +40,8 @@ const Device = ({history}:any) => {
 
   useEffect(()=>{
     let unmounted = false;
-    getDocs(collection(db, "Device_Products")).then((snapshot) =>{
+    const q =  query(collection(db, "Products"),where("category", "==", "XxhgIwU5LDsHElddbWCn"));
+    getDocs(q).then((snapshot) =>{
       const products: any = [];
       snapshot.docs.forEach((docs) =>{
         products.push({...docs.data(), id: docs.id});
@@ -80,7 +81,10 @@ const Device = ({history}:any) => {
                 return (
                   <IonCol key={data.id} size="6" sizeSm="4" sizeMd="3">
                     <IonCard className="ion-padding ion-text-center" button onClick={() => {
-                      history.push(`devices/${data.id}`)
+                      history.push({
+                        pathname: `devices/${data.id}`,
+                        state: {pathString: "/devices"}
+                      })
                     }}>
                     
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="80" height="80px" style={{margin: "auto"}} />
@@ -90,17 +94,6 @@ const Device = ({history}:any) => {
                         Best Price
                         ₹{data.price}
                       </IonText><br />
-                      <IonButton fill="clear" onClick={(e) =>{
-                        e.preventDefault();
-                        addToWishlist(data.id, data.title, data.image,  data.price)
-                      }} color="danger">
-                        <IonIcon icon={heart} color="danger" style={{fontSize: "20px"}}></IonIcon>
-                      </IonButton>
-                      
-                      <IonButton fill="clear" onClick={(e) =>{
-                        e.preventDefault();
-                        addToCart(data.id, data.title, data.image, data.price);
-                      }}> <IonIcon icon={cart} style={{fontSize: "20px"}}/></IonButton>
                     </IonCard>
                   </IonCol>
                 );

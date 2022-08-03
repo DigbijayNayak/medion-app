@@ -18,13 +18,23 @@ import {
 
 import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
-import { chevronForward, heartOutline, helpCircleOutline, informationCircleOutline, locationOutline, notificationsOutline, personCircleOutline } from "ionicons/icons";
+import {
+  briefcase,
+  briefcaseOutline,
+  chevronForward,
+  heartOutline,
+  helpCircleOutline,
+  informationCircleOutline,
+  locationOutline,
+  notificationsOutline,
+  personCircleOutline,
+} from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useAuth } from "../AuthContext";
 
 const ProfilePage: React.FC = () => {
-  const {uid} = useAuth();
+  const { uid } = useAuth();
 
   const [loading, dismissloading] = useIonLoading();
   const [details, setDetails] = useState({
@@ -34,11 +44,11 @@ const ProfilePage: React.FC = () => {
   const router = useIonRouter();
   const logout = async () => {
     loading({
-      message: 'Loading...',
+      message: "Loading...",
       duration: 3000,
       spinner: "lines-sharp",
       mode: "md",
-    })
+    });
     await signOut(auth)
       .then(() => {
         dismissloading();
@@ -56,10 +66,10 @@ const ProfilePage: React.FC = () => {
       let name: string;
       let email: string;
       if (doc.exists()) {
-        console.log(doc.data())
+        console.log(doc.data());
         name = doc.data().name;
         email = doc.data().email;
-        setDetails({name, email});
+        setDetails({ name, email });
       }
     });
   }, [uid]);
@@ -77,97 +87,157 @@ const ProfilePage: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         <IonGrid>
-        <IonRow className="ion-justify-content-center ion-padding">
+          <IonRow className="ion-justify-content-center ion-padding">
             <IonCol>
               <IonAvatar style={{ margin: "auto" }}>
-                <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="prfile"></img>
+                <img
+                  src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                  alt="prfile"
+                ></img>
               </IonAvatar>
             </IonCol>
           </IonRow>
 
           <IonRow>
             <IonCol className="ion-text-center">
-              <IonLabel>
-                {details.name}
-              </IonLabel>
+              <IonLabel>{details.name}</IonLabel>
             </IonCol>
           </IonRow>
           <IonRow>
             <IonCol className="ion-text-center">
-              <IonLabel>
-                {details.email}
-              </IonLabel>
+              <IonLabel>{details.email}</IonLabel>
             </IonCol>
           </IonRow>
 
-          <IonRow className="ion-padding">
-            <IonCol size="12">
+          <IonRow
+            className="ion-padding ion-justify-content-center"
+            style={{ marginTop: "10px" }}
+          >
+            <IonCol size="2">
               <IonIcon
                 icon={personCircleOutline}
-                className="ion-padding-end"
+                className="ion-margin-start"
               ></IonIcon>
-              <IonText>Account</IonText>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">Account</IonText>
+            </IonCol>
+            <IonCol>
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
 
           <IonRow className="ion-padding">
-            <IonCol size="12">
+            <IonCol size="2">
               <IonIcon
                 icon={locationOutline}
-                className="ion-padding-end"
+                className="ion-margin-start"
               ></IonIcon>
-              <IonText>Delivery Address</IonText>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">Delivery Address</IonText>
+            </IonCol>
+            <IonCol size="2">
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
 
+          <IonRow className="ion-padding" onClick={() => {
+            router.push('/myorder')
+          }}>
+            <IonCol size="2">
+              <IonIcon icon={briefcaseOutline} className="ion-margin-start"></IonIcon>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">My Orders</IonText>
+            </IonCol>
+            <IonCol>
+              <IonIcon icon={chevronForward}/>
+            </IonCol>
+          </IonRow>
+
           <IonRow className="ion-padding">
-            <IonCol size="12">
+            <IonCol size="2">
               <IonIcon
                 icon={heartOutline}
-                className="ion-padding-end"
+                className="ion-margin-start"
               ></IonIcon>
-              <IonText>Wishlist</IonText>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">Wishlist</IonText>
+            </IonCol>
+            <IonCol>
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
 
           <IonRow className="ion-padding">
-            <IonCol size="12">
+            <IonCol size="2">
               <IonIcon
                 icon={notificationsOutline}
-                className="ion-padding-end"
+                className="ion-margin-start"
               ></IonIcon>
-              <IonText>Notifications</IonText>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">Notifications</IonText>
+            </IonCol>
+            <IonCol>
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
 
           <IonRow className="ion-padding">
-            <IonCol>
+            <IonCol size="2">
               <IonIcon
                 icon={helpCircleOutline}
-                className="ion-padding-end"
+                className="ion-margin-start"
               ></IonIcon>
-              <IonText>Help</IonText>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">Help</IonText>
+            </IonCol>
+            <IonCol>
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
+
           <IonRow className="ion-padding">
-            <IonCol>
+            <IonCol size="2">
               <IonIcon
                 icon={informationCircleOutline}
-                className="ion-padding-end"
+                className="ion-margin-start"
               />
-              <IonText>About</IonText>
+            </IonCol>
+            <IonCol size="8">
+              <IonText className="ion-margin-start">About</IonText>
+            </IonCol>
+            <IonCol>
               <IonIcon icon={chevronForward} />
             </IonCol>
           </IonRow>
+          {/* <IonRow>
+            <IonButton
+            expand="block"
+              style={{ margin: "auto" }}
+              onClick={() => logout()}
+              className="ion-padding"
+            >
+              Logout
+            </IonButton>
+          </IonRow> */}
+          <IonRow className="ion-padding-bottom">
+            <IonCol>
+            <IonButton
+            expand="block"
+              style={{ margin: "auto" }}
+              onClick={() => logout()}
+              className="ion-padding"
+            >
+              Logout
+            </IonButton>
+            </IonCol>
           
-          <IonButton style={{}} onClick={() => logout()} className="ion-padding">
-            Logout
-          </IonButton>
+          </IonRow>
         </IonGrid>
       </IonContent>
     </IonPage>

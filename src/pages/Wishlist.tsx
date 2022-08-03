@@ -1,26 +1,43 @@
-import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText, IonTitle, IonToolbar } from '@ionic/react';
-import { collection, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
-import { trashOutline } from 'ionicons/icons';
-import { useEffect, useState } from 'react';
-import { useAuth } from '../AuthContext';
-import { db } from '../firebase';
-const WishlistPage: React.FC = () => { 
+import {
+  IonButton,
+  IonCard,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonPage,
+  IonRow,
+  IonText,
+  IonTitle,
+  IonToolbar,
+  useIonAlert,
+} from "@ionic/react";
+import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { trashOutline } from "ionicons/icons";
+import { useEffect, useState } from "react";
+import { useAuth } from "../AuthContext";
+import { db } from "../firebase";
+const WishlistPage: React.FC = () => {
   const [products, setProducts] = useState<any>([]);
-  const {uid} = useAuth();
-  const deleteProduct = async (id:any) => {
-    await deleteDoc(doc(db, 'users', uid,  "Favourite_Products", id))
-  }
-  console.log(uid);
-  useEffect(() =>{   
-      onSnapshot(collection(db, 'users', uid, "Favourite_Products"), (snapshot) => {
+  const { uid } = useAuth();
+  const [presentAlert] = useIonAlert();
+  const deleteProduct = async (id: any) => {
+    await deleteDoc(doc(db, "users", uid, "Favourite_Products", id));
+  };
+  useEffect(() => {
+    onSnapshot(
+      collection(db, "users", uid, "Favourite_Products"),
+      (snapshot) => {
         let products: any = [];
         snapshot.docs.forEach((docs) => {
           products.push({ ...docs.data(), id: docs.id });
         });
         setProducts(products);
-
-      });
-  }, [uid])
+      }
+    );
+  }, [uid]);
   return (
     <IonPage>
       <IonHeader>
@@ -36,27 +53,48 @@ const WishlistPage: React.FC = () => {
         </IonHeader>
 
         <IonGrid>
-          <IonRow>
-            {
-              products.map((data:any) =>{
-                return(
-                  <IonCol key={data.id} size="6">
-                  <IonCard key={data.id} className="ion-padding ion-text-center">
+          {products.map((data: any) => {
+            return (
+              <IonCard key={data.id} className="ion-padding ion-text-center">
+                <IonRow>
+                  <IonCol key={data.id}>
                     <IonImg src={data.image}></IonImg>
-                    <IonText>{data.title}</IonText> <br />
-                    <IonText>₹{data.price}</IonText>
-                    <IonButton fill='clear' className='ion-float-right' onClick={(e) =>{
+                  </IonCol>
+                  <IonCol size="6">
+                    <IonText style={{fontWeight: "bold", fontSize:"12px"}} color="dark">{data.title}</IonText> <br />
+                    <IonText color="dark">₹{data.price}</IonText>
+                  </IonCol>
+                  <IonCol>
+                    <IonButton
+                      fill="clear"
+                      className="ion-float-right"
+                      onClick={(e) => {
                         e.preventDefault();
-                        deleteProduct(data.id);
-                      }}>
+                        presentAlert({
+                          header: "Are You Sure! Do you want to delete?",
+                          buttons: [
+                            {
+                              text: "Cancel",
+                              role: "cancel",
+                            },
+                            {
+                              text: "OK",
+                              role: "confirm",
+                              handler: () => {
+                                deleteProduct(data.id);
+                              },
+                            },
+                          ],
+                        });
+                      }}
+                    >
                       <IonIcon icon={trashOutline}></IonIcon>
                     </IonButton>
-                  </IonCard>
-                </IonCol>
-                )
-              })
-            }
-          </IonRow>
+                  </IonCol>
+                </IonRow>
+              </IonCard>
+            );
+          })}
         </IonGrid>
       </IonContent>
     </IonPage>

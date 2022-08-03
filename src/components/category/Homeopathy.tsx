@@ -1,6 +1,6 @@
 
 import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, IonText, useIonRouter } from "@ionic/react";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
 import { arrowBack, cart, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
@@ -29,7 +29,8 @@ const Homeopathy = ({history}:any) => {
 
   useEffect(()=>{
     let unmounted = false;
-    getDocs(collection(db, "Homeopathy_Products")).then((snapshot) =>{
+    const q =  query(collection(db, "Products"),where("category", "==", "1Zkf2dX66zwAQ7b7vR2W"));
+    getDocs(q).then((snapshot) =>{
       const products: any = [];
       snapshot.docs.forEach((docs) =>{
         products.push({...docs.data(), id: docs.id});
@@ -59,7 +60,7 @@ const Homeopathy = ({history}:any) => {
               </IonCol>
               <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Homeopathy Products</IonText>
               <IonCol>
-              <IonText className="count" style={{position: "absolute", top: "-5px", left: "53px", color: "red", fontWeight: "bold"}}>{total}</IonText>
+              <IonText className="circle" style={{position: "absolute", top: "-5px", left: "53px", color: "white", fontWeight: "bold", fontSize: "10px", paddingTop: "1px"}}>{total}</IonText>
                 <IonIcon
                   icon={cart}
                   color="primary"
@@ -89,7 +90,10 @@ const Homeopathy = ({history}:any) => {
                       className="ion-padding ion-text-center"
                       button
                       onClick={() => {
-                        history.push(`homeopathy/${data.id}`);
+                        history.push({
+                          pathname: `homeopathy/${data.id}`,
+                          state: {pathString: '/homeopathy'}
+                        });
                         // history.push("/ayush/"+ data.id.toString())
                       }}
                     >
