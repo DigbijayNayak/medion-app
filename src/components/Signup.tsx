@@ -25,8 +25,8 @@ import React, { useState } from "react";
 import "./Signup.css";
 import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-
-import { doc, setDoc} from "firebase/firestore";
+import emailjs from "@emailjs/browser";
+import { doc, setDoc } from "firebase/firestore";
 const SignupPage: React.FC = () => {
   const router = useIonRouter();
   const [name, setName] = useState<any>("");
@@ -59,13 +59,35 @@ const SignupPage: React.FC = () => {
       cssClass: "signup",
     });
   };
+  const templateParams = {
+    name: name,
+    email: email,
+    message: "You are ready to use the application."
+  };
+  const sendEmail = () => {
+    emailjs
+      .send(
+        "service_0gadp33",
+        "template_edt8upn",
+        templateParams,
+        "K5iUbyUdc-tDDB2Ze"
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        (err) => {
+          console.log("FAILED...", err);
+        }
+      );
+  }
 
   const clearInputs = () => {
     setName("");
     setEmail("");
     setPassword("");
     setComPassword("");
-  }
+  };
   const handleRegister = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
@@ -98,42 +120,40 @@ const SignupPage: React.FC = () => {
         const msg = "Wrong Confirm Password";
         handleToast(msg, "danger");
       } else {
-        try{
+        try {
           loading({
-            message: 'Loading...',
+            message: "Loading...",
             duration: 3000,
             spinner: "lines-sharp",
             mode: "md",
-            
-          })
-          await createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            console.log(userCredential);
-            setDoc(doc(db, "users", userCredential.user.uid),{
-              name: name,
-              email: email,
-              uid: userCredential.user.uid,
-            })
-            clearInputs();
-            dismissloading();
-            handleToast("Registration Successfull.", "success");
-
-            router.push("/login");
-            console.log("credential: ", userCredential);
-          })
-          .catch((error) => {
-            clearInputs();
-            dismissloading();
-            const msg =
-              "The Email Address is already in use by another account.";
-            console.log("error:", error.message);
-            handleAlert(msg);
           });
-          
+          await createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              console.log(userCredential);
+              setDoc(doc(db, "users", userCredential.user.uid), {
+                name: name,
+                email: email,
+                uid: userCredential.user.uid,
+              });
+              clearInputs();
+              sendEmail();
+              dismissloading();
+              handleToast("Registration Successfull.", "success");
+
+              router.push("/login");
+              console.log("credential: ", userCredential);
+            })
+            .catch((error) => {
+              clearInputs();
+              dismissloading();
+              const msg =
+                "The Email Address is already in use by another account.";
+              console.log("error:", error.message);
+              handleAlert(msg);
+            });
+        } catch (error) {
+          console.log(error);
         }
-        catch(error){
-          console.log(error)
-        } 
       }
     } catch (error) {
       handleAlert(error);
@@ -267,7 +287,9 @@ const SignupPage: React.FC = () => {
                 <IonRouterLink
                   routerLink="/login"
                   style={{ color: "#002482", fontWeight: "bold" }}
-                  onClick={() => {clearInputs()}}
+                  onClick={() => {
+                    clearInputs();
+                  }}
                 >
                   Log in
                 </IonRouterLink>
