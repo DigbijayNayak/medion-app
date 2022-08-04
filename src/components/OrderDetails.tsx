@@ -38,7 +38,7 @@ const OrderDetails = () => {
         setDetails({ title: title, image: image, price: price });
       }
     });
-  }, [id]);
+  }, [uid, id]);
   console.log(detail);
   return (
     <>

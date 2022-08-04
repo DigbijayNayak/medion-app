@@ -42,7 +42,6 @@ import Ayush from "./components/category/Ayush";
 import Covid from "./components/category/Covid";
 import Device from "./components/category/Device";
 import Orthopedics from "./components/category/Orthopedics";
-import AyushDetailsPage from "./components/category/DetailsPage";
 import Homeopathy from "./components/category/Homeopathy";
 import PaymentSheet from "./pages/PaymentOptions/PaymentSheet";
 import DetailsPage from "./components/category/DetailsPage";

@@ -19,7 +19,6 @@ import {
 import { auth, db } from "../firebase";
 import { signOut } from "firebase/auth";
 import {
-  briefcase,
   briefcaseOutline,
   chevronForward,
   heartOutline,
