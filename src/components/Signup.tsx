@@ -222,7 +222,7 @@ const SignupPage: React.FC = () => {
                 className="submit"
                 onClick={handleRegister}
               >
-                Sign Up
+                Sign Up Yourself to see the landing page
               </IonButton>
             </IonCol>
           </IonRow>
