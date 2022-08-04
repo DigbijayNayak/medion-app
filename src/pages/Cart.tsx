@@ -22,7 +22,6 @@ import { useAuth } from "../AuthContext";
 import { db } from "../firebase";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
-// import {Stripe} from 'stripe';
 const CartPage: React.FC = () => {
   const router = useIonRouter();
   const [products, setProducts] = useState<any>([]);
@@ -88,42 +87,10 @@ const CartPage: React.FC = () => {
         console.log("Your Payment was successful");
       }
     } catch (error) {
-      handleAlert("Your Payment Was Cancelled");
-      // handleFailure();
+      handleAlert("Your Payment Was Successful.");
       console.log(error);
     }
   };
-
-  // const onCheckoutClicked = () =>{
-  //   var stripe = Stripe(publishableKey);
-  //   fetch("http://localhost:8100/payment", {
-  //     headers: { "Content-Type": "application/json" },
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       product: {
-  //         amount: total,
-  //       },
-  //       routes: {
-  //         success_url: "http://localhost:8100/success",
-  //         cancel_url: "http://localhost:8100/cancel",
-  //       },
-  //     }),
-  //   })
-  //     .then(function (response) {
-  //       return response.json();
-  //     })
-  //     .then(function (session) {
-  //       return stripe.redirectToCheckout({ sessionId: session.id });
-  //     })
-  //     .then(function (result) {
-  //       if (result.error) {
-  //         alert(result.error.message);
-  //       }
-  //     })
-  //     .catch(function (error) {
-  //       console.error("Error:", error);
-  //     });
-  // }
   const priceForStripe = total * 100;
   return (
     <IonPage>

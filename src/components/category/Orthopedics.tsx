@@ -1,5 +1,4 @@
 import {
-  IonButton,
   IonCard,
   IonCol,
   IonContent,
@@ -10,33 +9,19 @@ import {
   IonText,
   useIonRouter,
 } from "@ionic/react";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
-import { arrowBack, cart, heart} from "ionicons/icons";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { arrowBack, cart} from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useAuth } from "../../AuthContext";
 
 const Orthopedics = ({history}:any) => {
 
   const [products, setProducts] = useState([]);
   const router = useIonRouter();
-
-  const addToWishlist = async(id:any, title: any, image: any, price: any) =>{
-    await setDoc(doc(db, "Favourite_Products", id),{
-      title: title,
-      image: image,
-      price: price,
-    });
-  }
-
-  const addToCart = async (id:any, title:any, image:any, price:any) =>{
-    await setDoc(doc(db, "Cart_Products", id),{
-      title: title,
-      image: image,
-      price: price,
-    })
-  }
+  const {total} = useAuth();
   useEffect(()=>{
     let unmounted = false;
     const q =  query(collection(db, "Products"),where("category", "==", "xM5KgkzAWvxLtP1teDF3"));
@@ -80,15 +65,7 @@ const Orthopedics = ({history}:any) => {
                     router.push("/tabs/cart");
                   }}
                 ></IonIcon>
-                <IonIcon
-                  icon={heart}
-                  style={{ fontSize: "25px" }}
-                  color="danger"
-                  className="ion-float-right"
-                  onClick={() => {
-                    router.push("/tabs/wishlist");
-                  }}
-                ></IonIcon>
+                <IonText className="circle" style={{position: "absolute", top: "-1px", left: "63px", color: "white", fontWeight: "bold", fontSize: "10px", paddingTop: "1px"}}>{total}</IonText>
               </IonCol>
             </IonRow>
 

@@ -1,5 +1,4 @@
 import {
-  IonChip,
   IonIcon,
   IonLabel,
   IonRouterOutlet,
@@ -44,13 +43,13 @@ const AppStack: React.FC = () => {
           <IonLabel style={{ fontSize: "9px" }}>search</IonLabel>
         </IonTabButton>
         <IonTabButton tab="wishlist" href="/tabs/wishlist">
-        <IonText className="circle" style={{position: "absolute",left:"18px", top: "2px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{totalFavourites}</IonText>
           <IonIcon icon={heart} />
+        <IonText className="circle" style={{position: "absolute",left:"26px", top: "7px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{totalFavourites}</IonText>
           <IonLabel style={{ fontSize: "9px" }}>Wishlist</IonLabel>
         </IonTabButton>
         <IonTabButton tab="cart" href="/tabs/cart">
-        <IonText className="circle" style={{position: "absolute",left:"18px", top: "2px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{total}</IonText>
           <IonIcon icon={cart} />
+          <IonText className="circle" style={{position: "absolute",left:"26px", top: "7px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{total}</IonText>
           <IonLabel style={{ fontSize: "9px" }}>Cart</IonLabel>
         </IonTabButton>
         <IonTabButton tab="profile" href="/tabs/profile">

@@ -14,14 +14,14 @@ import {
   useIonToast,
 } from "@ionic/react";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, deleteDoc, doc, onSnapshot, query, setDoc, where } from "firebase/firestore";
-import { alertCircle, arrowBack, heart, heartOutline } from "ionicons/icons";
+import { deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { alertCircle, arrowBack, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 import { useAuth } from "../../AuthContext";
 import { auth, db } from "../../firebase";
 const DetailsPage = () => {
-  const {total, totalProduct, totalWishlist} = useAuth();
+  const {totalProduct, totalWishlist} = useAuth();
   const router = useIonRouter();
   const [userId, setUserId] = useState<any>();
   const [status, setStatus] = useState(false);
@@ -55,12 +55,6 @@ const DetailsPage = () => {
   const deleteProduct = async (id: any) => {
     await deleteDoc(doc(db, "users", userId, "Favourite_Products", id));
     setStatus(false);
-    // if(status){
-    //   setStatus(false);
-    // }
-    // else{
-    //   setStatus(true);
-    // }
   };
   const addToWishlist = async (id: any, title: any, image: any, price: any) => {
     await setDoc(doc(db, "users", userId, "Favourite_Products", id), {
@@ -116,8 +110,9 @@ const DetailsPage = () => {
                   fill="clear"
                   className="ion-float-right"
                   onClick={() => {
-                    {status? deleteProduct(id): addToWishlist(id, detail.title, detail.image, detail.price)}
-                    {status? handleToast("Product Removed From Your Wishlist", "danger"): handleToast("Product Added To Your Wishlist", "success")}
+                    // !status? addToWishlist(id, detail.title, detail.image, detail.price):(<></>)
+                    status? (deleteProduct(id)): addToWishlist(id, detail.title, detail.image, detail.price)
+                    status? handleToast("Product Removed From Your Wishlist", "danger"): handleToast("Product Added To Your Wishlist", "success")
                   }}
                 >
                   {

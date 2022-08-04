@@ -8,35 +8,19 @@ import {
   IonCard,
   IonIcon,
   useIonRouter,
-  IonButton,
 } from "@ionic/react";
-import { arrowBack, cart, heart} from "ionicons/icons";
+import { arrowBack, cart} from "ionicons/icons";
 import { LazyLoadImage } from '@dcasia/react-lazy-load-image-component-improved';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useEffect, useState } from "react";
-import { collection, getDocs, setDoc, doc, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
+import { useAuth } from "../../AuthContext";
 const Device = ({history}:any) => {
-
+  const {total} = useAuth();
   const [products, setProducts] = useState([]);
 
   const router = useIonRouter();
-
-  const addToWishlist = async(id:any, title: any, image: any, price: any) =>{
-    await setDoc(doc(db, "Favourite_Products", id),{
-      title: title,
-      image: image,
-      price: price,
-    });
-  }
-
-  const addToCart = async (id:any, title:any, image:any, price:any) =>{
-    await setDoc(doc(db, "Cart_Products", id),{
-      title: title,
-      image: image,
-      price: price,
-    })
-  }
 
   useEffect(()=>{
     let unmounted = false;
@@ -68,11 +52,9 @@ const Device = ({history}:any) => {
               <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Device Products</IonText>
               <IonCol>
                 <IonIcon icon={cart} color="primary" style={{fontSize: "25px"}} className="ion-float-right" onClick={()=>{
-                  router.push("/tabs/wishlist");
-                }}></IonIcon>
-                <IonIcon icon={heart} style={{fontSize: "25px"}} color="danger" className="ion-float-right" onClick={()=>{
                   router.push("/tabs/cart");
                 }}></IonIcon>
+                <IonText className="circle" style={{position: "absolute", top: "-1px", left: "78px", color: "white", fontWeight: "bold", fontSize: "10px", paddingTop: "1px"}}>{total}</IonText>
               </IonCol>
             </IonRow>
 

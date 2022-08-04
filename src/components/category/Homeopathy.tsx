@@ -1,7 +1,7 @@
 
-import { IonButton, IonCard, IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, IonText, useIonRouter } from "@ionic/react";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
-import { arrowBack, cart, heart } from "ionicons/icons";
+import { IonCard, IonCol, IonContent, IonGrid, IonIcon, IonPage, IonRow, IonText, useIonRouter } from "@ionic/react";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { arrowBack, cart } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import { db } from "../../firebase";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
@@ -11,22 +11,6 @@ const Homeopathy = ({history}:any) => {
     const [products, setProducts] = useState([]);
     const router = useIonRouter();
   const {total} = useAuth();
-  const addToWishlist = async(id:any, title: any, image: any, price: any) =>{
-    await setDoc(doc(db, "Favourite_Products", id),{
-      title: title,
-      image: image,
-      price: price,
-    });
-  }
-
-  const addToCart = async (id:any, title:any, image:any, price:any) =>{
-    await setDoc(doc(db, "Cart_Products", id),{
-      title: title,
-      image: image,
-      price: price,
-    })
-  }
-
   useEffect(()=>{
     let unmounted = false;
     const q =  query(collection(db, "Products"),where("category", "==", "1Zkf2dX66zwAQ7b7vR2W"));
@@ -60,7 +44,6 @@ const Homeopathy = ({history}:any) => {
               </IonCol>
               <IonText style={{fontWeight: "bold", marginTop: "10px"}}>Homeopathy Products</IonText>
               <IonCol>
-              <IonText className="circle" style={{position: "absolute", top: "-5px", left: "53px", color: "white", fontWeight: "bold", fontSize: "10px", paddingTop: "1px"}}>{total}</IonText>
                 <IonIcon
                   icon={cart}
                   color="primary"
@@ -70,15 +53,7 @@ const Homeopathy = ({history}:any) => {
                     router.push("/tabs/cart");
                   }}
                 ></IonIcon>
-                <IonIcon
-                  icon={heart}
-                  style={{ fontSize: "25px" }}
-                  color="danger"
-                  className="ion-float-right"
-                  onClick={() => {
-                    router.push("/tabs/wishlist");
-                  }}
-                ></IonIcon>
+                  <IonText className="circle" style={{position: "absolute", top: "-1px", left: "58px", color: "white", fontWeight: "bold", fontSize: "10px", paddingTop: "1px"}}>{total}</IonText>
               </IonCol>
             </IonRow>
 
@@ -94,7 +69,6 @@ const Homeopathy = ({history}:any) => {
                           pathname: `homeopathy/${data.id}`,
                           state: {pathString: '/homeopathy'}
                         });
-                        // history.push("/ayush/"+ data.id.toString())
                       }}
                     >
                       <LazyLoadImage
@@ -115,41 +89,6 @@ const Homeopathy = ({history}:any) => {
                       <IonText style={{ fontWeight: "bold", margin: "auto" }}>
                         Best Price ₹{data.price}
                       </IonText>
-                      <br />
-                      {/* <IonButton
-                        fill="clear"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToWishlist(
-                            data.id,
-                            data.title,
-                            data.image,
-                            data.price
-                          );
-                        }}
-                        color="danger"
-                      >
-                        <IonIcon
-                          icon={heart}
-                          color="danger"
-                          style={{ fontSize: "20px" }}
-                        ></IonIcon>
-                      </IonButton>
-
-                      <IonButton
-                        fill="clear"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          addToCart(
-                            data.id,
-                            data.title,
-                            data.image,
-                            data.price
-                          );
-                        }}
-                      >
-                        <IonIcon icon={cart} style={{ fontSize: "20px" }} />
-                      </IonButton> */}
                     </IonCard>
                   </IonCol>
                 );

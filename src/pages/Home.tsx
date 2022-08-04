@@ -8,7 +8,6 @@ import {
   IonImg,
   IonInfiniteScroll,
   IonInfiniteScrollContent,
-  IonLabel,
   IonPage,
   IonRow,
   IonSearchbar,
@@ -70,7 +69,7 @@ const HomePage: React.FC = ({history}:any) => {
     });
     totalProduct();
     totalWishlist();
-  }, [])
+  }, [totalProduct, totalWishlist])
 
   return (
     <IonPage>
@@ -85,10 +84,11 @@ const HomePage: React.FC = ({history}:any) => {
             </IonCol>
             <IonCol size="3" sizeSm="4" sizeMd="2" className="ion-padding">
               
-              <IonText className="count">{total}</IonText>
+              
               <IonIcon icon={cart} className="homeicon cart ion-float-right" onClick={()=>{
                   router.push("/tabs/cart");
                 }}></IonIcon>
+                <IonText className="count">{total}</IonText>
                 <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
             </IonCol>
           </IonRow>
@@ -141,7 +141,7 @@ const HomePage: React.FC = ({history}:any) => {
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} onClick={(e) =>{
                     e.preventDefault();
                     history.push(`/${data.title.toLowerCase()}`)
-                  }}/>
+                  }}/><br />
                     <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>
                 </IonCol>
