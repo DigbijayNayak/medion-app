@@ -32,7 +32,7 @@ const SignupPage: React.FC = () => {
   const [name, setName] = useState<any>("");
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
-  const [compassword, setComPassword] = useState<any>("");
+  const [number, SetNumber] = useState<any>("");
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
@@ -62,7 +62,7 @@ const SignupPage: React.FC = () => {
   const templateParams = {
     name: name,
     email: email,
-    message: "You are ready to use the application."
+    message: "You are ready to use the application.",
   };
   const sendEmail = () => {
     emailjs
@@ -80,20 +80,26 @@ const SignupPage: React.FC = () => {
           console.log("FAILED...", err);
         }
       );
-  }
+  };
 
   const clearInputs = () => {
     setName("");
     setEmail("");
     setPassword("");
-    setComPassword("");
+    SetNumber("");
   };
   const handleRegister = async () => {
     var atposition = email.indexOf("@");
     var dotposition = email.lastIndexOf(".");
     try {
       if (name == null || name === "") {
-        const msg = "Name can't be empty";
+        const msg = "Name can't be empty.";
+        handleToast(msg, "danger");
+      } else if (number == null || number === "") {
+        const msg = "Phone Number can't be empty.";
+        handleToast(msg, "danger");
+      } else if (number.length < 10) {
+        const msg = "Enter Correct Phone Number.";
         handleToast(msg, "danger");
       } else if (email == null || email === "") {
         const msg = "Email can't be empty";
@@ -108,16 +114,13 @@ const SignupPage: React.FC = () => {
       } else if (
         password == null ||
         password === "" ||
-        compassword == null ||
-        compassword === ""
+        number == null ||
+        number === ""
       ) {
         const msg = "Password can't be empty";
         handleToast(msg, "danger");
       } else if (password.length < 6) {
         const msg = "Password must be at least 6 characters long";
-        handleToast(msg, "danger");
-      } else if (password !== compassword) {
-        const msg = "Wrong Confirm Password";
         handleToast(msg, "danger");
       } else {
         try {
@@ -132,6 +135,7 @@ const SignupPage: React.FC = () => {
               console.log(userCredential);
               setDoc(doc(db, "users", userCredential.user.uid), {
                 name: name,
+                phoneNumber: number,
                 email: email,
                 uid: userCredential.user.uid,
               });
@@ -197,11 +201,21 @@ const SignupPage: React.FC = () => {
               ></IonInput>
             </IonCol>
           </IonRow>
-
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
               <IonInput
-                type="email"
+                type="tel"
+                placeholder="Enter Phone Number"
+                className="input"
+                value={number}
+                onIonChange={(event) => SetNumber(event.detail.value)}
+              ></IonInput>
+            </IonCol>
+          </IonRow>
+          <IonRow className="ion-justify-content-center">
+            <IonCol size="12" sizeSm="4">
+              <IonInput
+                type="text"
                 placeholder="Enter Email ID"
                 className="input"
                 value={email}
@@ -218,18 +232,6 @@ const SignupPage: React.FC = () => {
                 className="input"
                 value={password}
                 onIonChange={(event) => setPassword(event.detail.value)}
-              ></IonInput>
-            </IonCol>
-          </IonRow>
-
-          <IonRow className="ion-justify-content-center">
-            <IonCol size="12" sizeSm="4">
-              <IonInput
-                type="password"
-                placeholder="Confirm Password"
-                className="input"
-                value={compassword}
-                onIonChange={(event) => setComPassword(event.detail.value)}
               ></IonInput>
             </IonCol>
           </IonRow>
