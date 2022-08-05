@@ -36,6 +36,8 @@ const SignupPage: React.FC = () => {
   const [present] = useIonToast();
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
+
+  const textmessage = "Welcome to MediON Bussiness."
   const handleToast = async (msg: any, theme: any) => {
     present({
       message: msg,
@@ -82,6 +84,10 @@ const SignupPage: React.FC = () => {
       );
   };
 
+  const sendText = () => {
+    fetch(`http://localhost:8080/send-text?recipient=${number}&textmessage=${textmessage}`)
+    .catch(err => console.log(err))
+  }
   const clearInputs = () => {
     setName("");
     setEmail("");
@@ -140,6 +146,7 @@ const SignupPage: React.FC = () => {
                 uid: userCredential.user.uid,
               });
               clearInputs();
+              sendText();
               sendEmail();
               dismissloading();
               handleToast("Registration Successfull.", "success");
@@ -204,7 +211,7 @@ const SignupPage: React.FC = () => {
           <IonRow className="ion-justify-content-center">
             <IonCol size="12" sizeSm="4">
               <IonInput
-                type="tel"
+                type="text"
                 placeholder="Enter Phone Number"
                 className="input"
                 value={number}
