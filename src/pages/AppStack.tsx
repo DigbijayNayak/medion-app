@@ -5,6 +5,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonTabs,
+  IonText,
 } from "@ionic/react";
 import { home, search, heart, cart, person } from "ionicons/icons";
 import React from "react";
@@ -16,6 +17,7 @@ import ProfilePage from "./Profile";
 import SearchPage from "./Search";
 import WishlistPage from "./Wishlist";
 const AppStack: React.FC = () => {
+  const {total, totalFavourites} = useAuth();
   const {loggedIn} = useAuth();
   if (loggedIn === false) {
     return <Redirect to="/login" />;
@@ -42,10 +44,12 @@ const AppStack: React.FC = () => {
         </IonTabButton>
         <IonTabButton tab="wishlist" href="/tabs/wishlist">
           <IonIcon icon={heart} />
+        <IonText className="circle" style={{position: "absolute",left:"26px", top: "7px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{totalFavourites}</IonText>
           <IonLabel style={{ fontSize: "9px" }}>Wishlist</IonLabel>
         </IonTabButton>
         <IonTabButton tab="cart" href="/tabs/cart">
           <IonIcon icon={cart} />
+          <IonText className="circle" style={{position: "absolute",left:"26px", top: "7px", color: "white", fontWeight: "bold", paddingRight: "4px", paddingTop: "1px"}}>{total}</IonText>
           <IonLabel style={{ fontSize: "9px" }}>Cart</IonLabel>
         </IonTabButton>
         <IonTabButton tab="profile" href="/tabs/profile">

@@ -1,13 +1,39 @@
-import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonImg, IonPage, IonRow, IonText, IonToolbar, useIonRouter, useIonToast } from "@ionic/react";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
+import {
+  IonButton,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonPage,
+  IonRow,
+  IonText,
+  IonToolbar,
+  useIonRouter,
+  useIonToast,
+} from "@ionic/react";
+import { onAuthStateChanged } from "firebase/auth";
+import { deleteDoc, doc, onSnapshot, setDoc } from "firebase/firestore";
 import { alertCircle, arrowBack, heart } from "ionicons/icons";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { db } from "../../firebase";
-
-const DevicesProductDetails = () => {
-  const { id } = useParams<any>();
+import { useLocation, useParams } from "react-router";
+import { useAuth } from "../../AuthContext";
+import { auth, db } from "../../firebase";
+const DetailsPage = () => {
+  const {totalProduct, totalWishlist} = useAuth();
   const router = useIonRouter();
+  const [userId, setUserId] = useState<any>();
+  const [status, setStatus] = useState(false);
+  const Location = useLocation();
+
+  let data:any = Location.state;
+  onAuthStateChanged(auth, (user) =>{
+    if(user){
+      setUserId(user.uid);
+    }
+  })
+  const { id } = useParams<any>();
   const [present] = useIonToast();
   const [detail, setDetails] = useState({
     title: "",
@@ -26,24 +52,30 @@ const DevicesProductDetails = () => {
     });
   };
 
+  const deleteProduct = async (id: any) => {
+    await deleteDoc(doc(db, "users", userId, "Favourite_Products", id));
+    setStatus(false);
+  };
   const addToWishlist = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "Favourite_Products", id), {
+    await setDoc(doc(db, "users", userId, "Favourite_Products", id), {
       title: title,
       image: image,
       price: price,
     });
+    setStatus(true);
+    totalWishlist();
   };
 
   const addToCart = async (id: any, title: any, image: any, price: any) => {
-    await setDoc(doc(db, "Cart_Products", id), {
+    await setDoc(doc(db, "users", userId, "Cart_Products", id), {
       title: title,
       image: image,
       price: price,
     });
   };
-
   useEffect(() => {
-    onSnapshot(doc(db, "Device_Products", id), (doc) => {
+    // const q =  query(collection(db, "Products"),where("category", "==", "BMXlZ9MLxrBtPnjPeA6L"));
+    onSnapshot(doc(db, "Products", id), (doc) => {
       let image: string;
       let price: number;
       let title: string;
@@ -64,31 +96,38 @@ const DevicesProductDetails = () => {
               <IonButton
                 fill="clear"
                 onClick={() => {
-                  router.push("/devices");
+                  router.push(data.pathString);
                 }}
               >
                 <IonIcon icon={arrowBack}></IonIcon>
               </IonButton>
             </IonToolbar>
           </IonHeader>
-
           <IonGrid>
-          <IonRow>
+            <IonRow>
               <IonCol>
                 <IonButton
                   fill="clear"
                   className="ion-float-right"
                   onClick={() => {
-                    addToWishlist(id, detail.title, detail.image, detail.price);
-                    handleToast("Product Added To Your Wishlist", "success");
+                    // !status? addToWishlist(id, detail.title, detail.image, detail.price):(<></>)
+                    status? (deleteProduct(id)): addToWishlist(id, detail.title, detail.image, detail.price)
+                    status? handleToast("Product Removed From Your Wishlist", "danger"): handleToast("Product Added To Your Wishlist", "success")
                   }}
                 >
-                  <IonIcon
-                    icon={heart}
-                    color="danger"
-                    className="ion-padding-top"
-                    style={{ fontSize: "25px" }}
-                  />
+                  {
+                    status? (<IonIcon
+                      icon={heart}
+                      color="danger"
+                      className="ion-padding-top"
+                      style={{ fontSize: "25px" }}
+                    />):(<IonIcon
+                      icon={heart}
+                      color="medium"
+                      className="ion-padding-top"
+                      style={{ fontSize: "25px" }}
+                    />)
+                  }
                 </IonButton>
                 <IonImg
                   src={detail.image}
@@ -96,7 +135,7 @@ const DevicesProductDetails = () => {
                 ></IonImg>
               </IonCol>
             </IonRow>
-            
+
             <IonRow className="ion-text-center ion-padding-top">
               <IonCol style={{ fontWeight: "bold" }}>
                 <IonText className="ion-padding-top">{detail.title}</IonText>
@@ -110,6 +149,7 @@ const DevicesProductDetails = () => {
                   expand="full"
                   onClick={() => {
                     addToCart(id, detail.title, detail.image, detail.price);
+                    totalProduct();
                     handleToast("Product Added To Your Cart", "success");
                   }}
                 >
@@ -122,7 +162,6 @@ const DevicesProductDetails = () => {
                 </IonButton>
               </IonCol>
             </IonRow>
-
           </IonGrid>
         </IonContent>
       </IonPage>
@@ -130,4 +169,4 @@ const DevicesProductDetails = () => {
   );
 };
 
-export default DevicesProductDetails;
+export default DetailsPage;

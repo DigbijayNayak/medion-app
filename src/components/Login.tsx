@@ -38,7 +38,7 @@ import { doc, setDoc } from "firebase/firestore";
 import {GoogleAuth} from "@codetrix-studio/capacitor-google-auth";
 
 const LoginPage: React.FC = () => {
-  const {loggedIn, login, uid}  = useAuth();
+  const {loggedIn, login}  = useAuth();
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const [present] = useIonToast();
@@ -171,7 +171,6 @@ const LoginPage: React.FC = () => {
       console.log(error);
     }
   };
-  console.log(uid);
   if(loggedIn){
     return <Redirect to="/tabs/home" />
   }

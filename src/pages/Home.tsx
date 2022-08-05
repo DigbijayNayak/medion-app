@@ -12,6 +12,7 @@ import {
   IonRow,
   IonSearchbar,
   IonText,
+  useIonRouter,
   useIonViewWillEnter,
 } from "@ionic/react";
 import { cart, notifications } from "ionicons/icons";
@@ -20,7 +21,10 @@ import { useEffect, useState } from "react";
 import { LazyLoadImage } from "@dcasia/react-lazy-load-image-component-improved";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { useAuth } from "../AuthContext";
 const HomePage: React.FC = ({history}:any) => {
+  const router = useIonRouter();
+  const {total, totalProduct, totalWishlist} = useAuth();
   const [datas, setData] = useState<any[]>([]);
   const [isInfiniteDisabled, setInfiniteDisabled] = useState(false);
   const [products, setProducts] = useState([]);
@@ -62,9 +66,10 @@ const HomePage: React.FC = ({history}:any) => {
         products.push({...docs.data(), id: docs.id});
       })
       setProducts(products);
-
     });
-  }, [])
+    totalProduct();
+    totalWishlist();
+  }, [totalProduct, totalWishlist])
 
   return (
     <IonPage>
@@ -78,8 +83,13 @@ const HomePage: React.FC = ({history}:any) => {
               ></IonImg>
             </IonCol>
             <IonCol size="3" sizeSm="4" sizeMd="2" className="ion-padding">
-              <IonIcon icon={cart} className="homeicon cart ion-float-right"></IonIcon>
-              <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
+              
+              
+              <IonIcon icon={cart} className="homeicon cart ion-float-right" onClick={()=>{
+                  router.push("/tabs/cart");
+                }}></IonIcon>
+                <IonText className="count">{total}</IonText>
+                <IonIcon icon={notifications} className="homeicon note ion-float-right"></IonIcon>
             </IonCol>
           </IonRow>
         </IonGrid>
@@ -131,7 +141,7 @@ const HomePage: React.FC = ({history}:any) => {
                     <LazyLoadImage src={data.image} effect="blur" delayTime={300} placeholderSrc={process.env.PUBLIC_URL + "/assets/logo.jpg"} width="100px" height="100px" style={{margin: "auto"}} onClick={(e) =>{
                     e.preventDefault();
                     history.push(`/${data.title.toLowerCase()}`)
-                  }}/>
+                  }}/><br />
                     <IonText style={{ fontSize: "12px", fontWeight: "bold", margin: "auto" }}>{data.title}</IonText>
                   </IonCard>
                 </IonCol>
