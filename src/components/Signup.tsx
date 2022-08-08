@@ -37,7 +37,7 @@ const SignupPage: React.FC = () => {
   const [presentAlert] = useIonAlert();
   const [loading, dismissloading] = useIonLoading();
 
-  const textmessage = "Welcome to MediON Bussiness."
+  const textmessage = "Welcome to MediON Bussiness.";
   const handleToast = async (msg: any, theme: any) => {
     present({
       message: msg,
@@ -85,9 +85,10 @@ const SignupPage: React.FC = () => {
   };
 
   const sendText = () => {
-    fetch(`http://localhost:8080/send-text?recipient=${number}&textmessage=${textmessage}`)
-    .catch(err => console.log(err))
-  }
+    fetch(
+      `https://medion-message-service.herokuapp.com/send-text?recipient=${number}&textmessage=${textmessage}`
+    ).catch((err) => console.log(err));
+  };
   const clearInputs = () => {
     setName("");
     setEmail("");
